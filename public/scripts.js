@@ -45,7 +45,7 @@ const ChatForm = {
   submit(event) {
     event.preventDefault()
 
-    Socket.emit('message:create', {
+    Socket.createMessage({
       content: ChatForm.getValues().message
     })
 
@@ -98,6 +98,7 @@ const ChatMessages = {
 
   scrollToEnd() {
     const chatMessages = document.getElementsByClassName('chat-messages')[0]
+
     chatMessages.scrollTop = chatMessages.scrollHeight
   }
 }
@@ -106,10 +107,10 @@ const App = {
   init() {
     ChatMessages.scrollToEnd()
 
-    App.createMainEventListeners()
+    App.createEventListeners()
   },
 
-  createMainEventListeners() {
+  createEventListeners() {
     const registerForm = document.getElementsByClassName('register-form')[0]
     const chatForm = document.getElementsByClassName('chat-form')[0]
 
