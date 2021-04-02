@@ -17,14 +17,6 @@ const Socket = {
     }
   },
 
-  on(eventName, ...args) {
-    Socket.getInstance().on(eventName, ...args)
-  },
-
-  emit(eventName, ...args) {
-    Socket.getInstance().emit(eventName, ...args)
-  },
-
   join({ nickname }) {
     Socket.getInstance().emit('join', {
       nickname
