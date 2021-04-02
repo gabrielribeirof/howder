@@ -23,6 +23,10 @@ const Socket = {
     })
   },
 
+  createMessage(...args) {
+    Socket.getInstance().emit('message:create', ...args)
+  },
+
   onNewMessage(listener) {
     Socket.getInstance().on('message:new', data => {
       listener({
