@@ -3,7 +3,7 @@ const Socket = {
 
   init() {
     if (!Socket.instance) {
-      Socket.instance = io()
+      Socket.instance = io('/chat')
     } else {
       throw new Error('Socket instance already exists')
     }
@@ -23,8 +23,10 @@ const Socket = {
     })
   },
 
-  createMessage(...args) {
-    Socket.getInstance().emit('message:create', ...args)
+  createMessage({ content }) {
+    Socket.getInstance().emit('message:create', {
+      content
+    })
   },
 
   onNewMessage(listener) {
