@@ -1,13 +1,13 @@
 <h1 align="center">Chat APP</h1>
 
 <p align="center">
-  <img src="http://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=for-the-badge">
+  <a href="#star2-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#rocket-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#scroll-requirements">Requirements</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
 </p>
 
 <p align="center">
-  <a href="#-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#-requirements">Requirements</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <img src="http://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=flat">
 </p>
 
 <p align="center">
@@ -16,7 +16,7 @@
 
 ## :star2: Project
 
-A real-time chat for anyone to learn *basic concepts* of **WebSocket** and **native web development and architecture**.
+A real-time chat for anyone to learn basic concepts of **WebSocket** and **native web development and architecture**.
 
 ## :rocket: Technologies
 
@@ -28,7 +28,7 @@ This project was developed with:
 - NodeJS
 - Socket.IO
 
-## Requirements
+# :scroll: Requirements
 
 FR = Functional Requirement
 <br/>
