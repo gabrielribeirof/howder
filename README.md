@@ -7,7 +7,8 @@
 </p>
 
 <p align="center">
-  <img src="http://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=flat">
+  <img src="http://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=for-the-badge">
+  <img src="http://img.shields.io/github/license/gabrielribeirof/chat?style=for-the-badge&color=004dfc">
 </p>
 
 <p align="center">
