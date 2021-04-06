@@ -141,7 +141,6 @@ const App = {
 
   init() {
     App.createSubmitListeners()
-    ChatMessages.scrollToEnd()
   },
 
   createSubmitListeners() {
