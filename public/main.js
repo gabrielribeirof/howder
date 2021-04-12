@@ -1,4 +1,5 @@
-import Socket from './socket.js'
+import App from './app.js'
+import SocketClient from './socket-client.js'
 
 const RegisterPage = {
   hidden() {
@@ -28,16 +29,14 @@ const RegisterForm = {
   },
 
   submit(event) {
+    const { nickname } = RegisterForm.getFields()
     event.preventDefault()
 
     try {
       RegisterForm.validateFields()
 
-      Socket.init()
-      Socket.join({ nickname: RegisterForm.getFields().nickname })
-      App.createSocketListeners()
-
-      RegisterPage.hidden()
+      SocketClient.join({ nickname })
+      createSocketListeners()
     } catch (error) {
       alert(error.message)
     }
@@ -59,10 +58,6 @@ const ChatForm = {
     if (message.trim() === "") {
       throw new Error('Please, send a message with content')
     }
-
-    if (message.trim().length < 3) {
-      throw new Error('Type a bigger message')
-    }
   },
 
   clearFields() {
@@ -70,19 +65,14 @@ const ChatForm = {
   },
 
   submit(event) {
+    const { message } = ChatForm.getFields()
     event.preventDefault()
 
     try {
       ChatForm.validateFields()
 
-      Socket.createMessage({
-        content: ChatForm.getFields().message
-      })
-
-      ChatMessages.addMessage({
-        nickname: 'You',
-        content: ChatForm.getFields().message,
-        relation: 'sent'
+      SocketClient.createMessage({
+        content: message
       })
 
       ChatForm.clearFields()
@@ -101,13 +91,13 @@ const ChatMessages = {
     chatMessages.scrollTop = chatMessages.scrollHeight
   },
 
-  addMessage({ nickname, content, relation }) {
+  addMessage({ user, content }) {
     const chatMessagesItem = document.createElement('div')
-    chatMessagesItem.classList.add('chat-messages-item', relation)
+    chatMessagesItem.classList.add('chat-messages-item', user.id === SocketClient.socketId ? 'sent' : 'received')
 
     const html = `
       <div class="user">
-        <b>${nickname}</b>
+        <b>${user.nickname}</b>
       </div>
       <div>${content}<div>
     `
@@ -134,28 +124,48 @@ const ChatMessages = {
   }
 }
 
-const App = {
-  state: {
-    users: []
-  },
+function createSocketListeners() {
+  SocketClient.onSetup(data => {
+    App.setState(data)
+    RegisterPage.hidden()
+  })
 
-  init() {
-    App.createSubmitListeners()
-  },
+  SocketClient.onJoin(data => {
+    App.addUser({
+      id: data.id,
+      nickname: data.nickname
+    })
 
-  createSubmitListeners() {
-    const registerForm = document.getElementsByClassName('register-form')[0]
-    const chatForm = document.getElementsByClassName('chat-form')[0]
+    ChatMessages.addLog({
+      content: data.nickname,
+      relation: 'join'
+    })
+  })
 
-    registerForm.addEventListener('submit', RegisterForm.submit)
-    chatForm.addEventListener('submit', ChatForm.submit)
-  },
+  SocketClient.onLeft(data => {
+    App.removeUser({ id: data.id })
 
-  createSocketListeners() {
-    Socket.onJoin(ChatMessages.addLog)
-    Socket.onLeft(ChatMessages.addLog)
-    Socket.onNewMessage(ChatMessages.addMessage)
-  }
+    ChatMessages.addLog({
+      content: data.user.nickname,
+      relation: 'left'
+    })
+  })
+
+  SocketClient.onNewMessage((data) => {
+    const { id, user, content } = data
+
+    App.addMessage({ id, user, content })
+
+    ChatMessages.addMessage({ user, content })
+  })
 }
 
-App.init()
+function createEventListeners() {
+  const registerForm = document.getElementsByClassName('register-form')[0]
+  const chatForm = document.getElementsByClassName('chat-form')[0]
+
+  registerForm.addEventListener('submit', RegisterForm.submit)
+  chatForm.addEventListener('submit', ChatForm.submit)
+}
+
+createEventListeners()
