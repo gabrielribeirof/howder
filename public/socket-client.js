@@ -24,6 +24,7 @@ const SocketClient = {
   },
 
   join({ nickname }) {
+    SocketClient.init()
     SocketClient.getInstance().emit('user:create', {
       nickname
     })
