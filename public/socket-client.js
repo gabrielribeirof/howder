@@ -5,7 +5,7 @@ const SocketClient = {
   init() {
     if (!SocketClient.instance) {
       SocketClient.instance = io('/chat')
-      SocketClient.setSocketId(SocketClient.onConnect)
+      SocketClient.onConnect(SocketClient.setSocketId)
     } else {
       throw new Error('SocketClient instance already exists')
     }
