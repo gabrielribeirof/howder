@@ -36,7 +36,7 @@ const RegisterForm = {
       RegisterForm.validateFields()
 
       SocketClient.join({ nickname })
-      createSocketListeners()
+      SocketClient.getInstance().on('setup', RegisterPage.hidden())
     } catch (error) {
       alert(error.message)
     }
@@ -124,48 +124,35 @@ const ChatMessages = {
   }
 }
 
-function createSocketListeners() {
-  SocketClient.onSetup(data => {
-    App.setState(data)
-    RegisterPage.hidden()
-  })
+App.subscribe(command => {
+  const acceptedCommandsType = {
+    "user:join": () => {
+      ChatMessages.addLog({
+        content: command.nickname,
+        relation: 'join'
+      })
+    },
+    "user:left": () => {
+      ChatMessages.addLog({
+        content: command.nickname,
+        relation: 'left'
+      })
+    },
+    "message:new": () => {
+      ChatMessages.addMessage({
+        user: command.user,
+        content: command.content
+      })
+    }
+  }
 
-  SocketClient.onJoin(data => {
-    App.addUser({
-      id: data.id,
-      nickname: data.nickname
-    })
+  const commandFunction = acceptedCommandsType[command.type]
 
-    ChatMessages.addLog({
-      content: data.nickname,
-      relation: 'join'
-    })
-  })
+  commandFunction && commandFunction()
+})
 
-  SocketClient.onLeft(data => {
-    App.removeUser({ id: data.id })
+const registerForm = document.getElementsByClassName('register-form')[0]
+const chatForm = document.getElementsByClassName('chat-form')[0]
 
-    ChatMessages.addLog({
-      content: data.user.nickname,
-      relation: 'left'
-    })
-  })
-
-  SocketClient.onNewMessage((data) => {
-    const { id, user, content } = data
-
-    App.addMessage({ id, user, content })
-
-    ChatMessages.addMessage({ user, content })
-  })
-}
-
-function createEventListeners() {
-  const registerForm = document.getElementsByClassName('register-form')[0]
-  const chatForm = document.getElementsByClassName('chat-form')[0]
-
-  registerForm.addEventListener('submit', RegisterForm.submit)
-  chatForm.addEventListener('submit', ChatForm.submit)
-}
-
-createEventListeners()
+registerForm.addEventListener('submit', RegisterForm.submit)
+chatForm.addEventListener('submit', ChatForm.submit)
