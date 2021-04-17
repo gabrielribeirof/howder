@@ -50,11 +50,14 @@ const App = {
   },
 
   removeUser({ id }) {
+    const { nickname } = App.state.users[id]
+
     delete App.state.users[id]
 
     App.notifyAll({
       type: 'user:left',
-      id
+      id,
+      nickname
     })
   },
 
