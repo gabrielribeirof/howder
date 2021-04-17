@@ -1,3 +1,5 @@
+import App from './app.js'
+
 const SocketClient = {
   instance: undefined,
   socketId: undefined,
@@ -5,7 +7,6 @@ const SocketClient = {
   init() {
     if (!SocketClient.instance) {
       SocketClient.instance = io('/chat')
-      SocketClient.onConnect(SocketClient.setSocketId)
     } else {
       throw new Error('SocketClient instance already exists')
     }
@@ -25,9 +26,8 @@ const SocketClient = {
 
   join({ nickname }) {
     SocketClient.init()
-    SocketClient.getInstance().emit('user:create', {
-      nickname
-    })
+    SocketClient.getInstance().emit('user:create', { nickname })
+    SocketClient.createSocketListeners()
   },
 
   createMessage({ content }) {
@@ -36,24 +36,25 @@ const SocketClient = {
     })
   },
 
-  onConnect(listener) {
-    SocketClient.getInstance().on('connect', () => listener(SocketClient.getInstance().id))
-  },
+  createSocketListeners() {
+    SocketClient.instance.on('connect', () => SocketClient.setSocketId(SocketClient.instance.id))
 
-  onSetup(listener) {
-    SocketClient.getInstance().on('setup', data => listener(data))
-  },
+    SocketClient.instance.on('setup', data => App.setState(data))
 
-  onNewMessage(listener) {
-    SocketClient.getInstance().on('message:new', data => listener(data))
-  },
+    SocketClient.instance.on('user:join', data => {
+      App.addUser({
+        id: data.id,
+        nickname: data.nickname
+      })
+    })
 
-  onJoin(listener) {
-    SocketClient.getInstance().on('user:join', data => listener(data))
-  },
+    SocketClient.instance.on('user:left', data => App.removeUser({ id: data.id }))
 
-  onLeft(listener) {
-    SocketClient.getInstance().on('user:left', data => listener(data))
+    SocketClient.instance.on('message:new', data => {
+      const { id, user, content } = data
+
+      App.addMessage({ id, user, content })
+    })
   }
 }
 
