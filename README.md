@@ -3,7 +3,7 @@
 <p align="center">
   <a href="#star2-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#scroll-requirements">Requirements</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#scroll-requirements">Requirements</a>
 </p>
 
 <p align="center">
@@ -28,6 +28,10 @@ This project was developed with:
 - Javascript
 - NodeJS
 - Socket.IO
+
+## :rocket: Project patterns
+
+
 
 # :scroll: Requirements
 
