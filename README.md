@@ -3,6 +3,7 @@
 <p align="center">
   <a href="#star2-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#rocket-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+  <a href="#electric_plug-application-diagram">Application Diagram</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
   <a href="#scroll-requirements">Requirements</a>
 </p>
 
@@ -29,9 +30,15 @@ This project was developed with:
 - NodeJS
 - Socket.IO
 
-## :rocket: Project patterns
+## :electric_plug: Application Diagram
 
+**Application Core**: retains and changes the state (users and messages) of the application. Implements the Pub/Sub pattern to inform its subscribers of changes in state.
+<br/>
+**UI Logic**: manages and listens to the frontend interface.
+<br/>
+**Socket Client/Server**: transport layer (reception and transmission) of data based on WebSocket.
 
+<img src="./.github/diagram.png" width="800px" />
 
 # :scroll: Requirements
 
