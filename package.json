@@ -1,9 +1,8 @@
 {
-  "name": "chat-app",
+  "name": "support-chat",
   "version": "1.0.0",
-  "description": "Real-time chat where users can interact with others",
+  "description": "Real-time support chat",
   "main": "server.js",
-  "type": "module",
   "repository": "https://github.com/gabrielribeirof/chat",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
