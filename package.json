@@ -2,6 +2,7 @@
   "name": "support-chat",
   "version": "1.0.0",
   "description": "Real-time support chat",
+  "private": true,
   "main": "server.js",
   "repository": "https://github.com/gabrielribeirof/chat",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
@@ -10,11 +11,15 @@
     "start": "node .",
     "dev": "nodemon ."
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "dependencies": {
     "express": "^4.17.1",
     "socket.io": "^4.0.0"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7"
+    "nodemon": "^2.0.7",
+    "typescript": "^4.2.4"
   }
 }
