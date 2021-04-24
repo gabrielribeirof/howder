@@ -3,23 +3,30 @@
   "version": "1.0.0",
   "description": "Real-time support chat",
   "private": true,
-  "main": "server.js",
+  "main": "src/shared/infra/http/server.js",
   "repository": "https://github.com/gabrielribeirof/chat",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
     "start": "node .",
-    "dev": "nodemon ."
+    "typeorm": "node --require ts-node/register ./node_modules/typeorm/cli.js"
   },
-  "workspaces": [
-    "packages/*"
-  ],
   "dependencies": {
     "express": "^4.17.1",
-    "socket.io": "^4.0.0"
+    "pg": "^8.6.0",
+    "socket.io": "^4.0.0",
+    "ts-node": "^9.1.1",
+    "typeorm": "^0.2.32"
   },
   "devDependencies": {
-    "nodemon": "^2.0.7",
+    "@types/express": "^4.17.11",
+    "@typescript-eslint/eslint-plugin": "^4.22.0",
+    "@typescript-eslint/parser": "^4.22.0",
+    "eslint": "^7.25.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
     "typescript": "^4.2.4"
   }
 }
