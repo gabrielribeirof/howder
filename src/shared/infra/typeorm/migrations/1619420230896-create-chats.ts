@@ -11,11 +11,11 @@ export class CreateChats1619420230896 implements MigrationInterface {
       },
       {
         name: 'user_id',
-        type: 'varchar'
+        type: 'uuid'
       },
       {
         name: 'agent_id',
-        type: 'varchar'
+        type: 'uuid'
       },
       {
         name: 'created_at',
