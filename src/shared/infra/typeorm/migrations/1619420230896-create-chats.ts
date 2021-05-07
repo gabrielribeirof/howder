@@ -15,7 +15,8 @@ export class CreateChats1619420230896 implements MigrationInterface {
       },
       {
         name: 'agent_id',
-        type: 'uuid'
+        type: 'uuid',
+        isNullable: true
       },
       {
         name: 'created_at',
@@ -29,7 +30,7 @@ export class CreateChats1619420230896 implements MigrationInterface {
         columnNames: ['user_id'],
         referencedTableName: 'users',
         referencedColumnNames: ['id'],
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
       {
@@ -37,7 +38,7 @@ export class CreateChats1619420230896 implements MigrationInterface {
         columnNames: ['agent_id'],
         referencedTableName: 'agents',
         referencedColumnNames: ['id'],
-        onDelete: 'SET NULL',
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       }
     ]
