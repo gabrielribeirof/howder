@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateMessages1619430560865 implements MigrationInterface {
+export class CreateChatMessages1619430560865 implements MigrationInterface {
   private table = new Table({
-    name: 'messages',
+    name: 'chat_messages',
     columns: [
       {
         name: 'id',
@@ -14,7 +14,7 @@ export class CreateMessages1619430560865 implements MigrationInterface {
         type: 'uuid'
       },
       {
-        name: 'is_agent',
+        name: 'is_admin',
         type: 'boolean'
       },
       {
