@@ -19,6 +19,11 @@ export class CreateChats1619420230896 implements MigrationInterface {
         isNullable: true
       },
       {
+        name: 'open',
+        type: 'boolean',
+        default: true
+      },
+      {
         name: 'created_at',
         type: 'timestamp',
         default: 'now()'
