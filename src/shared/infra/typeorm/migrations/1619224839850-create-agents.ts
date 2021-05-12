@@ -10,13 +10,16 @@ export class CreateAgents1619224839850 implements MigrationInterface {
         isPrimary: true
       },
       {
-        name: 'username',
+        name: 'name',
         type: 'varchar'
       },
       {
-        name: 'updated_at',
-        type: 'timestamp',
-        default: 'now()'
+        name: 'email',
+        type: 'varchar'
+      },
+      {
+        name: 'password',
+        type: 'varchar'
       },
       {
         name: 'created_at',
