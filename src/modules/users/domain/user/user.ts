@@ -1,10 +1,11 @@
 import { DomainError } from '@shared/domain/errors/contracts/domain-error'
-import { Either, DomainResult, left, right } from '@shared/core/result'
+
+import { Either, left, right, combine } from '@shared/core/either'
 
 import { Email } from './email'
 import { Name } from './name'
 
-interface UserProps {
+interface ICreateProps {
   name: string
   email: string
 }
@@ -18,11 +19,11 @@ export class User {
     this.email = email
   }
 
-  public static create(props: UserProps): Either<DomainError[], User> {
+  public static create(props: ICreateProps): Either<DomainError[], User> {
     const nameOrError = Name.create(props.name)
     const emailOrError = Email.create(props.email)
 
-    const result = DomainResult.combine([nameOrError, emailOrError])
+    const result = combine([nameOrError, emailOrError])
 
     if (result.isLeft()) {
       return left(result.value)
