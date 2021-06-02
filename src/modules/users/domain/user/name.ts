@@ -1,15 +1,15 @@
-import { Either, right, left } from '@shared/core/result'
-import { Guard } from '@shared/core/guard'
 import { DomainError } from '@shared/domain/errors/contracts/domain-error'
+import { Either, right, left } from '@shared/core/either'
+import { Guard } from '@shared/core/guard'
 
 import { RequiredError } from '@shared/domain/errors/required.error'
 import { BadLengthError } from '@shared/domain/errors/bad-length.error'
 
 export class Name {
-  private readonly name: string
+  private readonly value: string
 
   private constructor(name: string) {
-    this.name = name
+    this.value = name
     Object.freeze(this)
   }
 

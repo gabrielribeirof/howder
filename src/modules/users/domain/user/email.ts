@@ -1,5 +1,5 @@
 import { DomainError } from '@shared/domain/errors/contracts/domain-error'
-import { Either, right, left } from '@shared/core/result'
+import { Either, right, left } from '@shared/core/either'
 import { Guard } from '@shared/core/guard'
 
 import { RequiredError } from '@shared/domain/errors/required.error'
@@ -7,10 +7,10 @@ import { MaxLengthError } from '@shared/domain/errors/max-length.error'
 import { InvalidEmailError } from '@shared/domain/errors/invalid-email.error'
 
 export class Email {
-  private readonly email: string
+  private readonly value: string
 
   private constructor(email: string) {
-    this.email = email
+    this.value = email
     Object.freeze(this)
   }
 
