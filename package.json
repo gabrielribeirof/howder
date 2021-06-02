@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "Real-time support chat",
   "private": true,
-  "main": "src/shared/infra/http/server.js",
+  "main": "src/shared/infra/ignitor.ts",
   "repository": "https://github.com/gabrielribeirof/chat",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "node .",
-    "test": "jest"
+    "dev:server": "tsnd -r tsconfig-paths/register --rs --inspect --transpile-only --ignore-watch node_modules src/shared/infra/ignitor.ts",
+    "test": "jest --detectOpenHandles",
+    "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
+    "migration:run": "yarn typeorm migration:run"
   },
   "dependencies": {
+    "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
