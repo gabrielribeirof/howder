@@ -1,4 +1,4 @@
-import { left } from '@shared/core/result'
+import { left } from '@shared/core/either'
 
 import { User } from './user'
 
