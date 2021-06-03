@@ -19,9 +19,16 @@ export class User {
     this.email = email
   }
 
+  public get value(): any {
+    return {
+      name: this.name.value,
+      email: this.email.value
+    }
+  }
+
   public static create(props: ICreateProps): Either<DomainError[], User> {
-    const nameOrError = Name.create(props.name)
-    const emailOrError = Email.create(props.email)
+    const nameOrError = Name.create({ value: props.name })
+    const emailOrError = Email.create({ value: props.email })
 
     const result = combine([nameOrError, emailOrError])
 
