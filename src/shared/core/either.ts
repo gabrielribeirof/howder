@@ -1,6 +1,5 @@
 export class Left<L, R> {
   readonly value: L
-  readonly isSuccess: boolean
 
   constructor(value: L) {
     this.value = value
