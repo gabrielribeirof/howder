@@ -7,20 +7,26 @@ import { Guard } from '@shared/core/guard'
 import { RequiredError } from '@shared/domain/errors/required.error'
 import { BadLengthError } from '@shared/domain/errors/bad-length.error'
 
-interface NameProps {
+interface INameProps {
   value: string
 }
 
-export class Name extends ValueObject<NameProps> {
-  private constructor(props: NameProps) {
-    super(props)
-  }
-
+export class Name extends ValueObject<INameProps> {
   public get value(): string {
     return this.props.value
   }
 
-  public static create(props: NameProps): Either<DomainError, Name> {
+  private constructor(props: INameProps) {
+    super(props)
+  }
+
+  private static format(props: INameProps): INameProps {
+    return {
+      value: props.value.trim()
+    }
+  }
+
+  public static create(props: INameProps): Either<DomainError, Name> {
     const { value } = this.format(props)
 
     const nullOrUndefinedResult = Guard.againstNullOrUndefined(value)
@@ -34,11 +40,5 @@ export class Name extends ValueObject<NameProps> {
     }
 
     return right(new Name({ value }))
-  }
-
-  private static format(props: NameProps): NameProps {
-    return {
-      value: props.value.trim()
-    }
   }
 }

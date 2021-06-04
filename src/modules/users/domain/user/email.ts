@@ -8,20 +8,31 @@ import { RequiredError } from '@shared/domain/errors/required.error'
 import { MaxLengthError } from '@shared/domain/errors/max-length.error'
 import { InvalidEmailError } from '@shared/domain/errors/invalid-email.error'
 
-interface EmailProps {
+interface IEmailProps {
   value: string
 }
 
-export class Email extends ValueObject<EmailProps> {
-  private constructor(props: EmailProps) {
-    super(props)
-  }
-
+export class Email extends ValueObject<IEmailProps> {
   public get value(): string {
     return this.props.value
   }
 
-  public static create(props: EmailProps): Either<DomainError, Email> {
+  private constructor(props: IEmailProps) {
+    super(props)
+  }
+
+  private static format(props: IEmailProps): IEmailProps {
+    return {
+      value: props.value.trim().toLowerCase()
+    }
+  }
+
+  private static isValidEmail(email: string): boolean {
+    const tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
+    return tester.test(email)
+  }
+
+  public static create(props: IEmailProps): Either<DomainError, Email> {
     const { value } = this.format(props)
 
     const nullOrUndefinedResult = Guard.againstNullOrUndefined(value)
@@ -39,16 +50,5 @@ export class Email extends ValueObject<EmailProps> {
     }
 
     return right(new Email({ value }))
-  }
-
-  private static format(props: EmailProps): EmailProps {
-    return {
-      value: props.value.trim().toLowerCase()
-    }
-  }
-
-  private static isValidEmail(email: string): boolean {
-    const tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
-    return tester.test(email)
   }
 }

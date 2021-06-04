@@ -1,43 +1,48 @@
+import { AggregateRoot } from '@shared/domain/aggregate-root'
+import { UniqueEntityID } from '@shared/domain/unique-entity-id'
 import { DomainError } from '@shared/domain/errors/contracts/domain-error'
 
 import { Either, left, right, combine } from '@shared/core/either'
 
-import { Email } from './email'
 import { Name } from './name'
+import { Email } from './email'
 
-interface ICreateProps {
-  name: string
+interface IUserProps {
+  name: Name
+  email: Email
+}
+
+interface ICreateUserProps {
+  name: string,
   email: string
 }
 
-export class User {
-  readonly name: Name
-  readonly email: Email
-
-  private constructor(name: Name, email: Email) {
-    this.name = name
-    this.email = email
+export class User extends AggregateRoot<IUserProps> {
+  public get name(): Name {
+    return this.props.name
   }
 
-  public get value(): any {
-    return {
-      name: this.name.value,
-      email: this.email.value
-    }
+  public get email(): Email {
+    return this.props.email
   }
 
-  public static create(props: ICreateProps): Either<DomainError[], User> {
-    const nameOrError = Name.create({ value: props.name })
-    const emailOrError = Email.create({ value: props.email })
+  private constructor(props: IUserProps, id?: UniqueEntityID) {
+    super(props, id)
+  }
 
-    const result = combine([nameOrError, emailOrError])
+  public static create(props: ICreateUserProps, id?: UniqueEntityID): Either<DomainError[], User> {
+    const name = Name.create({ value: props.name })
+    const email = Email.create({ value: props.email })
+
+    const result = combine([name, email])
 
     if (result.isLeft()) {
       return left(result.value)
     }
 
-    const name = nameOrError.value as Name
-    const email = emailOrError.value as Email
-    return right(new User(name, email))
+    return right(new User({
+      name: name.value as Name,
+      email: email.value as Email
+    }, id))
   }
 }
