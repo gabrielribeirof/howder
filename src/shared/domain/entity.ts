@@ -1,7 +1,7 @@
 import { UniqueEntityID } from './unique-entity-id'
 
 export abstract class Entity<T> {
-  protected readonly id: UniqueEntityID
+  readonly id: UniqueEntityID
   readonly props: T
 
   constructor(props: T, id?: UniqueEntityID) {
