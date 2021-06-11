@@ -8,7 +8,7 @@
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev:server": "tsnd -r tsconfig-paths/register --rs --inspect --transpile-only --ignore-watch node_modules src/shared/infra/ignitor.ts",
+    "dev:server": "tsnd -r tsconfig-paths/register --rs --inspect --transpile-only --ignore-watch node_modules src/shared/infrastructure/ignitor.ts",
     "test": "jest --detectOpenHandles",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
     "migration:run": "yarn typeorm migration:run"
