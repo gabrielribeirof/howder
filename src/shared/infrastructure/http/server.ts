@@ -2,7 +2,8 @@ import 'reflect-metadata'
 import dotenv from 'dotenv'
 
 import http, { Server } from 'http'
-import express, { Application } from 'express'
+import express, { Application, Request, Response, NextFunction } from 'express'
+import 'express-async-errors'
 
 import routes from './routes'
 
@@ -17,6 +18,7 @@ class HttpServer {
 
     this.middlewares()
     this.routes()
+    this.exceptionsHandler()
 
     this.instance = http.createServer(this.application)
   }
@@ -35,6 +37,14 @@ class HttpServer {
 
   private routes(): void {
     this.application.use('/api', routes)
+  }
+
+  private exceptionsHandler(): void {
+    this.application.use((err: any, request: Request, response: Response, _: NextFunction): any => {
+      response.status(500).send('Error')
+
+      console.log(err)
+    })
   }
 }
 
