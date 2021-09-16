@@ -1,4 +1,4 @@
-import { DomainError } from '@shared/core/domain/domain-error'
+import { DomainError } from '@shared/core/errors/domain-error'
 import { BAD_LENGTH } from '@shared/core/errors/codes.json'
 
 export class BadLengthError extends DomainError {
