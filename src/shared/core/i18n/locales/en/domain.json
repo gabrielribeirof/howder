@@ -1,0 +1,9 @@
+{
+	"REQUIRED": "This field is required",
+	"BAD_LENGTH": "Must contain between {{min}} and {{max}} characters",
+	"MAX_LENGTH": "Must contain less than {{max}} characters",
+	"MIN_LENGTH": "Must contain more than {{min}} characters",
+
+	"EMAIL_INVALID": "E-mail address invalid",
+	"EMAIL_ALREADY_REGISTERED": "E-mail address is already registered"
+}
