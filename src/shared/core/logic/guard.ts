@@ -2,35 +2,40 @@ export interface IGuardResult {
   succeeded: boolean
 }
 
+function mountResult(expression: boolean): IGuardResult {
+  return expression ? { succeeded: true } : { succeeded: false }
+}
+
 export class Guard {
   public static greaterThan(minValue: number, actualValue: number): IGuardResult {
-    return actualValue > minValue ? { succeeded: true } : { succeeded: false }
+    return mountResult(actualValue > minValue)
   }
 
   public static againstAtLeast(numChars: number, text: string): IGuardResult {
-    return text.length >= numChars ? { succeeded: true } : { succeeded: false }
+    return mountResult(text.length >= numChars)
   }
 
   public static againstAtMost(numChars: number, text: string): IGuardResult {
-    return text.length <= numChars ? { succeeded: true } : { succeeded: false }
+    return mountResult(text.length <= numChars)
   }
 
   public static againstNullOrUndefined(value: any): IGuardResult {
-    return (value === null || value === undefined) ? { succeeded: false } : { succeeded: true }
+    return mountResult((value === null || value === undefined))
   }
 
   public static isOneOf(value: any, validValues: any[]): IGuardResult {
     let isValid = false
     for (const validValue of validValues) {
-      if (value === validValue) isValid = true
+      if (value === validValue) {
+        isValid = true
+        break
+      }
     }
 
-    return isValid ? { succeeded: true } : { succeeded: false }
+    return mountResult(isValid)
   }
 
   public static inRange(num: number, min: number, max: number): IGuardResult {
-    const isInRange = num >= min && num <= max
-
-    return isInRange ? { succeeded: true } : { succeeded: false }
+    return mountResult(num >= min && num <= max)
   }
 }
