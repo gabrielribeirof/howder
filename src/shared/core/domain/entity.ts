@@ -1,11 +1,11 @@
-import { UniqueEntityID } from './unique-entity-id'
+import { Identifier } from './identifier'
 
 export abstract class Entity<T> {
-  readonly id: UniqueEntityID
+  readonly id: Identifier
   readonly props: T
 
-  constructor(props: T, id?: UniqueEntityID) {
-    this.id = id || new UniqueEntityID()
+  constructor(props: T, id?: Identifier) {
+    this.id = id || new Identifier()
     this.props = props
   }
 
