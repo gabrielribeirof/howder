@@ -1,10 +1,10 @@
-import { DomainError } from '@shared/domain/errors/contracts/domain-error'
-import { BaseCodes } from '@shared/domain/errors/codes/base.codes'
+import { DomainError } from '@shared/core/domain/domain-error'
+import { BAD_LENGTH } from '@shared/core/errors/codes.json'
 
 export class BadLengthError extends DomainError {
   constructor(field: string, value: string, min: number, max: number) {
     super({
-      code: BaseCodes.badLength,
+      code: BAD_LENGTH,
       field,
       value,
       min,
