@@ -1,12 +1,12 @@
-import { ValueObject } from '@shared/domain/value-object'
-import { DomainError } from '@shared/domain/errors/contracts/domain-error'
+import { ValueObject } from '@shared/core/domain/value-object'
+import { DomainError } from '@shared/core/errors/domain-error'
 
-import { Either, right, left } from '@shared/core/either'
-import { Guard } from '@shared/core/guard'
+import { Either, right, left } from '@shared/core/logic/either'
+import { Guard } from '@shared/core/logic/guard'
 
-import { RequiredError } from '@shared/domain/errors/required.error'
-import { MaxLengthError } from '@shared/domain/errors/max-length.error'
-import { InvalidEmailError } from '@shared/domain/errors/invalid-email.error'
+import { RequiredError } from '@shared/core/errors/domain/required.error'
+import { MaxLengthError } from '@shared/core/errors/domain/max-length.error'
+import { InvalidEmailError } from '@shared/core/errors/domain/invalid-email.error'
 
 interface IEmailProps {
   value: string
@@ -35,13 +35,13 @@ export class Email extends ValueObject<IEmailProps> {
   public static create(props: IEmailProps): Either<DomainError, Email> {
     const { value } = this.format(props)
 
-    const nullOrUndefinedResult = Guard.againstNullOrUndefined(value)
-    if (!nullOrUndefinedResult.succeeded) {
+    const nullOrUndefinedGuard = Guard.againstNullOrUndefined(value)
+    if (!nullOrUndefinedGuard.succeeded) {
       return left(new RequiredError('email', value))
     }
 
-    const lengthResult = Guard.againstAtMost(320, value)
-    if (!lengthResult.succeeded) {
+    const lengthGuard = Guard.againstAtMost(320, value)
+    if (!lengthGuard.succeeded) {
       return left(new MaxLengthError('email', value, 320))
     }
 

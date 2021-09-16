@@ -1,8 +1,8 @@
-import { AggregateRoot } from '@shared/domain/aggregate-root'
-import { UniqueEntityID } from '@shared/domain/unique-entity-id'
-import { DomainError } from '@shared/domain/errors/contracts/domain-error'
+import { AggregateRoot } from '@shared/core/domain/aggregate-root'
+import { Identifier } from '@shared/core/domain/identifier'
+import { DomainError } from '@shared/core/errors/domain-error'
 
-import { Either, left, right, combine } from '@shared/core/either'
+import { Either, left, right, combine } from '@shared/core/logic/either'
 
 import { Name } from './name'
 import { Email } from './email'
@@ -26,11 +26,11 @@ export class User extends AggregateRoot<IUserProps> {
     return this.props.email
   }
 
-  private constructor(props: IUserProps, id?: UniqueEntityID) {
+  private constructor(props: IUserProps, id?: Identifier) {
     super(props, id)
   }
 
-  public static create(props: ICreateUserProps, id?: UniqueEntityID): Either<DomainError[], User> {
+  public static create(props: ICreateUserProps, id?: Identifier): Either<DomainError[], User> {
     const name = Name.create({ value: props.name })
     const email = Email.create({ value: props.email })
 

@@ -1,9 +1,9 @@
-import { left } from '@shared/core/either'
+import { left } from '@shared/core/logic/either'
 
 import { User } from './user'
 
-import { BadLengthError } from '@shared/domain/errors/bad-length.error'
-import { InvalidEmailError } from '@shared/domain/errors/invalid-email.error'
+import { BadLengthError } from '@shared/core/errors/domain/bad-length.error'
+import { InvalidEmailError } from '@shared/core/errors/domain/invalid-email.error'
 
 describe('User domain entity', () => {
   it('should not create user with very long name', async () => {
