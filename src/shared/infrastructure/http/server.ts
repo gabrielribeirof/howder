@@ -5,47 +5,42 @@ import http, { Server } from 'http'
 import express, { Application, Request, Response, NextFunction } from 'express'
 import 'express-async-errors'
 
-import routes from './routes'
+import { v1Router } from './routes/v1'
 
-class HttpServer {
-  instance: Server
-  application: Application
+export class HttpServer {
+  static instance: Server
+  static app: Application
 
-  public create(): void {
-    this.application = express()
+  private constructor() {}
 
-    process.env.environment === 'production' && dotenv.config()
+  public static create(port: number): void {
+    HttpServer.app = express()
 
-    this.middlewares()
-    this.routes()
-    this.exceptionsHandler()
+    if (process.env.enviroment !== 'production') {
+      dotenv.config()
+    }
 
-    this.instance = http.createServer(this.application)
+    HttpServer.middlewares()
+    HttpServer.routes()
+    HttpServer.exceptionsHandler()
+
+    HttpServer.instance = http.createServer(HttpServer.app)
+    HttpServer.instance.listen(port)
   }
 
-  public listen(port: number): void {
-    this.instance.listen(port)
+  private static middlewares(): void {
+    HttpServer.app.use(express.json())
   }
 
-  public async close(): Promise<void> {
-    return new Promise((resolve) => this.instance.close(() => resolve()))
+  private static routes(): void {
+    HttpServer.app.use('/api/v1', v1Router)
   }
 
-  private middlewares(): void {
-    this.application.use(express.json())
-  }
+  private static exceptionsHandler(): void {
+    HttpServer.app.use((err: any, request: Request, response: Response, _: NextFunction): any => {
+      response.status(500).json({ error: 'Internal server error.' })
 
-  private routes(): void {
-    this.application.use('/api', routes)
-  }
-
-  private exceptionsHandler(): void {
-    this.application.use((err: any, request: Request, response: Response, _: NextFunction): any => {
-      response.status(500).send('Error')
-
-      console.log(err)
+      console.error(err)
     })
   }
 }
-
-export default new HttpServer()

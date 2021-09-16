@@ -1,31 +1,23 @@
 import { Connection, getConnectionOptions, createConnection } from 'typeorm'
 
-class TypeORMConnection {
-  instance: Connection
+export class TypeORMConnection {
+  static instance: Connection
 
-  public async create(): Promise<Connection> {
+  private constructor() {}
+
+  public static async create(): Promise<Connection> {
     try {
       const defaultOptions = await getConnectionOptions()
 
-      const databaseName = process.env.NODE_ENV === 'production'
-        ? defaultOptions.database
-        : 'support-chat'
+      TypeORMConnection.instance = await createConnection(defaultOptions)
 
-      Object.assign(defaultOptions, {
-        database: databaseName
-      })
-
-      this.instance = await createConnection(defaultOptions)
-
-      return this.instance
+      return TypeORMConnection.instance
     } catch (error) {
-      throw new Error(`[TYPEORM] > ${error}`)
+      throw new Error(error)
     }
   }
 
-  public async close(): Promise<void> {
-    await this.instance.close()
+  public static async close(): Promise<void> {
+    await TypeORMConnection.instance.close()
   }
 }
-
-export default new TypeORMConnection()

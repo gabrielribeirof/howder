@@ -1,12 +1,12 @@
 import { Server } from 'socket.io'
-import HttpServer from '../http/server'
+import { HttpServer } from '../http/server'
 
-class WsServer {
-  instance: Server
+export class WsServer {
+  static instance: Server
 
-  public create(): void {
-    this.instance = new Server(HttpServer.instance)
+  private constructor() {}
+
+  public static create(): void {
+    WsServer.instance = new Server(HttpServer.instance)
   }
 }
-
-export default new WsServer()

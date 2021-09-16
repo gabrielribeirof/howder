@@ -1,14 +1,13 @@
-import HttpServer from './http/server'
-import WsServer from './ws/server'
-import TypeORMConnection from './typeorm/connection'
+import { HttpServer } from './http/server'
+import { WsServer } from './ws/server'
+import { TypeORMConnection } from './typeorm/connection'
+
+import '@shared/core/i18n'
 
 async function ignitor(): Promise<void> {
   await TypeORMConnection.create()
-
-  HttpServer.create()
+  HttpServer.create(3333)
   WsServer.create()
-
-  HttpServer.listen(3333)
 }
 
 ignitor()
