@@ -6,7 +6,7 @@ i18n
   .use(Backend)
   .init({
     lng: 'en',
-    ns: ['domain'],
+    ns: ['codes'],
     preload: ['en', 'pt-BR'],
     fallbackLng: 'en',
     backend: {
