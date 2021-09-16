@@ -40,7 +40,7 @@ export const left = <L, R>(l: L): Either<L, R> => {
   return new Left(l)
 }
 
-export const combine = <L>(results: Either<L, any>[]): Either<L[], Either<L, any>[]> => {
+export const combine = <L, R>(results: Either<L, R>[]): Either<L[], Either<L, R>[]> => {
   const lefts: L[] = []
   for (const result of results) {
     if (result.isLeft()) {
