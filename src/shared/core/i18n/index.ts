@@ -6,9 +6,10 @@ i18n
   .use(Backend)
   .init({
     lng: 'en',
-    preload: ['en'],
+    ns: ['domain'],
+    preload: ['en', 'pt-BR'],
     fallbackLng: 'en',
     backend: {
-      loadPath: path.join(__dirname, './locales/{{lng}}/{{ns}}.json')
+      loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
     }
   })
