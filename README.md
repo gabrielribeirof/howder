@@ -40,6 +40,40 @@ This project was developed with:
 
 <img src="./.github/diagram.png" width="800px" />
 
+## :electric_plug: Getting Started
+
+Here you will run the application in development mode. Follow the steps below.
+
+**Requirements**
+
+[Node.js](https://nodejs.org)
+<br>
+[Yarn](https://yarnpkg.com) or [NPM](https://github.com/npm/npm)
+
+**Cloning the repository**
+```
+$ git clone https://github.com/gabrielribeirof/chatter
+```
+**Installing the dependencies**
+```
+$ yarn install
+
+# or
+$ npm install
+```
+
+**Running Application**
+
+```
+$ yarn dev
+
+# or
+$ npm run dev
+```
+
+The application will provide the final URL.
+
+
 # :scroll: Requirements
 
 FR = Functional Requirement
