@@ -1,5 +1,6 @@
 import express from 'express'
 import http from 'http'
+import ip from 'ip'
 import createSocketServer from './socket-server.js'
 
 const PORT = 3000
@@ -10,4 +11,4 @@ createSocketServer(httpServer)
 
 app.use(express.static('public'))
 
-httpServer.listen(PORT, () => console.log(`Aplication listening in port ${PORT}`))
+httpServer.listen(PORT, () => console.log(`Aplication running in http://${ip.address()}:${PORT}`))
