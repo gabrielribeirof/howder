@@ -8,13 +8,14 @@
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev:server": "tsnd -r tsconfig-paths/register --rs --inspect --transpile-only --ignore-watch node_modules src/shared/infrastructure/ignitor.ts",
+    "dev:server": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules src/shared/infrastructure/ignitor.ts",
     "test": "jest --detectOpenHandles",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
     "migration:run": "yarn typeorm migration:run"
   },  
   "dependencies": {
     "colors": "^1.4.0",
+    "date-fns": "^2.25.0",
     "dotenv": "^9.0.2",
     "express": "^4.17.1",
     "express-async-errors": "^3.1.1",
@@ -36,6 +37,7 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "cross-env": "^7.0.3",
     "eslint": "^7.25.0",
     "eslint-config-standard": "^16.0.2",
     "eslint-plugin-import": "^2.22.1",
