@@ -1,17 +1,17 @@
 {
-  "name": "support-chat",
+  "name": "chatter",
   "version": "1.0.0",
-  "description": "Real-time support chat",
+  "description": "Business realtime support messenger",
   "private": true,
   "main": "src/shared/infra/ignitor.ts",
   "repository": "https://github.com/gabrielribeirof/chat",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev:server": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules src/shared/infrastructure/ignitor.ts",
-    "test": "jest --detectOpenHandles",
+    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules src/shared/infrastructure/ignitor.ts",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
-    "migration:run": "yarn typeorm migration:run"
+    "typeorm:migration:run": "yarn typeorm migration:run",
+    "test": "jest"
   },  
   "dependencies": {
     "colors": "^1.4.0",
