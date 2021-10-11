@@ -1,19 +1,20 @@
+import { Logger } from '@shared/core/logger'
 import { Connection, getConnectionOptions, createConnection } from 'typeorm'
 
 export class TypeORMConnection {
   static instance: Connection
 
-  private constructor() {}
+  public static async create(): Promise<void> {
+    Logger.setTag(this.name)
 
-  public static async create(): Promise<Connection> {
     try {
       const defaultOptions = await getConnectionOptions()
 
       TypeORMConnection.instance = await createConnection(defaultOptions)
 
-      return TypeORMConnection.instance
+      Logger.info('Connection created')
     } catch (error) {
-      throw new Error(error)
+      Logger.emerg(error)
     }
   }
 

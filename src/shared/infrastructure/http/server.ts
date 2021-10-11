@@ -1,24 +1,15 @@
-import 'reflect-metadata'
-import dotenv from 'dotenv'
-
 import http, { Server } from 'http'
 import express, { Application, Request, Response, NextFunction } from 'express'
-import 'express-async-errors'
-
 import { v1Router } from './routes/v1'
+
+import { Logger } from '@shared/core/logger'
 
 export class HttpServer {
   static instance: Server
   static app: Application
 
-  private constructor() {}
-
   public static create(port: number): void {
     HttpServer.app = express()
-
-    if (process.env.enviroment !== 'production') {
-      dotenv.config()
-    }
 
     HttpServer.middlewares()
     HttpServer.routes()
@@ -26,6 +17,8 @@ export class HttpServer {
 
     HttpServer.instance = http.createServer(HttpServer.app)
     HttpServer.instance.listen(port)
+
+    Logger.info('Server created', { tag: this.name })
   }
 
   private static middlewares(): void {
@@ -40,7 +33,7 @@ export class HttpServer {
     HttpServer.app.use((err: any, request: Request, response: Response, _: NextFunction): any => {
       response.status(500).json({ error: 'Internal server error.' })
 
-      console.error(err)
+      Logger.alert(err)
     })
   }
 }
