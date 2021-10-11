@@ -40,7 +40,7 @@ export class Email extends ValueObject<IEmailProps> {
       return left(new RequiredError('email', value))
     }
 
-    const lengthGuard = Guard.againstAtMost(320, value)
+    const lengthGuard = Guard.atMost(320, value)
     if (!lengthGuard.succeeded) {
       return left(new MaxLengthError('email', value, 320))
     }

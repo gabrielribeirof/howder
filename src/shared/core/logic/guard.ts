@@ -11,16 +11,16 @@ export class Guard {
     return mountResult(actualValue > minValue)
   }
 
-  public static againstAtLeast(numChars: number, text: string): IGuardResult {
-    return mountResult(text.length >= numChars)
+  public static atLeast(minValue: number, text: string): IGuardResult {
+    return mountResult(text.length >= minValue)
   }
 
-  public static againstAtMost(numChars: number, text: string): IGuardResult {
-    return mountResult(text.length <= numChars)
+  public static atMost(maxValue: number, text: string): IGuardResult {
+    return mountResult(text.length <= maxValue)
   }
 
   public static againstNullOrUndefined(value: any): IGuardResult {
-    return mountResult((value === null || value === undefined))
+    return mountResult(!(value === null) || !(value === undefined))
   }
 
   public static isOneOf(value: any, validValues: any[]): IGuardResult {
