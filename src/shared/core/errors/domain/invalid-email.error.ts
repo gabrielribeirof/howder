@@ -1,10 +1,10 @@
 import { DomainError } from '@shared/core/errors/domain-error'
-import { INVALID_EMAIL } from '@shared/core/errors/codes.json'
+import { ErrorCodes } from '@shared/utils/error-codes.utils'
 
 export class InvalidEmailError extends DomainError {
   constructor(value: string) {
     super({
-      code: INVALID_EMAIL,
+      code: ErrorCodes.INVALID_EMAIL,
       field: 'email',
       value
     })

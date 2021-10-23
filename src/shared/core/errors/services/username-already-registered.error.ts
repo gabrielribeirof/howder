@@ -1,11 +1,11 @@
 import { ServiceError } from '@shared/core/errors/service-error'
-import { USERNAME_ALREADY_REGISTERED } from '@shared/core/errors/codes.json'
+import { ErrorCodes } from '@shared/utils/error-codes.utils'
 
 export class UsernameAlreadyRegisteredError extends ServiceError {
-  constructor(field: string, value: string) {
+  constructor(value: string) {
     super({
-      code: USERNAME_ALREADY_REGISTERED,
-      field,
+      code: ErrorCodes.USERNAME_ALREADY_REGISTERED,
+      field: 'username',
       value
     })
   }
