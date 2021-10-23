@@ -2,10 +2,6 @@ import winston from 'winston'
 import colors from 'colors'
 import { format, addMinutes } from 'date-fns'
 
-export interface IConfigParam {
-  tag?: string
-}
-
 const consoleFormat = winston.format.printf(info => {
   const { timestamp, tag, level, message } = info
 
@@ -16,16 +12,16 @@ const consoleFormat = winston.format.printf(info => {
 })
 
 export class Logger {
-  static instance: winston.Logger
-  static currentTag: string
+  instance: winston.Logger
 
-  public static init(): void {
-    Logger.instance = winston.createLogger({
+  constructor(public tag: string) {
+    this.instance = winston.createLogger({
       levels: winston.config.syslog.levels,
       format: winston.format.combine(
         winston.format.errors(),
         winston.format.timestamp(),
         winston.format(info => {
+          info.tag = this.tag
           info.tag = info.tag.toUpperCase()
           info.level = info.level.toUpperCase()
 
@@ -44,57 +40,41 @@ export class Logger {
     })
   }
 
-  public static setTag(value: string): void {
-    Logger.currentTag = value
+  public setTag(value: string): void {
+    this.tag = value
   }
 
-  public static emerg(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.emerg(message, { tag: Logger.currentTag })
+  public emerg(message: any): void {
+    this.instance.emerg(message)
 
     process.exit()
   }
 
-  public static alert(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.alert(message, { tag: Logger.currentTag })
+  public alert(message: string): void {
+    this.instance.alert(message)
   }
 
-  public static crit(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.crit(message, { tag: Logger.currentTag })
+  public crit(message: string): void {
+    this.instance.crit(message)
   }
 
-  public static error(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.error(message, { tag: Logger.currentTag })
+  public error(message: string): void {
+    this.instance.error(message)
   }
 
-  public static warning(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.warning(message, { tag: Logger.currentTag })
+  public warning(message: string): void {
+    this.instance.warning(message)
   }
 
-  public static notice(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.notice(message, { tag: Logger.currentTag })
+  public notice(message: string): void {
+    this.instance.notice(message)
   }
 
-  public static info(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.info(message, { tag: Logger.currentTag })
+  public info(message: string): void {
+    this.instance.info(message)
   }
 
-  public static debug(message: string, config?: IConfigParam): void {
-    config?.tag && (Logger.currentTag = config.tag)
-
-    Logger.instance.debug(message, { tag: Logger.currentTag })
+  public debug(message: string): void {
+    this.instance.debug(message)
   }
 }

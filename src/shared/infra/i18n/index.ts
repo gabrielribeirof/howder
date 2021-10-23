@@ -5,9 +5,9 @@ import Backend from 'i18next-fs-backend'
 import { Logger } from '@shared/core/logger'
 
 export class I18n {
-  public static async init(): Promise<void> {
-    Logger.setTag(this.name)
+  private logger = new Logger(I18n.name)
 
+  public async init(): Promise<void> {
     try {
       await i18n
         .use(Backend)
@@ -21,9 +21,9 @@ export class I18n {
           }
         })
 
-      Logger.info('Internationalization initiate')
+      this.logger.info('Internationalization initiate')
     } catch (error) {
-      Logger.emerg(error)
+      this.logger.emerg(error)
     }
   }
 }
