@@ -1,10 +1,10 @@
 import { Repository, getRepository } from 'typeorm'
-import { UserMapper } from '@modules/users/mappers/user.mapper'
 
 import { User } from '@modules/users/domain/user/user'
-import { IUsersRepository } from '@modules/users/repositories/iuser.repository'
+import { UserEntity } from '@shared/infra/database/entities/user.entity'
+import { UserMapper } from '@modules/users/mappers/user.mapper'
 
-import { UserEntity } from '../entities/user.entity'
+import { IUsersRepository } from '@modules/users/repositories/iuser.repository'
 
 export class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<UserEntity>;
@@ -36,11 +36,11 @@ export class UsersRepository implements IUsersRepository {
   }
 
   public async save(user: User): Promise<User> {
-    const typeormUser = UserMapper.toPersistence(user)
-    const createdUser = this.ormRepository.create(typeormUser)
+    const toPersistenceUser = UserMapper.toPersistence(user)
+    const createdUser = this.ormRepository.create(toPersistenceUser)
 
     await this.ormRepository.save(createdUser)
 
-    return UserMapper.toDomain(createdUser)
+    return UserMapper.toDomain(toPersistenceUser)
   }
 }
