@@ -4,6 +4,6 @@
 	"MAX_LENGTH": "Must contain less than {{max}} characters",
 	"MIN_LENGTH": "Must contain more than {{min}} characters",
 
-	"EMAIL_INVALID": "E-mail address invalid",
+	"INVALID_EMAIL": "E-mail address invalid",
 	"EMAIL_ALREADY_REGISTERED": "E-mail address is already registered"
 }
