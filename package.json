@@ -8,11 +8,11 @@
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules src/shared/infrastructure/ignitor.ts",
+    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules src/shared/infra/ignitor.ts",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
     "typeorm:migration:run": "yarn typeorm migration:run",
     "test": "jest"
-  },  
+  },
   "dependencies": {
     "colors": "^1.4.0",
     "date-fns": "^2.25.0",
@@ -23,10 +23,10 @@
     "i18next-fs-backend": "^1.1.1",
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
-    "socket.io": "^4.0.0",
     "typeorm": "^0.2.32",
     "uuid": "^8.3.2",
-    "winston": "^3.3.3"
+    "winston": "^3.3.3",
+    "ws": "^8.2.3"
   },
   "devDependencies": {
     "@types/express": "^4.17.11",
@@ -35,6 +35,7 @@
     "@types/jest": "^26.0.23",
     "@types/supertest": "^2.0.11",
     "@types/uuid": "^8.3.0",
+    "@types/ws": "^8.2.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
     "cross-env": "^7.0.3",
