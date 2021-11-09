@@ -1,114 +1,96 @@
-<h1 align="center">Chat APP</h1>
-
 <p align="center">
-  <a href="#star2-project">Project</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#rocket-technologies">Technologies</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#electric_plug-application-diagram">Application Diagram</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
-  <a href="#scroll-requirements">Requirements</a>
+  <img alt="howder" width="280px" src=".github/logo.svg">
 </p>
 
-<p align="center">
-  <img src="http://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=for-the-badge">
-  <img src="http://img.shields.io/github/license/gabrielribeirof/chat?style=for-the-badge&color=004dfc">
-</p>
+<h3 align="center">
+  Business realtime support messenger
+</h3>
 
 <p align="center">
-  <img src="./.github/preview.gif">
+  <img src="https://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=for-the-badge">
+  <img src="https://img.shields.io/github/license/gabrielribeirof/howder?style=for-the-badge&color=004dfc">
 </p>
 
-## :star2: Project
+## Table of Contents
 
-A real-time chat for anyone to learn basic concepts of **WebSocket** and **native web development and architecture**.
+- [Introduction]()
+- [System]()
+  - [API Server]()
+    - [Technologies]()
+    - [API Reference]()
+    - [Design structure]()
+    - [Developing]()
+      - [First install]()
+      - [Running tests]()
 
-## :rocket: Technologies
+  - [Web Widget]()
+    - [Technologies]()
+    - [Structure]()
+    - [First install]()
 
-This project was developed with:
+  - [Web Dashboard]()
+    - [Technologies]()
+    - [Structure]()
+    - [First install]()
 
-- HTML
-- CSS
-- Javascript
-- NodeJS
-- Socket.IO
+# :star2: Introduction
 
-## :electric_plug: Application Diagram
+The project objective is to provide a SaaS solution for internet business support for website users. 
 
-**Application Core**: retains and changes the state (users and messages) of the application. Implements the Pub/Sub pattern to inform its subscribers of changes in state.
-<br/>
-**UI Logic**: manages and listens to the frontend interface.
-<br/>
-**Socket Client/Server**: transport layer (reception and transmission) of data based on WebSocket.
+## System
 
-<img src="./.github/diagram.png" width="800px" />
+The solution consists of 3 products listed below.
 
-## :electric_plug: Getting Started
+<p align="center">
+  <img alt="System Diagram" src=".github/system-diagram.png">
+</p>
+<i>System overview flow diagram</i>
 
-Here you will run the application in development mode. Follow the steps below.
+## :electric_plug: API Server
 
-**Requirements**
+Application that provides all system functionality. It provides endpoints that serve a company's support agents and customers.
 
-[Node.js](https://nodejs.org)
-<br>
-[Yarn](https://yarnpkg.com) or [NPM](https://github.com/npm/npm)
+### :rocket: Technologies
 
-**Cloning the repository**
-```
-$ git clone https://github.com/gabrielribeirof/chatter
-```
-**Installing the dependencies**
-```
-$ yarn install
+Here's a brief overview of our technology stack:
 
-# or
-$ npm install
-```
+- **NodeJS**: javascript runtime built as app platform
+- **Typescript**: javascript superset language
+- **Postgres**: persistent data storage
+- **Docker** and **Docker Compose**: create the development and test environments
+- **Express**: as a tool to build the web server 
+- **Jest**: test runner
+- **TypeORM**: as ORM
+- **Socket.io**: to bidirectional communication (mostly websocket)
+- **i18next**: i18n implementation for server responses
+- And other smaller software solutions... See overview in the api [package.json]() 
 
-**Running Application**
+### API Reference
 
-```
-$ yarn dev
+See the API Referente here: https://howder.readme.io/.
 
-# or
-$ npm run dev
-```
+### Design structure
 
-The application will provide the final URL.
+### Developing
+
+#### :hammer_and_wrench: First Install
+
+#### :test_tube: Running tests
 
 
-# :scroll: Requirements
+## :computer: Web Widget
 
-FR = Functional Requirement
-<br/>
-NFR = Non-Functional Requirement
-<br/>
-BR = Business Requirements
-<br/>
+### :rocket: Technologies
 
-## General
+### :scroll: Structure
 
-**NFR**
+### :hammer_and_wrench: First Install
 
-- Chat communication should be done through th socket.io library that provides a bidirectional WebSocket communication
 
-## Register
+## :computer: Web Dashboard
 
-**FR**
+### :rocket: Technologies
 
-- User should be able to enter in the app with a nickname
+### :scroll: Structure
 
-**BR**
-
-- The nickname and socket session ID should be stored attached to the socket server
-
-## Messages
-
-**FR**
-
-- User should be able to send a new message to all users
-- User should be able to receive new messages from any other user
-
-## Chat Log
-
-**FR**
-
-- All users should notified when a user enter the chat
-- All users should notified when a user leaves the chat
+### :hammer_and_wrench: First Install
