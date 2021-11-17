@@ -1,5 +1,5 @@
 <p align="center">
-  <img alt="howder" width="280px" src=".github/logo.svg">
+  <img alt="howder" src=".github/logo.svg" style="margin-top: 14px" width="280px">
 </p>
 
 <h3 align="center">
