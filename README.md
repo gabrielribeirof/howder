@@ -1,9 +1,9 @@
 <p align="center">
-  <img alt="howder" width="280px" src=".github/logo_black.svg">
+  <img alt="howder" width="280px" src=".github/logo.svg">
 </p>
 
 <h3 align="center">
-  Business realtime support messenger
+  Business real-time support messenger
 </h3>
 
 <p align="center">
@@ -11,35 +11,39 @@
   <img src="https://img.shields.io/github/license/gabrielribeirof/howder?style=for-the-badge&color=004dfc">
 </p>
 
+## :star2: Introduction
+
+Howder is a fictional platform that connects customers with a company's support team through real-time conversations with web browser-based core solution.
+
+**Features**:
+- **Live chat**: support customer with real-time conversations
+- **Management tools**: manage customers and support teams data
+- **Chat widget**: link a live chat direct in a company's site
+- **Dashboard**: administration platform for support agents
+
 ## Table of Contents
 
 - [Introduction]()
-- [System]()
-  - [API Server]()
-    - [Technologies]()
-    - [API Reference]()
-    - [Design structure]()
-    - [Developing]()
-      - [First install]()
-      - [Running tests]()
-
-  - [Web Widget]()
-    - [Technologies]()
-    - [Structure]()
+- [System Overview]()
+- [API Server]()
+  - [Technologies]()
+  - [API Reference]()
+  - [Design structure]()
+  - [Developing]()
     - [First install]()
+    - [Running tests]()
 
-  - [Web Dashboard]()
-    - [Technologies]()
-    - [Structure]()
-    - [First install]()
+- [Web Widget]()
+  - [Technologies]()
+  - [Structure]()
+  - [First install]()
 
-# :star2: Introduction
+- [Web Dashboard]()
+  - [Technologies]()
+  - [Structure]()
+  - [First install]()
 
-The project objective is to provide a SaaS solution for internet business support for website users. 
-
-## System
-
-The solution consists of 3 products listed below.
+## System Overview
 
 <p align="center">
   <img alt="System Diagram" src=".github/system-diagram.png">
@@ -48,28 +52,30 @@ The solution consists of 3 products listed below.
 
 ## :electric_plug: API Server
 
-Application that provides all system functionality. It provides endpoints that serve a company's support agents and customers.
+Application that provides front-end applications with all the functionality of the system.
 
 ### :rocket: Technologies
 
-Here's a brief overview of our technology stack:
+Brief overview of the technology stack:
 
-- **NodeJS**: javascript runtime built as app platform
+- **NodeJS**: javascript runtime platform
 - **Typescript**: javascript superset language
 - **Postgres**: persistent data storage
-- **Docker** and **Docker Compose**: create the development and test environments
-- **Express**: as a tool to build the web server 
+- **Docker** and **Docker Compose**: create the development environment
+- **Express**: lightweight web server 
 - **Jest**: test runner
 - **TypeORM**: as ORM
 - **Socket.io**: to bidirectional communication (mostly websocket)
 - **i18next**: i18n implementation for server responses
-- And other smaller software solutions... See overview in the api [package.json]() 
+- And other smaller software solutions... See overview in the API [package.json]() 
 
 ### API Reference
 
 See the API Referente here: https://howder.readme.io/.
 
 ### Design structure
+
+It is based on Clean Architecture, SOLID principles, and Domain-Driven Design best practices.
 
 ### Developing
 
