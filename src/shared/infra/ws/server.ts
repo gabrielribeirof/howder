@@ -9,7 +9,11 @@ export class WsServer {
   private isRunning: boolean
 
   public create(httpServer: http.Server): SocketIOServer {
-    this.server = new SocketIOServer(httpServer)
+    this.server = new SocketIOServer(httpServer, {
+      cors: {
+        origin: '*'
+      }
+    })
     this.isRunning = true
 
     this.logger.info('Server created')
