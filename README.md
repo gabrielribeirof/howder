@@ -7,6 +7,7 @@
   Business real-time support messenger
 </h3>
 
+
 <p align="center">
   <img src="https://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=for-the-badge">
   <img src="https://img.shields.io/github/license/gabrielribeirof/howder?style=for-the-badge&color=004dfc">
@@ -14,35 +15,23 @@
 
 ## :star2: Introduction
 
-Howder is a fictional platform that connects customers with a company's support team through real-time conversations with web browser-based core solution.
+Howder is a fictional platform that connects customers with a company's support team through real-time conversations.
 
-**Features**:
+**Final Features**:
 - **Live chat**: support customer with real-time conversations
 - **Management tools**: manage customers and support teams data
-- **Chat widget**: link a live chat direct in a company's site
-- **Dashboard**: administration platform for support agents
 
-## Table of Contents
+## :scroll: Table of Contents
 
 - [Introduction]()
 - [System Overview]()
-- [API Server]()
+- [Howder API]()
   - [Technologies]()
   - [API Reference]()
-  - [Design structure]()
+  - [Design decisions]()
   - [Developing]()
     - [First install]()
     - [Running tests]()
-
-- [Web Widget]()
-  - [Technologies]()
-  - [Structure]()
-  - [First install]()
-
-- [Web Dashboard]()
-  - [Technologies]()
-  - [Structure]()
-  - [First install]()
 
 ## System Overview
 
@@ -72,15 +61,15 @@ Brief overview of the technology stack:
 
 ### API Reference
 
-See the API Referente here: https://howder.readme.io/.
+See the API Referente here: **https://howder.readme.io/**.
 
-### Design structure
+### Design decisions
 
 It is based on Clean Architecture, SOLID principles, and Domain-Driven Design best practices.
 
 ### Developing
 
-#### :hammer_and_wrench: First Install
+#### :hammer_and_wrench: First install
 
 #### :test_tube: Running tests
 
@@ -91,13 +80,4 @@ It is based on Clean Architecture, SOLID principles, and Domain-Driven Design be
 
 ### :scroll: Structure
 
-### :hammer_and_wrench: First Install
-
-
-## :computer: Web Dashboard
-
-### :rocket: Technologies
-
-### :scroll: Structure
-
-### :hammer_and_wrench: First Install
+### :hammer_and_wrench: First install
