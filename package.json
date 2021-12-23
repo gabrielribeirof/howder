@@ -1,10 +1,10 @@
 {
-  "name": "chatter",
+  "name": "howder",
   "version": "1.0.0",
-  "description": "Business realtime support messenger",
+  "description": "Business real-time support messenger",
   "private": true,
   "main": "src/shared/infra/ignitor.ts",
-  "repository": "https://github.com/gabrielribeirof/chat",
+  "repository": "https://github.com/gabrielribeirof/howder",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
