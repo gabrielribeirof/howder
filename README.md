@@ -17,10 +17,6 @@
 
 Howder is a fictional platform that connects customers with a company's support team through real-time conversations.
 
-**Final Features**:
-- **Live chat**: support customer with real-time conversations
-- **Management tools**: manage customers and support teams data
-
 ## :scroll: Table of Contents
 
 - [Introduction]()
