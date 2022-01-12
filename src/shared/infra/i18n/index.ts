@@ -13,7 +13,7 @@ export class I18n {
         .use(Backend)
         .init({
           lng: 'en',
-          ns: ['codes'],
+          ns: ['violation_messages'],
           preload: ['en', 'pt-BR'],
           fallbackLng: 'en',
           backend: {
