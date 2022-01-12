@@ -1,5 +1,5 @@
 import i18next from 'i18next'
-import { DomainError } from '@shared/core/errors/domain-error'
+import { DomainError } from '@shared/core/domain/errors/domain-error'
 
 interface IFieldError {
   code: string
