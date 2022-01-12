@@ -11,23 +11,23 @@ export class Guard {
     return mountResult(actualValue > minValue)
   }
 
-  public static atLeast(minValue: number, text: string): IGuardResult {
-    return mountResult(text.length >= minValue)
+  public static atLeast(minValue: number, actualValue: number): IGuardResult {
+    return mountResult(actualValue >= minValue)
   }
 
-  public static atMost(maxValue: number, text: string): IGuardResult {
-    return mountResult(text.length <= maxValue)
+  public static atMost(maxValue: number, actualValue: number): IGuardResult {
+    return mountResult(actualValue <= maxValue)
   }
 
   public static againstNullOrUndefined(value: any): IGuardResult {
     return mountResult(!(value === null) || !(value === undefined))
   }
 
-  public static isOneOf(value: any, validValues: any[]): IGuardResult {
-    let isValid = false
+  public static isOneOf(value: string | number, validValues: (number | string)[]): IGuardResult {
+    let isValid = true
     for (const validValue of validValues) {
-      if (value === validValue) {
-        isValid = true
+      if (value !== validValue) {
+        isValid = false
         break
       }
     }
