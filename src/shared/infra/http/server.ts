@@ -2,6 +2,10 @@ import http from 'http'
 import express, { Request, Response, NextFunction } from 'express'
 import { Logger } from '@shared/core/logger'
 
+import { ErrorsMapper } from '@shared/core/errors/errors-mapper'
+import { NotFoundError } from '@shared/errors/not-found.error'
+import { InternalError } from '@shared/errors/internal.error'
+
 import { v1Router } from './routes/v1'
 
 export class HttpServer {
@@ -25,15 +29,11 @@ export class HttpServer {
   }
 
   public instance(): http.Server {
-    if (this.server.listening) {
-      return this.server
-    } else {
-      return this.create()
-    }
+    return this.server ? this.server : this.create()
   }
 
   public close(): void {
-    this.server.close()
+    this.server && this.server.close()
   }
 
   private middlewares(): void {
@@ -42,11 +42,14 @@ export class HttpServer {
 
   private routes(): void {
     this.app.use('/api/v1', v1Router)
+    this.app.use('*', (request, response) => {
+      response.status(404).json(ErrorsMapper.toHTTP(new NotFoundError()))
+    })
   }
 
   private exceptionsHandler(): void {
-    this.app.use((err: any, request: Request, response: Response, _: NextFunction): any => {
-      response.status(500).json({ error: 'Internal server error.' })
+    this.app.use((err: any, request: Request, response: Response, _: NextFunction): void => {
+      response.status(500).json(ErrorsMapper.toHTTP(new InternalError()))
 
       this.logger.alert(err)
     })

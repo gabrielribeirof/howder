@@ -6,38 +6,30 @@ export class TypeORMConnection {
   private connection: Connection
 
   public async create(): Promise<void> {
-    try {
-      const defaultOptions = await getConnectionOptions()
+    const defaultOptions = await getConnectionOptions()
 
-      const timer = setTimeout(() => {
-        this.logger.emerg('Could not connect to database')
-      }, 15000)
+    const timer = setTimeout(() => {
+      this.logger.emerg('Could not connect to database')
+    }, 15000)
 
-      this.connection = await createConnection(defaultOptions)
+    this.connection = await createConnection(defaultOptions)
 
-      clearTimeout(timer)
+    clearTimeout(timer)
 
-      this.logger.info('Connection created')
-    } catch (error) {
-      this.logger.emerg(error)
-    }
+    this.logger.info('Connection created')
   }
 
   public async instance(): Promise<Connection> {
-    if (this.connection.isConnected) {
+    if (this.connection) {
       return this.connection
     } else {
-      return await this.connection.connect()
+      await this.create()
+
+      return this.connection
     }
   }
 
-  public async close(): Promise<void> {
-    if (!this.connection.isConnected) return
-
-    try {
-      await (await this.instance()).close()
-    } catch (error) {
-      this.logger.emerg(error)
-    }
+  public close(): void {
+    this.connection.isConnected && this.connection.close()
   }
 }

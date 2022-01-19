@@ -6,7 +6,6 @@ import { Logger } from '@shared/core/logger'
 export class WsServer {
   private logger = new Logger(WsServer.name)
   private server: SocketIOServer
-  private isRunning: boolean
 
   public create(httpServer: http.Server): SocketIOServer {
     this.server = new SocketIOServer(httpServer, {
@@ -14,7 +13,6 @@ export class WsServer {
         origin: '*'
       }
     })
-    this.isRunning = true
 
     this.logger.info('Server created')
 
@@ -22,7 +20,7 @@ export class WsServer {
   }
 
   public instance(): SocketIOServer | undefined {
-    if (this.isRunning) {
+    if (this.server) {
       return this.server
     }
 
@@ -30,7 +28,6 @@ export class WsServer {
   }
 
   public close(): void {
-    this.isRunning = false
-    this.server.close()
+    this.server && this.server.close()
   }
 }
