@@ -12,31 +12,41 @@ const consoleFormat = winston.format.printf(info => {
 })
 
 export class Logger {
-  instance: winston.Logger
+  public instance: winston.Logger
 
   constructor(public tag: string) {
+    const transports: winston.transport[] = []
+
+    process.env.NODE_ENV === 'production' && transports.push(new winston.transports.File({
+      level: 'debug',
+      dirname: 'logs',
+      filename: 'howder.log',
+      format: winston.format.combine(
+        winston.format.json()
+      )
+    }))
+
+    transports.push(new winston.transports.Console({
+      level: 'debug',
+      format: winston.format.combine(
+        winston.format(info => {
+          info.tag = this.tag
+          info.level = info.level.toUpperCase()
+
+          return info
+        })(),
+        winston.format.colorize({ level: true }),
+        consoleFormat
+      )
+    }))
+
     this.instance = winston.createLogger({
       levels: winston.config.syslog.levels,
       format: winston.format.combine(
         winston.format.errors(),
-        winston.format.timestamp(),
-        winston.format(info => {
-          info.tag = this.tag
-          info.tag = info.tag.toUpperCase()
-          info.level = info.level.toUpperCase()
-
-          return info
-        })()
+        winston.format.timestamp()
       ),
-      transports: [
-        new winston.transports.Console({
-          level: 'debug',
-          format: winston.format.combine(
-            winston.format.colorize({ level: true }),
-            consoleFormat
-          )
-        })
-      ]
+      transports
     })
   }
 
@@ -78,3 +88,5 @@ export class Logger {
     this.instance.debug(message)
   }
 }
+
+new Logger('Logger').info('oi')

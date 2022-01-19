@@ -9,10 +9,10 @@ type AppErrorProps = {
 }
 
 export abstract class AppError {
-  httpCode: number
-  code: AppErrorCodes
-  message: string
-  violations?: Violation[]
+  public httpCode: number
+  public code: AppErrorCodes
+  public message: string
+  public violations?: Violation[]
 
   constructor({ httpCode, code, message, violations }: AppErrorProps) {
     this.httpCode = httpCode

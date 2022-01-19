@@ -10,12 +10,12 @@ type ViolationProps = {
 }
 
 export abstract class Violation {
-  reason: ViolationReasons
-  field: string
-  value: string
-  expectedValues?: string[] | number[]
-  min?: number
-  max?: number
+  public reason: ViolationReasons
+  public field: string
+  public value: string
+  public expectedValues?: string[] | number[]
+  public min?: number
+  public max?: number
 
   constructor({ reason, field, value, expectedValues, min, max }: ViolationProps) {
     this.reason = reason
