@@ -1,8 +1,8 @@
 import { Identifier } from './identifier'
 
 export abstract class Entity<T> {
-  readonly id: Identifier
-  readonly props: T
+  public readonly id: Identifier
+  public readonly props: T
 
   constructor(props: T, id?: Identifier) {
     this.id = id || new Identifier()

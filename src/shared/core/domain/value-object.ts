@@ -1,5 +1,5 @@
 export abstract class ValueObject<T> {
-  readonly props: T
+  public readonly props: T
 
   constructor(props: T) {
     this.props = props
