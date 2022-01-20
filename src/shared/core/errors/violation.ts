@@ -1,6 +1,6 @@
 import { ViolationReasons } from './violation-reasons'
 
-type ViolationProps = {
+type ViolationProperties = {
   reason: ViolationReasons
   field: string
   value: string
@@ -17,7 +17,7 @@ export abstract class Violation {
   public min?: number
   public max?: number
 
-  constructor({ reason, field, value, expectedValues, min, max }: ViolationProps) {
+  constructor({ reason, field, value, expectedValues, min, max }: ViolationProperties) {
     this.reason = reason
     this.field = field
     this.value = value

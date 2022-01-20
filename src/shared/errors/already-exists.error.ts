@@ -5,7 +5,7 @@ import { Violation } from '../core/errors/violation'
 export class AlreadyExistsError extends AppError {
   constructor(violations?: Violation[]) {
     super({
-      httpCode: 409,
+      httpStatusCode: 409,
       code: AppErrorCodes.ALREADY_EXISTS,
       message: 'Resource already exists',
       violations

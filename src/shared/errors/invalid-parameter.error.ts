@@ -5,7 +5,7 @@ import { Violation } from '../core/errors/violation'
 export class InvalidParameterError extends AppError {
   constructor(violations?: Violation[]) {
     super({
-      httpCode: 400,
+      httpStatusCode: 400,
       code: AppErrorCodes.INVALID_PARAMETER,
       message: 'Invalid parameter passed',
       violations

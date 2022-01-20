@@ -4,7 +4,7 @@ import { AppErrorCodes } from '../core/errors/app-error-codes'
 export class UnauthenticatedError extends AppError {
   constructor() {
     super({
-      httpCode: 401,
+      httpStatusCode: 401,
       code: AppErrorCodes.UNAUTHENTICATED,
       message: 'Unauthenticated. Provide a valid token and try again'
     })

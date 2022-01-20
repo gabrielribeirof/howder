@@ -1,23 +1,23 @@
 import { AppErrorCodes } from './app-error-codes'
 import { Violation } from './violation'
 
-type AppErrorProps = {
-  httpCode: number
+type AppErrorProperties = {
   code: AppErrorCodes
   message: string
   violations?: Violation[]
+  httpStatusCode: number
 }
 
 export abstract class AppError {
-  public httpCode: number
   public code: AppErrorCodes
   public message: string
   public violations?: Violation[]
+  public httpStatusCode: number
 
-  constructor({ httpCode, code, message, violations }: AppErrorProps) {
-    this.httpCode = httpCode
+  constructor({ code, message, violations, httpStatusCode }: AppErrorProperties) {
     this.code = code
     this.message = message
     this.violations = violations
+    this.httpStatusCode = httpStatusCode
   }
 }
