@@ -2,7 +2,7 @@ import http from 'http'
 import express, { Request, Response, NextFunction } from 'express'
 import { Logger } from '@shared/core/logger'
 
-import { ErrorsMapper } from '@shared/core/errors/errors-mapper'
+import { fail } from '@shared/utils/http-response.utils'
 import { NotFoundError } from '@shared/errors/not-found.error'
 import { InternalError } from '@shared/errors/internal.error'
 
@@ -42,16 +42,14 @@ export class HttpServer {
 
   private routes(): void {
     this.app.use('/api/v1', v1Router)
-    this.app.use('*', (request, response) => {
-      response.status(404).json(ErrorsMapper.toHTTP(new NotFoundError()))
-    })
+    this.app.use('*', (request, response) => fail(response, new NotFoundError()))
   }
 
   private exceptionsHandler(): void {
-    this.app.use((err: any, request: Request, response: Response, _: NextFunction): void => {
-      response.status(500).json(ErrorsMapper.toHTTP(new InternalError()))
-
+    this.app.use((err: any, request: Request, response: Response, _: NextFunction) => {
       this.logger.alert(err)
+
+      return fail(response, new InternalError())
     })
   }
 }
