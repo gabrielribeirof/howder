@@ -1,8 +1,16 @@
 import { User } from '../domain/user/user'
-
-import { UserEntity } from '@shared/infra/database/entities/user.entity'
+import { UserDTO } from '../dtos/user.dto'
+import { UserEntity } from '@shared/infra/typeorm/entities/user.entity'
 
 export class UserMapper {
+  public static toDTO(user: User): UserDTO {
+    return {
+      id: user.id.value,
+      name: user.name.value,
+      email: user.email.value
+    }
+  }
+
   public static toDomain(user: UserEntity): User {
     const result = User.create({
       name: user.name,
