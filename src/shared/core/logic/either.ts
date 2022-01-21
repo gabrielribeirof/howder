@@ -1,5 +1,5 @@
 export class Left<L, R> {
-  readonly value: L
+  public readonly value: L
 
   constructor(value: L) {
     this.value = value
@@ -15,7 +15,7 @@ export class Left<L, R> {
 }
 
 export class Right<L, R> {
-  readonly value: R
+  public readonly value: R
 
   constructor(value: R) {
     this.value = value
