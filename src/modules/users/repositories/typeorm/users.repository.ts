@@ -1,7 +1,10 @@
 import { Repository, getRepository } from 'typeorm'
 
 import { User } from '@modules/users/domain/user/user'
-import { UserEntity } from '@shared/infra/database/entities/user.entity'
+import { Name } from '@modules/users/domain/user/name'
+import { Email } from '@modules/users/domain/user/email'
+
+import { UserEntity } from '@shared/infra/typeorm/entities/user.entity'
 import { UserMapper } from '@modules/users/mappers/user.mapper'
 
 import { IUsersRepository } from '@modules/users/repositories/iuser.repository'
@@ -19,17 +22,17 @@ export class UsersRepository implements IUsersRepository {
     return user ? UserMapper.toDomain(user) : undefined
   }
 
-  public async findByName(name: string): Promise<User | undefined> {
+  public async findByName(name: Name): Promise<User | undefined> {
     const user = await this.ormRepository.findOne({
-      where: { name }
+      where: { name: name.value }
     })
 
     return user ? UserMapper.toDomain(user) : undefined
   }
 
-  public async findByEmail(email: string): Promise<User | undefined> {
+  public async findByEmail(email: Email): Promise<User | undefined> {
     const user = await this.ormRepository.findOne({
-      where: { email }
+      where: { email: email.value }
     })
 
     return user ? UserMapper.toDomain(user) : undefined
