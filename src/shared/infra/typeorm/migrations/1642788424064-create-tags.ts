@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateSettings1620181871917 implements MigrationInterface {
+export class CreateTag1642788424064 implements MigrationInterface {
   private table = new Table({
-    name: 'settings',
+    name: 'tags',
     columns: [
       {
         name: 'id',
@@ -10,12 +10,25 @@ export class CreateSettings1620181871917 implements MigrationInterface {
         isPrimary: true
       },
       {
-        name: 'setting_name',
+        name: 'name',
         type: 'varchar'
       },
       {
-        name: 'setting_value',
-        type: 'varchar'
+        name: 'author_id',
+        type: 'uuid'
+      },
+      {
+        name: 'created_at',
+        type: 'timestamp',
+        default: 'now()'
+      }
+    ],
+    foreignKeys: [
+      {
+        columnNames: ['author_id'],
+        referencedTableName: 'agents',
+        referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE'
       }
     ]
   })

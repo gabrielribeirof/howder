@@ -1,45 +1,31 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateChats1619420230896 implements MigrationInterface {
+export class CreateAgentTeams1619269431357 implements MigrationInterface {
   private table = new Table({
-    name: 'chats',
+    name: 'agent_teams',
     columns: [
       {
-        name: 'id',
-        type: 'uuid',
-        isPrimary: true
-      },
-      {
-        name: 'user_id',
+        name: 'agent_id',
         type: 'uuid'
       },
       {
-        name: 'agent_id',
-        type: 'uuid',
-        isNullable: true
-      },
-      {
-        name: 'open',
-        type: 'boolean',
-        default: true
-      },
-      {
-        name: 'created_at',
-        type: 'timestamp',
-        default: 'now()'
+        name: 'team_id',
+        type: 'uuid'
       }
     ],
     foreignKeys: [
       {
-        columnNames: ['user_id'],
-        referencedTableName: 'users',
-        referencedColumnNames: ['id'],
-        onUpdate: 'CASCADE'
-      },
-      {
         columnNames: ['agent_id'],
         referencedTableName: 'agents',
         referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      {
+        columnNames: ['team_id'],
+        referencedTableName: 'teams',
+        referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       }
     ]

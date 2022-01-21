@@ -1,41 +1,29 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateChatMessages1619430560865 implements MigrationInterface {
+export class CreateChatTags1642788783022 implements MigrationInterface {
   private table = new Table({
-    name: 'chat_messages',
+    name: 'chat_tags',
     columns: [
-      {
-        name: 'id',
-        type: 'uuid',
-        isPrimary: true
-      },
       {
         name: 'chat_id',
         type: 'uuid'
       },
       {
-        name: 'author_id',
+        name: 'tag_id',
         type: 'uuid'
-      },
-      {
-        name: 'author_type',
-        type: 'uuid',
-        enum: ['user', 'agent']
-      },
-      {
-        name: 'content',
-        type: 'varchar'
-      },
-      {
-        name: 'created_at',
-        type: 'timestamp',
-        default: 'now()'
       }
     ],
     foreignKeys: [
       {
         columnNames: ['chat_id'],
-        referencedTableName: 'chats',
+        referencedTableName: 'chat',
+        referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE',
+        onDelete: 'CASCADE'
+      },
+      {
+        columnNames: ['tag_id'],
+        referencedTableName: 'tags',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
