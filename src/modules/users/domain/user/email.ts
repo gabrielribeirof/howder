@@ -1,27 +1,26 @@
 import { ValueObject } from '@shared/core/domain/value-object'
-import { DomainError } from '@shared/core/errors/domain-error'
-
-import { Either, right, left } from '@shared/core/logic/either'
+import { Violation } from '@shared/core/errors/violation'
 import { Guard } from '@shared/core/logic/guard'
+import { Either, right, left } from '@shared/core/logic/either'
 
-import { RequiredError } from '@shared/core/errors/domain/required.error'
-import { MaxLengthError } from '@shared/core/errors/domain/max-length.error'
-import { InvalidEmailError } from '@shared/core/errors/domain/invalid-email.error'
+import { RequiredViolation } from '@shared/errors/violations/required.violation'
+import { MaxLengthViolation } from '@shared/errors/violations/max-length.violation'
+import { InvalidEmailViolation } from '@shared/errors/violations/invalid-email.violation'
 
-interface IEmailProps {
+interface EmailProperties {
   value: string
 }
 
-export class Email extends ValueObject<IEmailProps> {
+export class Email extends ValueObject<EmailProperties> {
   public get value(): string {
     return this.props.value
   }
 
-  private constructor(props: IEmailProps) {
+  private constructor(props: EmailProperties) {
     super(props)
   }
 
-  private static format(props: IEmailProps): IEmailProps {
+  private static format(props: EmailProperties): EmailProperties {
     return {
       value: props.value.trim().toLowerCase()
     }
@@ -32,21 +31,21 @@ export class Email extends ValueObject<IEmailProps> {
     return tester.test(email)
   }
 
-  public static create(props: IEmailProps): Either<DomainError, Email> {
+  public static create(props: EmailProperties): Either<Violation, Email> {
     const { value } = this.format(props)
 
     const nullOrUndefinedGuard = Guard.againstNullOrUndefined(value)
     if (!nullOrUndefinedGuard.succeeded) {
-      return left(new RequiredError('email', value))
+      return left(new RequiredViolation('email', value))
     }
 
-    const lengthGuard = Guard.atMost(320, value)
+    const lengthGuard = Guard.atMost(320, value.length)
     if (!lengthGuard.succeeded) {
-      return left(new MaxLengthError('email', value, 320))
+      return left(new MaxLengthViolation('email', value, 320))
     }
 
     if (!this.isValidEmail(value)) {
-      return left(new InvalidEmailError(value))
+      return left(new InvalidEmailViolation(value))
     }
 
     return right(new Email({ value }))

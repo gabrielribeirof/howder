@@ -1,23 +1,22 @@
 import { AggregateRoot } from '@shared/core/domain/aggregate-root'
 import { Identifier } from '@shared/core/domain/identifier'
-import { DomainError } from '@shared/core/errors/domain-error'
-
-import { Either, left, right, combine } from '@shared/core/logic/either'
+import { Violation } from '@shared/core/errors/violation'
+import { Either, left, right, combineLefts } from '@shared/core/logic/either'
 
 import { Name } from './name'
 import { Email } from './email'
 
-interface IUserProps {
+interface UserProps {
   name: Name
   email: Email
 }
 
-interface ICreateUserProps {
+interface CreateUserProps {
   name: string,
   email: string
 }
 
-export class User extends AggregateRoot<IUserProps> {
+export class User extends AggregateRoot<UserProps> {
   public get name(): Name {
     return this.props.name
   }
@@ -26,23 +25,21 @@ export class User extends AggregateRoot<IUserProps> {
     return this.props.email
   }
 
-  private constructor(props: IUserProps, id?: Identifier) {
+  private constructor(props: UserProps, id?: Identifier) {
     super(props, id)
   }
 
-  public static create(props: ICreateUserProps, id?: Identifier): Either<DomainError[], User> {
-    const name = Name.create({ value: props.name })
-    const email = Email.create({ value: props.email })
+  public static create(props: CreateUserProps, id?: Identifier): Either<Violation[], User> {
+    const nameOrError = Name.create({ value: props.name })
+    const emailOrError = Email.create({ value: props.email })
 
-    const result = combine([name, email])
-
-    if (result.isLeft()) {
-      return left(result.value)
+    if (nameOrError.isLeft() || emailOrError.isLeft()) {
+      return left(combineLefts(nameOrError, emailOrError))
     }
 
     return right(new User({
-      name: name.value as Name,
-      email: email.value as Email
+      name: nameOrError.value,
+      email: emailOrError.value
     }, id))
   }
 }
