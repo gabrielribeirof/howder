@@ -1,42 +1,40 @@
+import { AppError } from '@shared/core/errors/app-error'
 import { Either, left, right } from '@shared/core/logic/either'
-import { DomainError } from '@shared/core/errors/domain-error'
-import { ServiceError } from '@shared/core/errors/service-error'
 
-import { EmailAlreadyRegisteredError } from '@shared/core/errors/services/email-already-registered.error'
+import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
+import { EmailAlreadyRegisteredViolation } from '@shared/errors/violations/email-already-registered.violation'
 
 import { User } from '../domain/user/user'
 import { IUsersRepository } from '../repositories/iuser.repository'
 
-interface IRequest {
+type Request = {
   name: string
   email: string
 }
 
-type IResponse = Either<ServiceError[] | DomainError[], User>
-
 export class CreateUserService {
-  constructor(
-    private usersRepository: IUsersRepository
-  ) {}
+  constructor(private usersRepository: IUsersRepository) {}
 
-  public async execute({ name, email }: IRequest): Promise<IResponse> {
+  public async execute(request: Request): Promise<Either<AppError, User>> {
     const userOrError = User.create({
-      name,
-      email
+      name: request.name,
+      email: request.email
     })
 
     if (userOrError.isLeft()) {
-      return left(userOrError.value)
+      return left(new InvalidParameterError(userOrError.value))
     }
 
-    const emailExists = await this.usersRepository.findByEmail(email)
+    const user = userOrError.value
+
+    const emailExists = await this.usersRepository.findByEmail(user.email)
 
     if (emailExists) {
-      return left([new EmailAlreadyRegisteredError(emailExists.email.value)])
+      return left(new InvalidParameterError([
+        new EmailAlreadyRegisteredViolation(user.email.value)
+      ]))
     }
 
-    const user = await this.usersRepository.save(userOrError.value)
-
-    return right(user)
+    return right(await this.usersRepository.save(user))
   }
 }
