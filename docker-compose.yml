@@ -5,15 +5,15 @@ services:
     image: postgres:alpine
     container_name: database_container
     environment:
-      - POSTGRES_DB=support-chat
+      - POSTGRES_DB=howder
       - POSTGRES_USER=admin
       - POSTGRES_PASSWORD=development
     networks:
-      - chatter_network
+      - howder_network
     ports:
       - 5432:5432
 
 networks:
   chatter_network:
     driver: bridge
-    name: chatter_network
+    name: howder_network
