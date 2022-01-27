@@ -16,7 +16,7 @@ export class CreateChatTags1642788783022 implements MigrationInterface {
     foreignKeys: [
       {
         columnNames: ['chat_id'],
-        referencedTableName: 'chat',
+        referencedTableName: 'chats',
         referencedColumnNames: ['id'],
         onUpdate: 'CASCADE',
         onDelete: 'CASCADE'
