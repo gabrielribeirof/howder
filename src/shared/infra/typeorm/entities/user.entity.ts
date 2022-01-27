@@ -1,13 +1,20 @@
-import { Entity, Column, PrimaryColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, OneToMany } from 'typeorm'
+import { ChatEntity } from './chat.entity'
 
 @Entity('users')
 export class UserEntity {
   @PrimaryColumn('uuid')
-  id: string
+  public id: string
 
   @Column()
-  name: string
+  public name: string
 
   @Column()
-  email: string
+  public email: string
+
+  @OneToMany(() => ChatEntity, chat => chat.user)
+  public chats: ChatEntity[]
+
+  @CreateDateColumn()
+  public created_at: Date
 }
