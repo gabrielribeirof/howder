@@ -88,5 +88,3 @@ export class Logger {
     this.instance.debug(message)
   }
 }
-
-new Logger('Logger').info('oi')
