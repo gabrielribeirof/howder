@@ -1,18 +1,16 @@
 import { Logger } from '@shared/core/logger'
-import { Connection, getConnectionOptions, createConnection } from 'typeorm'
+import { Connection, createConnection } from 'typeorm'
 
 export class TypeORMConnection {
   private logger = new Logger(TypeORMConnection.name)
   private connection: Connection
 
   public async create(): Promise<void> {
-    const defaultOptions = await getConnectionOptions()
-
     const timer = setTimeout(() => {
       this.logger.emerg('Could not connect to database')
     }, 15000)
 
-    this.connection = await createConnection(defaultOptions)
+    this.connection = await createConnection()
 
     clearTimeout(timer)
 
