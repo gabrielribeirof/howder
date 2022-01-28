@@ -23,10 +23,12 @@ export class UserMapper {
   }
 
   public static toPersistence(user: User): UserEntity {
-    return {
-      id: user.id.value,
-      name: user.name.value,
-      email: user.email.value
-    }
+    const u = new UserEntity()
+
+    u.id = user.id.value
+    u.name = user.name.value
+    u.email = user.email.value
+
+    return u
   }
 }
