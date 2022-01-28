@@ -25,7 +25,7 @@ export class CreateChats1619420230896 implements MigrationInterface {
       },
       {
         name: 'created_at',
-        type: 'timestamp',
+        type: 'timestamptz',
         default: 'now()'
       }
     ],

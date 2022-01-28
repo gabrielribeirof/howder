@@ -27,7 +27,7 @@ export class CreateAgents1619224839850 implements MigrationInterface {
       },
       {
         name: 'created_at',
-        type: 'timestamp',
+        type: 'timestamptz',
         default: 'now()'
       }
     ]
