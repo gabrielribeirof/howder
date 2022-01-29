@@ -1,15 +1,13 @@
 import { Identifier } from './identifier'
 
-export abstract class Entity<T> {
+export abstract class Entity<Properties> {
   public readonly id: Identifier
-  public readonly props: T
 
-  constructor(props: T, id?: Identifier) {
+  constructor(id?: Identifier) {
     this.id = id || new Identifier()
-    this.props = props
   }
 
-  public equals(entity: Entity<T>): boolean {
+  public equals(entity: Entity<Properties>): boolean {
     if (this === entity) {
       return true
     }
