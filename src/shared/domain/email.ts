@@ -1,4 +1,3 @@
-import { ValueObject } from '@shared/core/domain/value-object'
 import { Violation } from '@shared/core/errors/violation'
 import { Guard } from '@shared/core/logic/guard'
 import { Either, right, left } from '@shared/core/logic/either'
@@ -7,23 +6,15 @@ import { RequiredViolation } from '@shared/errors/violations/required.violation'
 import { MaxLengthViolation } from '@shared/errors/violations/max-length.violation'
 import { InvalidEmailViolation } from '@shared/errors/violations/invalid-email.violation'
 
-interface EmailProperties {
-  value: string
-}
+export class Email {
+  public readonly value: string
 
-export class Email extends ValueObject<EmailProperties> {
-  public get value(): string {
-    return this.props.value
+  private constructor(email: string) {
+    this.value = email
   }
 
-  private constructor(props: EmailProperties) {
-    super(props)
-  }
-
-  private static format(props: EmailProperties): EmailProperties {
-    return {
-      value: props.value.trim().toLowerCase()
-    }
+  private static format(email: string): string {
+    return email.trim().toLowerCase()
   }
 
   private static isValidEmail(email: string): boolean {
@@ -31,8 +22,8 @@ export class Email extends ValueObject<EmailProperties> {
     return tester.test(email)
   }
 
-  public static create(props: EmailProperties): Either<Violation, Email> {
-    const { value } = this.format(props)
+  public static create(email: string): Either<Violation, Email> {
+    const value = this.format(email)
 
     const nullOrUndefinedGuard = Guard.againstNullOrUndefined(value)
     if (!nullOrUndefinedGuard.succeeded) {
@@ -48,6 +39,6 @@ export class Email extends ValueObject<EmailProperties> {
       return left(new InvalidEmailViolation(value))
     }
 
-    return right(new Email({ value }))
+    return right(new Email(value))
   }
 }

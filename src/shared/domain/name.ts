@@ -1,4 +1,3 @@
-import { ValueObject } from '@shared/core/domain/value-object'
 import { Violation } from '@shared/core/errors/violation'
 import { Guard } from '@shared/core/logic/guard'
 import { Either, right, left } from '@shared/core/logic/either'
@@ -6,27 +5,19 @@ import { Either, right, left } from '@shared/core/logic/either'
 import { RequiredViolation } from '@shared/errors/violations/required.violation'
 import { BadLengthViolation } from '@shared/errors/violations/bad-length.violation'
 
-interface NameProperties {
-  value: string
-}
+export class Name {
+  public readonly value: string
 
-export class Name extends ValueObject<NameProperties> {
-  public get value(): string {
-    return this.props.value
+  private constructor(name: string) {
+    this.value = name
   }
 
-  private constructor(props: NameProperties) {
-    super(props)
+  private static format(name: string): string {
+    return name.trim()
   }
 
-  private static format(props: NameProperties): NameProperties {
-    return {
-      value: props.value.trim()
-    }
-  }
-
-  public static create(props: NameProperties): Either<Violation, Name> {
-    const { value } = this.format(props)
+  public static create(name: string): Either<Violation, Name> {
+    const value = this.format(name)
 
     const nullOrUndefinedGuard = Guard.againstNullOrUndefined(value)
     if (!nullOrUndefinedGuard.succeeded) {
@@ -38,6 +29,6 @@ export class Name extends ValueObject<NameProperties> {
       return left(new BadLengthViolation('name', value, 2, 32))
     }
 
-    return right(new Name({ value }))
+    return right(new Name(value))
   }
 }
