@@ -1,7 +1,7 @@
 import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn } from 'typeorm'
 import { UserEntity } from './user.entity'
 import { AgentEntity } from './agent.entity'
-import { TagEntity } from './tag.entity'
+import { ChatTagEntity } from './chat-tag.entity'
 import { ChatMessageEntity } from './chat-message.entity'
 
 @Entity('chats')
@@ -26,13 +26,13 @@ export class ChatEntity {
   @OneToMany(() => ChatMessageEntity, chat_message => chat_message.chat_id)
   public messages: ChatMessageEntity[]
 
-  @ManyToMany(() => TagEntity, tag => tag.chats)
+  @ManyToMany(() => ChatTagEntity, chat_tag => chat_tag.chats)
   @JoinTable({
     name: 'chat_tags',
     joinColumn: { name: 'chat_id' },
     inverseJoinColumn: { name: 'tag_id' }
   })
-  public tags: TagEntity[]
+  public tags: ChatTagEntity[]
 
   @Column()
   public open: boolean

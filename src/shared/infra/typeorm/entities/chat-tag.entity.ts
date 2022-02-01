@@ -2,8 +2,8 @@ import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, ManyToMany,
 import { AgentEntity } from './agent.entity'
 import { ChatEntity } from './chat.entity'
 
-@Entity('tags')
-export class TagEntity {
+@Entity('chat-tags')
+export class ChatTagEntity {
   @PrimaryColumn('uuid')
   public id: string
 

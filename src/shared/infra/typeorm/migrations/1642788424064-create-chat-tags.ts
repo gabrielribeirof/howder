@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateTag1642788424064 implements MigrationInterface {
+export class CreateChatTag1642788424064 implements MigrationInterface {
   private table = new Table({
-    name: 'tags',
+    name: 'chat_tags',
     columns: [
       {
         name: 'id',
