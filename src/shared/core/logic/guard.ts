@@ -1,9 +1,12 @@
 export interface IGuardResult {
   succeeded: boolean
+  fail: boolean
 }
 
 function mountResult(expression: boolean): IGuardResult {
-  return expression ? { succeeded: true } : { succeeded: false }
+  return expression
+    ? { succeeded: true, fail: false }
+    : { succeeded: false, fail: true }
 }
 
 export class Guard {
