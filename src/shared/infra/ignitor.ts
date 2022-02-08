@@ -1,5 +1,6 @@
 import 'reflect-metadata'
 import dotenv from 'dotenv'
+import appRootPath from 'app-root-path'
 
 import { I18n } from './i18n'
 import { TypeORMConnection } from './typeorm/connection'
@@ -13,7 +14,7 @@ const logger = new Logger('Ignitor')
 
 async function ignitor(): Promise<void> {
   process.env.NODE_ENV === 'production'
-    ? dotenv.config({ path: '.env.production' })
+    ? dotenv.config({ path: `${appRootPath}/.env.production` })
     : dotenv.config()
 
   const i18N = new I18n()
