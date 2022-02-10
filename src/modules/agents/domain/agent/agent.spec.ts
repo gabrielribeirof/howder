@@ -1,14 +1,17 @@
 import { Agent } from './agent'
 
 describe('Agent aggregate root', () => {
-  it('should be able to create new agent', async () => {
-    const agentOrError = Agent.create({
+  it('should be able to create new agent', () => {
+    const agentResult = Agent.create({
       name: 'John Doe',
       email: 'valid@email.com',
-      admin: false,
-      password: '123456'
+      is_admin: false,
+      password: {
+        value: '123456',
+        hashed: false
+      }
     })
 
-    expect(agentOrError.isRight()).toBeTruthy()
+    expect(agentResult.isRight()).toBeTruthy()
   })
 })

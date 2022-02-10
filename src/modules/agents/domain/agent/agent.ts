@@ -3,52 +3,57 @@ import { Identifier } from '@shared/core/domain/identifier'
 import { Violation } from '@shared/core/errors/violation'
 import { combineLefts, Either, left, right } from '@shared/core/logic/either'
 
+import { AgentData } from './agent-data'
+
 import { Name } from '@shared/domain/name'
 import { Email } from '@shared/domain/email'
 import { Password } from './password'
 
-interface AgentProps {
+interface AgentProperties {
   name: Name
   email: Email
   password: Password
-  admin: boolean
+  is_admin: boolean
 }
 
-interface AgentData {
-  name: string
-  email: string
-  password: string
-  admin: boolean
-}
-
-export class Agent extends AggregateRoot<AgentProps> {
-  public readonly name: Name
-  public readonly email: Email
-  public readonly password: Password
-  public readonly admin: boolean
-
-  private constructor(props: AgentProps, id?: Identifier) {
-    super(id)
-    this.name = props.name
-    this.email = props.email
-    this.password = props.password
-    this.admin = props.admin
+export class Agent extends AggregateRoot<AgentProperties> {
+  public get name(): Name {
+    return this.properties.name
   }
 
-  public static create(props: AgentData, id?: Identifier): Either<Violation[], Agent> {
-    const nameOrError = Name.create(props.name)
-    const emailOrError = Email.create(props.email)
-    const passwordOrError = Password.create({ value: props.password })
+  public get email(): Email {
+    return this.properties.email
+  }
 
-    if (nameOrError.isLeft() || emailOrError.isLeft() || passwordOrError.isLeft()) {
-      return left(combineLefts(nameOrError, emailOrError, passwordOrError))
+  public get password(): Password {
+    return this.properties.password
+  }
+
+  public get is_admin(): boolean {
+    return this.properties.is_admin
+  }
+
+  private constructor(properties: AgentProperties, id?: Identifier) {
+    super(properties, id)
+  }
+
+  public static create(data: AgentData, id?: Identifier): Either<Violation[], Agent> {
+    const nameResult = Name.create(data.name)
+    const emailResult = Email.create(data.email)
+    const passwordResult = Password.create({
+      value: data.password.value,
+      hashed: data.password.hashed
+    })
+
+    if (nameResult.isLeft() || emailResult.isLeft() || passwordResult.isLeft()) {
+      return left(combineLefts(nameResult, emailResult, passwordResult))
     }
 
     return right(new Agent({
-      name: nameOrError.value,
-      email: emailOrError.value,
-      password: passwordOrError.value,
-      admin: props.admin
+      name: nameResult.value,
+      email: emailResult.value,
+      password: passwordResult.value,
+      is_admin: data.is_admin
     }, id))
   }
 }

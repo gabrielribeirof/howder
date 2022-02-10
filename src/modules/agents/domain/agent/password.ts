@@ -1,4 +1,5 @@
 import bcrypt from 'bcryptjs'
+import { ValueObject } from '@shared/core/domain/value-object'
 
 import { Violation } from '@shared/core/errors/violation'
 import { Guard } from '@shared/core/logic/guard'
@@ -9,16 +10,20 @@ import { BadLengthViolation } from '@shared/errors/violations/bad-length.violati
 
 interface PasswordProperties {
   value: string
-  hashed?: boolean
+  hashed: boolean
 }
 
-export class Password {
-  public readonly value: string
-  public readonly hashed?: boolean
+export class Password extends ValueObject<PasswordProperties> {
+  public get value(): string {
+    return this.properties.value
+  }
 
-  private constructor(props: PasswordProperties) {
-    this.value = props.value
-    this.hashed = props.hashed
+  public get hashed(): boolean {
+    return this.properties.hashed
+  }
+
+  private constructor(properties: PasswordProperties) {
+    super(properties)
   }
 
   public async getHashedValue(): Promise<string> {
@@ -39,18 +44,20 @@ export class Password {
     return hashedPassword === plainTextPassword
   }
 
-  public static create({ value, hashed = false }: PasswordProperties): Either<Violation, Password> {
-    if (!Guard.againstNullOrUndefined(value).succeeded) {
-      return left(new RequiredViolation('password', value))
+  public static create(data: PasswordProperties): Either<Violation, Password> {
+    if (Guard.againstNullOrUndefined(data.value).fail) {
+      return left(new RequiredViolation('password', data.value))
     }
 
-    if (!hashed) {
-      const lengthGuard = Guard.inRange(value.length, 6, 128)
-      if (!lengthGuard.succeeded) {
-        return left(new BadLengthViolation('password', value, 6, 128))
+    if (!data.hashed) {
+      if (Guard.inRange(data.value.length, 6, 128).fail) {
+        return left(new BadLengthViolation('password', data.value, 6, 128))
       }
     }
 
-    return right(new Password({ value, hashed }))
+    return right(new Password({
+      value: data.value,
+      hashed: data.hashed
+    }))
   }
 }
