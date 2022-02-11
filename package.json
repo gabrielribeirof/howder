@@ -3,14 +3,13 @@
   "version": "1.0.0",
   "description": "Business real-time support messenger",
   "private": true,
-  "main": "src/shared/infra/ignitor.ts",
+  "main": "src/bin/ignitor.ts",
   "repository": "https://github.com/gabrielribeirof/howder",
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules src/shared/infra/ignitor.ts",
+    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules .",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
-    "typeorm:migration:run": "yarn typeorm migration:run",
     "test": "jest"
   },
   "dependencies": {
