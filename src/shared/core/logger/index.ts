@@ -57,7 +57,7 @@ export class Logger {
   public emerg(message: any): void {
     this.instance.emerg(message)
 
-    process.exit()
+    process.kill(process.pid, 'SIGTERM')
   }
 
   public alert(message: string): void {
