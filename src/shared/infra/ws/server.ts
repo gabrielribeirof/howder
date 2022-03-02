@@ -7,7 +7,9 @@ export class WsServer {
   private logger = new Logger(WsServer.name)
   private server: SocketIOServer
 
-  public create(httpServer: http.Server): SocketIOServer {
+  public create(httpServer?: http.Server): SocketIOServer {
+    if (!httpServer) this.logger.emerg('Undefined HTTP Server instance')
+
     this.server = new SocketIOServer(httpServer, {
       cors: {
         origin: '*'
@@ -19,15 +21,15 @@ export class WsServer {
     return this.server
   }
 
-  public instance(): SocketIOServer | undefined {
-    if (this.server) {
-      return this.server
-    }
-
-    return undefined
+  public get instance(): SocketIOServer | undefined {
+    return this.server
   }
 
   public close(): void {
-    this.server && this.server.close()
+    if (!this.instance) return
+
+    this.instance.disconnectSockets()
+
+    this.logger.info('Server closed')
   }
 }

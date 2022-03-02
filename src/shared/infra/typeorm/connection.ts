@@ -1,33 +1,33 @@
-import { Logger } from '@shared/core/logger'
 import { Connection, createConnection } from 'typeorm'
+import { Logger } from '@shared/core/logger'
 
 export class TypeORMConnection {
   private logger = new Logger(TypeORMConnection.name)
   private connection: Connection
 
-  public async create(): Promise<void> {
-    const timer = setTimeout(() => {
-      this.logger.emerg('Could not connect to database')
-    }, 15000)
-
+  public async create(): Promise<Connection> {
     this.connection = await createConnection()
 
-    clearTimeout(timer)
-
     this.logger.info('Connection created')
+
+    return this.connection
   }
 
-  public async instance(): Promise<Connection> {
-    if (this.connection) {
-      return this.connection
-    } else {
-      await this.create()
-
-      return this.connection
-    }
+  public get instance(): Connection | undefined {
+    return this.connection
   }
 
-  public close(): void {
-    this.connection.isConnected && this.connection.close()
+  public close(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      if (!this.instance || !this.instance.isConnected) {
+        return reject(new Error('Undefined or not connected instance'))
+      }
+
+      this.instance.close().then(() => {
+        this.logger.info('Connection closed')
+
+        resolve()
+      })
+    })
   }
 }
