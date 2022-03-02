@@ -8,9 +8,13 @@
   "author": "gabrielribeirof <ogabrielribeirof@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --inspect --transpile-only --ignore-watch node_modules .",
+    "start": "cross-env NODE_ENV=production node dist/bin/ignitor.js",
+    "dev": "cross-env NODE_ENV=development tsnd -r tsconfig-paths/register --rs --quiet --transpile-only --ignore-watch node_modules .",
+    "build": "babel src --extensions \".ts\" --out-dir dist --copy-files",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
-    "test": "jest"
+    "lint": "eslint src --ext ts,tsx",
+    "test": "jest",
+    "migrate": "yarn typeorm migration:run"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
@@ -30,6 +34,12 @@
     "winston": "^3.3.3"
   },
   "devDependencies": {
+    "@babel/cli": "^7.17.6",
+    "@babel/core": "^7.17.5",
+    "@babel/plugin-proposal-class-properties": "^7.16.7",
+    "@babel/plugin-proposal-decorators": "^7.17.2",
+    "@babel/preset-env": "^7.16.11",
+    "@babel/preset-typescript": "^7.16.7",
     "@types/app-root-path": "^1.2.4",
     "@types/bcryptjs": "^2.4.2",
     "@types/express": "^4.17.11",
@@ -40,6 +50,8 @@
     "@types/uuid": "^8.3.0",
     "@typescript-eslint/eslint-plugin": "^4.22.0",
     "@typescript-eslint/parser": "^4.22.0",
+    "babel-plugin-module-resolver": "^4.1.0",
+    "babel-plugin-transform-typescript-metadata": "^0.3.2",
     "cross-env": "^7.0.3",
     "eslint": "^7.25.0",
     "eslint-config-standard": "^16.0.2",
