@@ -4,23 +4,22 @@ import { Logger } from '@shared/core/logger'
 type BeforeShutdownHandler = () => Promise<void>
 
 const SHUTDOWN_SIGNALS: Array<keyof SignalConstants> = ['SIGINT', 'SIGTERM']
-let beforeShutdownHandler: BeforeShutdownHandler
 
-async function shutdownListener(signal: string): Promise<void> {
+async function shutdownListener(signal: string, handler: BeforeShutdownHandler): Promise<void> {
   const logger = new Logger('Shutdown Listener')
   logger.alert(`Shutting down: ${signal} signal received`)
 
   try {
-    await beforeShutdownHandler()
+    await handler()
+
+    process.exit(0)
   } catch (error) {
     logger.alert(`Handler failed before completing: ${error}`)
   }
-
-  process.exit(0)
 }
 
 export function beforeShutdown(handler: BeforeShutdownHandler): void {
-  beforeShutdownHandler = handler
-
-  SHUTDOWN_SIGNALS.forEach(signal => process.once(signal, shutdownListener))
+  SHUTDOWN_SIGNALS.forEach(signal => process.once(signal, () => {
+    shutdownListener(signal, handler)
+  }))
 }
