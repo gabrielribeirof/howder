@@ -1,11 +1,12 @@
-import { AppError } from '../core/errors/app-error'
-import { AppErrorCodes } from '../core/errors/app-error-codes'
+import { AppError } from '@shared/core/errors/app-error'
+import { AppErrorCodes } from '@shared/core/errors/app-error-codes'
+import { HTTPStatus } from '@shared/infra/http/status'
 
 export class UnauthenticatedError extends AppError {
   constructor() {
     super({
-      httpStatusCode: 401,
       code: AppErrorCodes.UNAUTHENTICATED,
+      httpStatus: HTTPStatus.UNAUTHORIZED,
       message: 'Unauthenticated. Provide a valid token and try again'
     })
   }

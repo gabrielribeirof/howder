@@ -1,11 +1,12 @@
-import { AppError } from '../core/errors/app-error'
-import { AppErrorCodes } from '../core/errors/app-error-codes'
+import { AppError } from '@shared/core/errors/app-error'
+import { AppErrorCodes } from '@shared/core/errors/app-error-codes'
+import { HTTPStatus } from '@shared/infra/http/status'
 
 export class NotFoundError extends AppError {
   constructor() {
     super({
-      httpStatusCode: 404,
       code: AppErrorCodes.NOT_FOUND,
+      httpStatus: HTTPStatus.NOT_FOUND,
       message: 'Resource not found'
     })
   }

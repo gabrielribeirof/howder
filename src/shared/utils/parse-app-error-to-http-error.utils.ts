@@ -1,10 +1,10 @@
 import i18next from 'i18next'
 import { AppError } from '@shared/core/errors/app-error'
-import { HTTPError } from '@shared/core/errors/http-error'
+import { HTTPError } from '@shared/infra/http/error'
 
 export function parseAppErrorToHTTPError(appError: AppError): HTTPError {
   return {
-    status: appError.httpStatusCode,
+    status: appError.httpStatus,
     code: appError.code,
     message: appError.message,
     violations: appError.violations?.map(value => {

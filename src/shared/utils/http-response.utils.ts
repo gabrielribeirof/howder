@@ -8,5 +8,5 @@ export function ok(expressResponse: Response, payload?: string): Response {
 }
 
 export function fail(expressResponse: Response, payload: AppError): Response {
-  return expressResponse.status(payload.httpStatusCode).json(parseAppErrorToHTTPError(payload))
+  return expressResponse.status(Number(payload.httpStatus)).json(parseAppErrorToHTTPError(payload))
 }

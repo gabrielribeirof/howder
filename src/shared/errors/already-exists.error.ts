@@ -1,12 +1,13 @@
-import { AppError } from '../core/errors/app-error'
-import { AppErrorCodes } from '../core/errors/app-error-codes'
-import { Violation } from '../core/errors/violation'
+import { AppError } from '@shared/core/errors/app-error'
+import { AppErrorCodes } from '@shared/core/errors/app-error-codes'
+import { Violation } from '@shared/core/errors/violation'
+import { HTTPStatus } from '@shared/infra/http/status'
 
 export class AlreadyExistsError extends AppError {
   constructor(violations?: Violation[]) {
     super({
-      httpStatusCode: 409,
       code: AppErrorCodes.ALREADY_EXISTS,
+      httpStatus: HTTPStatus.CONFLICT,
       message: 'Resource already exists',
       violations
     })

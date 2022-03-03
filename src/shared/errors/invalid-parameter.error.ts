@@ -1,12 +1,13 @@
-import { AppError } from '../core/errors/app-error'
-import { AppErrorCodes } from '../core/errors/app-error-codes'
-import { Violation } from '../core/errors/violation'
+import { AppError } from '@shared/core/errors/app-error'
+import { AppErrorCodes } from '@shared/core/errors/app-error-codes'
+import { Violation } from '@shared/core/errors/violation'
+import { HTTPStatus } from '@shared/infra/http/status'
 
 export class InvalidParameterError extends AppError {
   constructor(violations?: Violation[]) {
     super({
-      httpStatusCode: 400,
       code: AppErrorCodes.INVALID_PARAMETER,
+      httpStatus: HTTPStatus.BAD_REQUEST,
       message: 'Invalid parameter passed',
       violations
     })

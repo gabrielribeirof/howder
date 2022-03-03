@@ -1,11 +1,12 @@
-import { AppError } from '../core/errors/app-error'
-import { AppErrorCodes } from '../core/errors/app-error-codes'
+import { AppError } from '@shared/core/errors/app-error'
+import { AppErrorCodes } from '@shared/core/errors/app-error-codes'
+import { HTTPStatus } from '@shared/infra/http/status'
 
 export class InternalError extends AppError {
   constructor() {
     super({
-      httpStatusCode: 500,
       code: AppErrorCodes.INTERNAL,
+      httpStatus: HTTPStatus.INTERNAL_SERVER_ERROR,
       message: 'Internal Server Error'
     })
   }

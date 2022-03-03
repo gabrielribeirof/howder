@@ -1,11 +1,12 @@
-import { AppError } from '../core/errors/app-error'
-import { AppErrorCodes } from '../core/errors/app-error-codes'
+import { AppError } from '@shared/core/errors/app-error'
+import { AppErrorCodes } from '@shared/core/errors/app-error-codes'
+import { HTTPStatus } from '@shared/infra/http/status'
 
 export class UnauthorizedError extends AppError {
   constructor() {
     super({
-      httpStatusCode: 403,
       code: AppErrorCodes.UNAUTHORIZED,
+      httpStatus: HTTPStatus.FORBIDDEN,
       message: 'You lack permissions to perform that action'
     })
   }
