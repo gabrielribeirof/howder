@@ -1,7 +1,7 @@
 import { Agent } from './agent'
 
 describe('Agent aggregate root', () => {
-  it('should be able to create new agent', () => {
+  it('should create new agent', () => {
     const agentResult = Agent.create({
       name: 'John Doe',
       email: 'valid@email.com',
