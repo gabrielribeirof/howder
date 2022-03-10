@@ -7,7 +7,7 @@ import { ChatData } from './chat-data'
 
 interface ChatProperties {
   user_id: Identifier
-  agent_id: Identifier
+  agent_id?: Identifier
   is_open: boolean
 }
 
@@ -16,7 +16,7 @@ export class Chat extends AggregateRoot<ChatProperties> {
     return this.properties.user_id
   }
 
-  public get agent_id(): Identifier {
+  public get agent_id(): Identifier | undefined {
     return this.properties.agent_id
   }
 
@@ -42,8 +42,8 @@ export class Chat extends AggregateRoot<ChatProperties> {
 
   public static create(properties: ChatData, id?: Identifier): Either<Violation[], Chat> {
     const user_id = new Identifier(properties.user_id)
-    const agent_id = new Identifier(properties.agent_id)
-    const is_open = properties.is_open
+    const agent_id = properties.agent_id ? new Identifier(properties.agent_id) : undefined
+    const is_open = properties.is_open ?? true
 
     return right(new Chat({
       user_id,
