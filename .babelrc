@@ -10,7 +10,8 @@
       "alias": {
         "@modules": "./src/modules",
         "@config": "./src/config",
-        "@shared": "./src/shared"
+        "@shared": "./src/shared",
+        "@test": "./src/test"
       }
     }],
     "babel-plugin-transform-typescript-metadata",
