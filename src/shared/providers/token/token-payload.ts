@@ -1,6 +1,6 @@
 export type TokenPayload = {
-  iat: number
-  exp: number
-  sub: string
+  issued_at: number
+  expires_in: number
+  subject: string
   bearer: 'user' | 'agent'
 }
