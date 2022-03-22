@@ -27,10 +27,10 @@ export class Guard {
   }
 
   public static isOneOf(value: string | number, validValues: (number | string)[]): IGuardResult {
-    let isValid = true
+    let isValid = false
     for (const validValue of validValues) {
-      if (value !== validValue) {
-        isValid = false
+      if (value === validValue) {
+        isValid = true
         break
       }
     }
