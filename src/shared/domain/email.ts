@@ -20,17 +20,19 @@ export class Email extends ValueObject<EmailProperties> {
     super(properties)
   }
 
-  private static format(data: string): string {
-    return data.trim().toLowerCase()
+  private static format(properties: EmailProperties): EmailProperties {
+    return {
+      value: properties.value.trim().toLowerCase()
+    }
   }
 
-  private static isValidEmail(data: string): boolean {
+  private static isValidEmail(properties: EmailProperties): boolean {
     const tester = /^[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~](\.?[-!#$%&'*+/0-9=?A-Z^_a-z`{|}~])*@[a-zA-Z0-9](-*\.?[a-zA-Z0-9])*\.[a-zA-Z](-?[a-zA-Z0-9])+$/
-    return tester.test(data)
+    return tester.test(properties.value)
   }
 
-  public static create(data: string): Either<Violation, Email> {
-    const value = this.format(data)
+  public static create(properties: EmailProperties): Either<Violation, Email> {
+    const { value } = this.format({ value: properties.value })
 
     const nullOrUndefinedGuard = Guard.againstNullOrUndefined(value)
     if (!nullOrUndefinedGuard.succeeded) {
@@ -42,7 +44,7 @@ export class Email extends ValueObject<EmailProperties> {
       return left(new MaxLengthViolation('email', value, 320))
     }
 
-    if (!this.isValidEmail(value)) {
+    if (!this.isValidEmail({ value })) {
       return left(new InvalidEmailViolation(value))
     }
 

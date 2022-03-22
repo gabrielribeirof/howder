@@ -5,13 +5,13 @@ import { Name } from './name'
 
 describe('Name value object', () => {
   it('should accept valid name', () => {
-    const nameResult = Name.create('John Doe')
+    const name = Name.create({ value: 'John Doe' })
 
-    expect(nameResult.isRight()).toBeTruthy()
+    expect(name.isRight()).toBeTruthy()
   })
 
   it('should reject name with less than 2 characters', () => {
-    const nameResult = Name.create('n')
+    const nameResult = Name.create({ value: 'n' })
 
     expect(nameResult).toEqual(
       left(new BadLengthViolation('name', 'n', 2, 32))
@@ -21,7 +21,7 @@ describe('Name value object', () => {
   it('should reject name with more than 32 characters', () => {
     const value = 'n'.repeat(35)
 
-    const nameResult = Name.create(value)
+    const nameResult = Name.create({ value })
 
     expect(nameResult).toEqual(
       left(new BadLengthViolation('name', value, 2, 32))

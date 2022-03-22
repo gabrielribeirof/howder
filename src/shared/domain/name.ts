@@ -19,12 +19,14 @@ export class Name extends ValueObject<NameProperties> {
     super(properties)
   }
 
-  private static format(data: string): string {
-    return data.trim()
+  private static format(properties: NameProperties): NameProperties {
+    return {
+      value: properties.value.trim()
+    }
   }
 
-  public static create(data: string): Either<Violation, Name> {
-    const value = this.format(data)
+  public static create(properties: NameProperties): Either<Violation, Name> {
+    const { value } = this.format({ value: properties.value })
 
     if (Guard.againstNullOrUndefined(value).fail) {
       return left(new RequiredViolation('name', value))
