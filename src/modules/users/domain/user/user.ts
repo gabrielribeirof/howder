@@ -1,9 +1,7 @@
 import { AggregateRoot } from '@shared/core/domain/aggregate-root'
 import { Identifier } from '@shared/core/domain/identifier'
 import { Violation } from '@shared/core/errors/violation'
-import { Either, left, right, combineLefts } from '@shared/core/logic/either'
-
-import { UserData } from './user-data'
+import { Either, right } from '@shared/core/logic/either'
 
 import { Name } from '@shared/domain/name'
 import { Email } from '@shared/domain/email'
@@ -11,6 +9,7 @@ import { Email } from '@shared/domain/email'
 interface UserProperties {
   name: Name
   email: Email
+  workspace_id: Identifier
 }
 
 export class User extends AggregateRoot<UserProperties> {
@@ -22,21 +21,19 @@ export class User extends AggregateRoot<UserProperties> {
     return this.properties.email
   }
 
+  public get workspace_id(): Identifier {
+    return this.properties.workspace_id
+  }
+
   private constructor(properties: UserProperties, id?: Identifier) {
     super(properties, id)
   }
 
-  public static create(data: UserData, id?: Identifier): Either<Violation[], User> {
-    const nameResult = Name.create(data.name)
-    const emailResult = Email.create(data.email)
-
-    if (nameResult.isLeft() || emailResult.isLeft()) {
-      return left(combineLefts(nameResult, emailResult))
-    }
-
+  public static create(properties: UserProperties, id?: Identifier): Either<Violation[], User> {
     return right(new User({
-      name: nameResult.value,
-      email: emailResult.value
+      name: properties.name,
+      email: properties.email,
+      workspace_id: properties.workspace_id
     }, id))
   }
 }
