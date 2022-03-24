@@ -3,11 +3,15 @@ import { Identifier } from '@shared/core/domain/identifier'
 import { Violation } from '@shared/core/errors/violation'
 import { Either, right } from '@shared/core/logic/either'
 
-import { ChatData } from './chat-data'
+import { Member } from '@modules/workspaces/domain/member/member'
+import { ChatTag } from './chat-tag'
+import { ChatTags } from './chat-tags'
 
 interface ChatProperties {
   user_id: Identifier
-  agent_id?: Identifier
+  member_id?: Identifier
+  workspace_id: Identifier
+  tags: ChatTags
   is_open: boolean
 }
 
@@ -16,8 +20,16 @@ export class Chat extends AggregateRoot<ChatProperties> {
     return this.properties.user_id
   }
 
-  public get agent_id(): Identifier | undefined {
-    return this.properties.agent_id
+  public get member_id(): Identifier | undefined {
+    return this.properties.member_id
+  }
+
+  public get workspace_id(): Identifier {
+    return this.properties.workspace_id
+  }
+
+  public get tags(): ChatTags {
+    return this.properties.tags
   }
 
   public get is_open(): boolean {
@@ -40,15 +52,33 @@ export class Chat extends AggregateRoot<ChatProperties> {
     }
   }
 
-  public static create(properties: ChatData, id?: Identifier): Either<Violation[], Chat> {
-    const user_id = new Identifier(properties.user_id)
-    const agent_id = properties.agent_id ? new Identifier(properties.agent_id) : undefined
-    const is_open = properties.is_open ?? true
+  public addTag(chatTag: ChatTag): void {
+    this.properties.tags.add(chatTag)
+  }
 
+  public removeTag(chatTag: ChatTag): void {
+    this.properties.tags.remove(chatTag)
+  }
+
+  public assignMember(member: Member): void {
+    if (!this.member_id) {
+      this.properties.member_id = member.id
+    }
+  }
+
+  public unassignMember(): void {
+    if (this.member_id) {
+      this.properties.member_id = undefined
+    }
+  }
+
+  public static create(properties: ChatProperties, id?: Identifier): Either<Violation[], Chat> {
     return right(new Chat({
-      user_id,
-      agent_id,
-      is_open
+      user_id: properties.user_id,
+      member_id: properties.member_id,
+      workspace_id: properties.workspace_id,
+      tags: properties.tags,
+      is_open: properties.is_open
     }, id))
   }
 }
