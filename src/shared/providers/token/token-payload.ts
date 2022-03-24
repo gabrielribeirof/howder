@@ -1,6 +1,8 @@
+import { BearerType } from '@shared/core/domain/bearer-type'
+
 export type TokenPayload = {
   issued_at: number
   expires_in: number
   subject: string
-  bearer: 'user' | 'agent'
+  bearer_type: BearerType
 }
