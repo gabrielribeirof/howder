@@ -4,7 +4,7 @@ import { Either, left, right } from '@shared/core/logic/either'
 
 import { ChoicesViolation } from '@shared/errors/violations/choices.violation'
 
-export type AuthorTypeValue = 'user' | 'agent'
+export type AuthorTypeValue = 'user' | 'member'
 
 interface AuthorTypeProperties {
   value: AuthorTypeValue
@@ -23,15 +23,15 @@ export class AuthorType extends ValueObject<AuthorTypeProperties> {
     return this.value === 'user'
   }
 
-  public isAgent(): boolean {
-    return this.value === 'agent'
+  public isMember(): boolean {
+    return this.value === 'member'
   }
 
-  public static create(data: string): Either<Violation, AuthorType> {
-    if (data === 'user' || data === 'agent') {
-      return right(new AuthorType({ value: data }))
+  public static create({ value }: AuthorTypeProperties): Either<Violation, AuthorType> {
+    if (value === 'user' || value === 'member') {
+      return right(new AuthorType({ value: value }))
     }
 
-    return left(new ChoicesViolation('author_type', data, ['user', 'agent']))
+    return left(new ChoicesViolation('author_type', value, ['user', 'member']))
   }
 }
