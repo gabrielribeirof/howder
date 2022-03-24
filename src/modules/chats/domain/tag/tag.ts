@@ -1,41 +1,47 @@
 import { AggregateRoot } from '@shared/core/domain/aggregate-root'
 import { Identifier } from '@shared/core/domain/identifier'
 import { Violation } from '@shared/core/errors/violation'
-import { Either, left, right } from '@shared/core/logic/either'
-
-import { ChatTagData } from './tag-data'
+import { Either, right } from '@shared/core/logic/either'
 
 import { Name } from '@shared/domain/name'
 
-interface ChatTagProperties {
+interface TagProperties {
   name: Name
-  author_id: Identifier
+  creator_id: Identifier
+  workspace_id: Identifier
 }
 
-export class ChatTag extends AggregateRoot<ChatTagProperties> {
+export class Tag extends AggregateRoot<TagProperties> {
   public get name(): Name {
     return this.properties.name
   }
 
-  public get author_id(): Identifier {
-    return this.properties.author_id
+  public set name(name: Name) {
+    this.properties.name = name
   }
 
-  private constructor(properties: ChatTagProperties, id?: Identifier) {
+  public get creator_id(): Identifier {
+    return this.properties.creator_id
+  }
+
+  public get workspace_id(): Identifier {
+    return this.properties.workspace_id
+  }
+
+  private constructor(properties: TagProperties, id?: Identifier) {
     super(properties, id)
   }
 
-  public static create(properties: ChatTagData, id?: Identifier): Either<Violation[], ChatTag> {
-    const nameResult = Name.create(properties.name)
-    const author_id = new Identifier(properties.author_id)
+  public changeName(properties: TagProperties): void {
+    this.properties.name = properties.name
+    this.properties.creator_id = properties.creator_id
+  }
 
-    if (nameResult.isLeft()) {
-      return left([nameResult.value])
-    }
-
-    return right(new ChatTag({
-      name: nameResult.value,
-      author_id
+  public static create(properties: TagProperties, id?: Identifier): Either<Violation[], Tag> {
+    return right(new Tag({
+      name: properties.name,
+      creator_id: properties.creator_id,
+      workspace_id: properties.workspace_id
     }, id))
   }
 }
