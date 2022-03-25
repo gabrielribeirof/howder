@@ -1,16 +1,35 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateChatTags1642788783022 implements MigrationInterface {
+export class CreateMessages1619430560865 implements MigrationInterface {
   private table = new Table({
-    name: 'chat_tags',
+    name: 'messages',
     columns: [
+      {
+        name: 'id',
+        type: 'uuid',
+        isPrimary: true
+      },
       {
         name: 'chat_id',
         type: 'uuid'
       },
       {
-        name: 'tag_id',
+        name: 'author_id',
         type: 'uuid'
+      },
+      {
+        name: 'author_type',
+        type: 'uuid',
+        enum: ['user', 'member']
+      },
+      {
+        name: 'content',
+        type: 'varchar'
+      },
+      {
+        name: 'created_at',
+        type: 'timestamptz',
+        default: 'now()'
       }
     ],
     foreignKeys: [
@@ -18,15 +37,8 @@ export class CreateChatTags1642788783022 implements MigrationInterface {
         columnNames: ['chat_id'],
         referencedTableName: 'chats',
         referencedColumnNames: ['id'],
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
-      },
-      {
-        columnNames: ['tag_id'],
-        referencedTableName: 'tags',
-        referencedColumnNames: ['id'],
-        onUpdate: 'CASCADE',
-        onDelete: 'CASCADE'
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       }
     ]
   })

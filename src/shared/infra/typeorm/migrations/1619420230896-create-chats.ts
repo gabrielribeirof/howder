@@ -14,12 +14,16 @@ export class CreateChats1619420230896 implements MigrationInterface {
         type: 'uuid'
       },
       {
-        name: 'agent_id',
+        name: 'member_id',
         type: 'uuid',
         isNullable: true
       },
       {
-        name: 'open',
+        name: 'workspace_id',
+        type: 'uuid'
+      },
+      {
+        name: 'is_open',
         type: 'boolean',
         default: true
       },
@@ -37,9 +41,16 @@ export class CreateChats1619420230896 implements MigrationInterface {
         onUpdate: 'CASCADE'
       },
       {
-        columnNames: ['agent_id'],
-        referencedTableName: 'agents',
+        columnNames: ['member_id'],
+        referencedTableName: 'members',
         referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE'
+      },
+      {
+        columnNames: ['workspace_id'],
+        referencedTableName: 'workspaces',
+        referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       }
     ]

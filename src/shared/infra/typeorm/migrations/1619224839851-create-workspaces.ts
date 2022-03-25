@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateAgents1619224839850 implements MigrationInterface {
+export class CreateWorkspaces1619224839851 implements MigrationInterface {
   private table = new Table({
-    name: 'agents',
+    name: 'workspaces',
     columns: [
       {
         name: 'id',
@@ -14,17 +14,22 @@ export class CreateAgents1619224839850 implements MigrationInterface {
         type: 'varchar'
       },
       {
-        name: 'email',
-        type: 'varchar'
-      },
-      {
-        name: 'password',
-        type: 'varchar'
+        name: 'creator_id',
+        type: 'uuid'
       },
       {
         name: 'created_at',
         type: 'timestamptz',
         default: 'now()'
+      }
+    ],
+    foreignKeys: [
+      {
+        columnNames: ['creator_id'],
+        referencedTableName: 'agents',
+        referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       }
     ]
   })

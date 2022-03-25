@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateAgentTeams1619269431357 implements MigrationInterface {
+export class CreateMemberTeams1619269431357 implements MigrationInterface {
   private table = new Table({
-    name: 'agent_teams',
+    name: 'member_teams',
     columns: [
       {
-        name: 'agent_id',
+        name: 'member_id',
         type: 'uuid'
       },
       {
@@ -15,8 +15,8 @@ export class CreateAgentTeams1619269431357 implements MigrationInterface {
     ],
     foreignKeys: [
       {
-        columnNames: ['agent_id'],
-        referencedTableName: 'agents',
+        columnNames: ['member_id'],
+        referencedTableName: 'members',
         referencedColumnNames: ['id'],
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'

@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateUsers1619224189450 implements MigrationInterface {
+export class CreateTags1642788424064 implements MigrationInterface {
   private table = new Table({
-    name: 'users',
+    name: 'tags',
     columns: [
       {
         name: 'id',
@@ -14,15 +14,32 @@ export class CreateUsers1619224189450 implements MigrationInterface {
         type: 'varchar'
       },
       {
-        name: 'email',
-        type: 'varchar',
-        isNullable: true,
-        isUnique: true
+        name: 'creator_id',
+        type: 'uuid'
+      },
+      {
+        name: 'workspace_id',
+        type: 'uuid'
       },
       {
         name: 'created_at',
         type: 'timestamptz',
         default: 'now()'
+      }
+    ],
+    foreignKeys: [
+      {
+        columnNames: ['creator_id'],
+        referencedTableName: 'members',
+        referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE'
+      },
+      {
+        columnNames: ['workspace_id'],
+        referencedTableName: 'workspaces',
+        referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
       }
     ]
   })

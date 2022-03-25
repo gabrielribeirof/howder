@@ -1,8 +1,8 @@
 import { MigrationInterface, QueryRunner, Table } from 'typeorm'
 
-export class CreateChatTag1642788424064 implements MigrationInterface {
+export class CreateUsers1619224849853 implements MigrationInterface {
   private table = new Table({
-    name: 'chat_tags',
+    name: 'users',
     columns: [
       {
         name: 'id',
@@ -14,7 +14,13 @@ export class CreateChatTag1642788424064 implements MigrationInterface {
         type: 'varchar'
       },
       {
-        name: 'author_id',
+        name: 'email',
+        type: 'varchar',
+        isNullable: true,
+        isUnique: true
+      },
+      {
+        name: 'workspace_id',
         type: 'uuid'
       },
       {
@@ -25,9 +31,10 @@ export class CreateChatTag1642788424064 implements MigrationInterface {
     ],
     foreignKeys: [
       {
-        columnNames: ['author_id'],
-        referencedTableName: 'agents',
+        columnNames: ['workspace_id'],
+        referencedTableName: 'workspaces',
         referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       }
     ]

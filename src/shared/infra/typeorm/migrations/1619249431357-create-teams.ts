@@ -12,6 +12,29 @@ export class CreateTeams1619249431357 implements MigrationInterface {
       {
         name: 'name',
         type: 'varchar'
+      },
+      {
+        name: 'workspace_id',
+        type: 'uuid'
+      },
+      {
+        name: 'creator_id',
+        type: 'uuid'
+      }
+    ],
+    foreignKeys: [
+      {
+        columnNames: ['workspace_id'],
+        referencedTableName: 'workspaces',
+        referencedColumnNames: ['id'],
+        onDelete: 'CASCADE',
+        onUpdate: 'CASCADE'
+      },
+      {
+        columnNames: ['creator_id'],
+        referencedTableName: 'members',
+        referencedColumnNames: ['id'],
+        onUpdate: 'CASCADE'
       }
     ]
   })
