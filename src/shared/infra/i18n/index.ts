@@ -18,6 +18,17 @@ export class I18n {
         ns: this.namespaces,
         preload: this.languages,
         fallbackLng: 'en',
+        interpolation: {
+          format: function(value, format) {
+            if (format === 'choices') {
+              if (Array(value).length === 0) return ''
+
+              return `(${Array(value).join(', ')})`
+            }
+
+            return value
+          }
+        },
         backend: {
           loadPath: path.join(__dirname, 'locales', '{{lng}}', '{{ns}}.json')
         }
