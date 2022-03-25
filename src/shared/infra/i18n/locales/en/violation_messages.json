@@ -3,6 +3,7 @@
 	"BAD_LENGTH": "Must contain between {{min}} and {{max}} characters",
 	"MAX_LENGTH": "Must contain less than {{max}} characters",
 	"MIN_LENGTH": "Must contain more than {{min}} characters",
+	"CHOICES": "Must be {{expectedValues, choices}}",
 
 	"INVALID_EMAIL": "Email address invalid",
 	"EMAIL_ALREADY_REGISTERED": "Email address is already registered",
