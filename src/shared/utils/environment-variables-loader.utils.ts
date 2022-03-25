@@ -13,6 +13,6 @@ export function environmentVariablesLoader(): void {
   }
 
   if (process.env.NODE_ENV === 'production') {
-    dotenv.config({ path: `${appRootPath.path}/.env` })
+    dotenv.config({ path: `${appRootPath.path}/.env.prod` })
   }
 }
