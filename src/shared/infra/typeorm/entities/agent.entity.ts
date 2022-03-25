@@ -1,6 +1,5 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm'
-import { TeamEntity } from './team.entity'
-import { ChatEntity } from './chat.entity'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, OneToMany } from 'typeorm'
+import { WorkspaceEntity } from './workspace.entity'
 
 @Entity('agent')
 export class AgentEntity {
@@ -16,19 +15,8 @@ export class AgentEntity {
   @Column()
   public password: string
 
-  @Column()
-  public admin: boolean
-
-  @ManyToMany(() => TeamEntity, team => team.agents)
-  @JoinTable({
-    name: 'agent_teams',
-    joinColumn: { name: 'agent_id' },
-    inverseJoinColumn: { name: 'team_id' }
-  })
-  public teams: TeamEntity[]
-
-  @OneToMany(() => ChatEntity, chat => chat.user)
-  public chats: ChatEntity[]
+  @OneToMany(() => WorkspaceEntity, workspace => workspace.creator)
+  public workspaces: WorkspaceEntity[]
 
   @CreateDateColumn()
   public created_at: Date

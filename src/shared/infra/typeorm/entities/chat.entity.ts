@@ -1,8 +1,8 @@
-import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, OneToMany, ManyToMany, JoinTable, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, ManyToMany, JoinTable, JoinColumn } from 'typeorm'
+import { WorkspaceEntity } from './workspace.entity'
 import { UserEntity } from './user.entity'
-import { AgentEntity } from './agent.entity'
-import { ChatTagEntity } from './chat-tag.entity'
-import { ChatMessageEntity } from './chat-message.entity'
+import { MemberEntity } from './member.entity'
+import { TagEntity } from './tag.entity'
 
 @Entity('chats')
 export class ChatEntity {
@@ -13,29 +13,33 @@ export class ChatEntity {
   public user_id: string
 
   @Column()
-  public agent_id: string
+  public member_id: string
+
+  @Column()
+  public workspace_id: string
+
+  @Column()
+  public is_open: boolean
 
   @ManyToOne(() => UserEntity, user => user.chats)
   @JoinColumn({ name: 'user_id' })
   public user: UserEntity
 
-  @ManyToOne(() => AgentEntity, agent => agent.chats)
-  @JoinColumn({ name: 'agent_id' })
-  public agent: AgentEntity
+  @ManyToOne(() => MemberEntity, member => member.chats)
+  @JoinColumn({ name: 'member_id' })
+  public member: MemberEntity
 
-  @OneToMany(() => ChatMessageEntity, chat_message => chat_message.chat_id)
-  public messages: ChatMessageEntity[]
+  @ManyToOne(() => WorkspaceEntity)
+  @JoinColumn({ name: 'workspace_id' })
+  public workspace: WorkspaceEntity
 
-  @ManyToMany(() => ChatTagEntity, chat_tag => chat_tag.chats)
+  @ManyToMany(() => TagEntity, tag => tag.chats)
   @JoinTable({
-    name: 'chat_tags',
+    name: 'tags',
     joinColumn: { name: 'chat_id' },
     inverseJoinColumn: { name: 'tag_id' }
   })
-  public tags: ChatTagEntity[]
-
-  @Column()
-  public open: boolean
+  public tags: TagEntity[]
 
   @CreateDateColumn()
   public created_at: Date

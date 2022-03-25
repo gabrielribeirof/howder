@@ -1,9 +1,10 @@
-import { Entity, Column, PrimaryColumn, ManyToOne, JoinColumn } from 'typeorm'
+import { Entity, Column, PrimaryColumn, CreateDateColumn, ManyToOne, ManyToMany, JoinColumn } from 'typeorm'
 import { WorkspaceEntity } from './workspace.entity'
 import { MemberEntity } from './member.entity'
+import { ChatEntity } from './chat.entity'
 
-@Entity('teams')
-export class TeamEntity {
+@Entity('tags')
+export class TagEntity {
   @PrimaryColumn('uuid')
   public id: string
 
@@ -23,4 +24,10 @@ export class TeamEntity {
   @ManyToOne(() => MemberEntity)
   @JoinColumn({ name: 'creator_id' })
   public creator: MemberEntity
+
+  @ManyToMany(() => ChatEntity, chat => chat.tags)
+  public chats: ChatEntity[]
+
+  @CreateDateColumn()
+  public created_at: Date
 }
