@@ -15,50 +15,14 @@ services:
       timeout: 5s
       retries: 5
 
-  lint:
+  api_server:
     build: .
-    entrypoint: yarn lint
-    environment:
-      - NODE_ENV=test
-    volumes:
-      - .:/howder
-      - /howder/node_modules
-
-  test:
-    build: .
-    entrypoint: yarn test
-    environment:
-      - NODE_ENV=test
-    volumes:
-      - .:/howder
-      - /howder/node_modules
-    depends_on:
-      database:
-        condition: service_healthy
-
-  migrate:
-    build: .
-    entrypoint: yarn migrate
+    entrypoint: /howder/scripts/entrypoint_dev.sh
     environment:
       - NODE_ENV=development
-    volumes:
-      - .:/howder
-      - /howder/node_modules
-    depends_on:
-      database:
-        condition: service_healthy
-
-  howder-server:
-    build: .
-    entrypoint: yarn dev
-    environment:
-      - NODE_ENV=development
-      - SERVER_PORT=3333
     ports:
       - 3333:3333
     volumes:
       - .:/howder
-      - /howder/node_modules
     depends_on:
       - database
-      - migrate
