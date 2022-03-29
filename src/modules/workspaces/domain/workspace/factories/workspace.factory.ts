@@ -6,11 +6,13 @@ import { Workspace } from '../workspace'
 import { Name } from '@shared/domain/name'
 
 type CreateWorkspaceRequest = {
+  id?: string
   name: string
   creator_id: string
 }
 
 export function createWorkspace(properties: CreateWorkspaceRequest): Either<Violation[], Workspace> {
+  const id = properties.id ? new Identifier(properties.id) : undefined
   const name = Name.create({ value: properties.name })
   const creator_id = new Identifier(properties.creator_id)
 

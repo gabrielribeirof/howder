@@ -6,12 +6,14 @@ import { Tag } from '../tag'
 import { Name } from '@shared/domain/name'
 
 type CreateTagRequest = {
+  id?: string
   name: string
   creator_id: string
   workspace_id: string
 }
 
 export function createTag(properties: CreateTagRequest): Either<Violation[], Tag> {
+  const id = properties.id ? new Identifier(properties.id) : undefined
   const name = Name.create({ value: properties.name })
   const creator_id = new Identifier(properties.creator_id)
   const workspace_id = new Identifier(properties.workspace_id)
@@ -24,5 +26,5 @@ export function createTag(properties: CreateTagRequest): Either<Violation[], Tag
     name: name.value,
     creator_id,
     workspace_id
-  })
+  }, id)
 }

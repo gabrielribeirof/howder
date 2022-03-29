@@ -8,17 +8,20 @@ import { Email } from '@shared/domain/email'
 import { Password } from '../password'
 
 type CreateAgentRequest = {
+  id?: string
   name: string
   email: string
   password: string
+  isPasswordHashed?: boolean
 }
 
 export function createAgent(properties: CreateAgentRequest): Either<Violation[], Agent> {
+  const id = properties.id ? new Identifier(properties.id) : undefined
   const name = Name.create({ value: properties.name })
   const email = Email.create({ value: properties.email })
   const password = Password.create({
     value: properties.password,
-    hashed: false
+    hashed: properties.isPasswordHashed ?? false
   })
 
   if (name.isLeft() || email.isLeft() || password.isLeft()) {
@@ -29,5 +32,5 @@ export function createAgent(properties: CreateAgentRequest): Either<Violation[],
     name: name.value,
     email: email.value,
     password: password.value
-  })
+  }, id)
 }
