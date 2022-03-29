@@ -10,11 +10,11 @@
   "scripts": {
     "start": "node dist/bin/ignitor.js",
     "dev": "tsnd -r tsconfig-paths/register --rs --quiet --transpile-only --ignore-watch node_modules .",
-    "build": "babel src --extensions \".ts\" --out-dir dist --copy-files",
     "typeorm": "tsnd -r tsconfig-paths/register node_modules/.bin/typeorm",
+    "migrate": "yarn typeorm migration:run",
+    "build": "babel src --extensions \".ts\" --out-dir dist --copy-files",
     "lint": "eslint src --ext ts,tsx",
-    "test": "jest",
-    "migrate": "yarn typeorm migration:run"
+    "test": "jest"
   },
   "dependencies": {
     "app-root-path": "^3.0.0",
@@ -30,6 +30,7 @@
     "pg": "^8.6.0",
     "reflect-metadata": "^0.1.13",
     "socket.io": "^4.3.1",
+    "tsyringe": "^4.6.0",
     "typeorm": "^0.2.32",
     "uuid": "^8.3.2",
     "winston": "^3.3.3"
