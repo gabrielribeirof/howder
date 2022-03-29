@@ -13,19 +13,22 @@ export class InMemoryChatsRepository implements IChatsRepository {
   }
 
   public async findByWorkspaceId(
-    workspaceId: string,
+    workspace_id: string,
     count: number,
     page: number,
     is_open?: boolean
   ): Promise<Chat[] | undefined> {
-    const targetChats = this.chats.slice(page === 1 ? 0 : (page - 1) * count, (count - 1))
+    const targetChats = this.chats.slice(
+      page === 1 ? 0 : (page - 1) * count,
+      page === 1 ? (count - 1) : (page * count) - 1
+    )
 
     return targetChats.filter(arrayChat => {
       if (is_open) {
-        return arrayChat.workspace_id.value === workspaceId && arrayChat.is_open === is_open
+        return arrayChat.workspace_id.value === workspace_id && arrayChat.is_open === is_open
       }
 
-      return arrayChat.workspace_id.value === workspaceId
+      return arrayChat.workspace_id.value === workspace_id
     })
   }
 
