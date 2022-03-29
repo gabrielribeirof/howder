@@ -44,20 +44,20 @@ export class Password extends ValueObject<PasswordProperties> {
     return hashedPassword === plainTextPassword
   }
 
-  public static create(data: PasswordProperties): Either<Violation, Password> {
-    if (Guard.againstNullOrUndefined(data.value).fail) {
-      return left(new RequiredViolation('password', data.value))
+  public static create(properties: PasswordProperties): Either<Violation, Password> {
+    if (Guard.againstNullOrUndefined(properties.value).fail) {
+      return left(new RequiredViolation('password', properties.value))
     }
 
-    if (!data.hashed) {
-      if (Guard.inRange(data.value.length, 6, 128).fail) {
-        return left(new BadLengthViolation('password', data.value, 6, 128))
+    if (!properties.hashed) {
+      if (Guard.inRange(properties.value.length, 6, 128).fail) {
+        return left(new BadLengthViolation('password', properties.value, 6, 128))
       }
     }
 
     return right(new Password({
-      value: data.value,
-      hashed: data.hashed
+      value: properties.value,
+      hashed: properties.hashed
     }))
   }
 }
