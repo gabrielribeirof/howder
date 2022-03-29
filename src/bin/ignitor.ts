@@ -1,4 +1,5 @@
 import 'reflect-metadata'
+import '@shared/container'
 
 import { Logger } from '@shared/core/logger'
 import { I18n } from '@shared/infra/i18n'
