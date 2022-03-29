@@ -5,7 +5,7 @@ import { InMemoryMembersRespository } from '../in-memory/in-memory-members.repos
 import { InMemoryTeamsRespository } from '../in-memory/in-memory-teams.repository'
 import { InMemoryTagsRepository } from '@modules/chats/repositories/in-memory/in-memory-tags.repository'
 
-import { WorkspaceWithDetails } from '@modules/workspaces/dtos/workspace-with-details.dto'
+import { WorkspaceWithDetailsDTO } from '@modules/workspaces/dtos/workspace-with-details.dto'
 
 export class InMemoryWorkspacesRepository implements IWorkspacesRespository {
   public workspaces: Workspace[] = []
@@ -20,7 +20,7 @@ export class InMemoryWorkspacesRepository implements IWorkspacesRespository {
     return this.workspaces.find(arrayWorkspace => arrayWorkspace.id.value === id)
   }
 
-  public async findByIdWithDetails(id: string): Promise<WorkspaceWithDetails | undefined> {
+  public async findByIdWithDetails(id: string): Promise<WorkspaceWithDetailsDTO | undefined> {
     const workspace = this.workspaces.find(arrayWorkspace => arrayWorkspace.id.value === id)
     const members = await this.membersRepository?.findByWorkspaceId(id)
     const teams = await this.teamsRespository?.findByWorkspaceId(id)
@@ -29,10 +29,12 @@ export class InMemoryWorkspacesRepository implements IWorkspacesRespository {
     if (!workspace) return undefined
 
     return {
+      id: workspace.id.value,
       name: workspace.name.value,
       creator_id: workspace.creator_id.value,
       members: members?.map(arrayMember => {
         return {
+          id: arrayMember.id.value,
           agent_id: arrayMember.agent_id.value,
           workspace_id: arrayMember.workspace_id.value,
           is_admin: arrayMember.is_admin
@@ -40,6 +42,7 @@ export class InMemoryWorkspacesRepository implements IWorkspacesRespository {
       }) || [],
       teams: teams?.map(arrayTeam => {
         return {
+          id: arrayTeam.id.value,
           name: arrayTeam.name.value,
           creator_id: arrayTeam.creator_id.value,
           workspace_id: arrayTeam.workspace_id.value,
@@ -50,6 +53,7 @@ export class InMemoryWorkspacesRepository implements IWorkspacesRespository {
       }) || [],
       tags: tags?.map(arrayTag => {
         return {
+          id: arrayTag.id.value,
           name: arrayTag.name.value,
           creator_id: arrayTag.creator_id.value,
           workspace_id: arrayTag.workspace_id.value
@@ -58,9 +62,9 @@ export class InMemoryWorkspacesRepository implements IWorkspacesRespository {
     }
   }
 
-  public async findForMemberAgentId(agentId: string): Promise<Workspace[] | undefined> {
+  public async findForMemberAgentId(agent_id: string): Promise<Workspace[] | undefined> {
     const members = this.membersRepository?.members.filter(arrayMember => (
-      arrayMember.agent_id.value === agentId
+      arrayMember.agent_id.value === agent_id
     ))
 
     return this.workspaces.filter((arrayWorkspace) => {
