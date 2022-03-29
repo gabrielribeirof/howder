@@ -1,20 +1,12 @@
-export type WorkspaceWithDetails = {
+import { MemberDTO } from './member.dto'
+import { TeamDTO } from './team.dto'
+import { TagDTO } from '@modules/chats/dtos/tag.dto'
+
+export type WorkspaceWithDetailsDTO = {
+  id: string
   name: string
   creator_id: string
-  members: Array<{
-    agent_id: string
-    workspace_id: string
-    is_admin: boolean
-  }>
-  teams: Array<{
-    name: string
-    creator_id: string
-    workspace_id: string
-    members_id: string[]
-  }>
-  tags: Array<{
-    name: string
-    creator_id: string
-    workspace_id: string
-  }>
+  members: MemberDTO[]
+  teams: TeamDTO[]
+  tags: TagDTO[]
 }
