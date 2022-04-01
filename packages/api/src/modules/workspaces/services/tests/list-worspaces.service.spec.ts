@@ -1,4 +1,4 @@
-import { ListWorkspacesService } from '../list-worspaces.service'
+import { ListWorkspacesService } from '../list-workspaces.service'
 
 import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
 import { InMemoryWorkspacesRepository } from '../../repositories/in-memory/in-memory-workspaces.repository'
