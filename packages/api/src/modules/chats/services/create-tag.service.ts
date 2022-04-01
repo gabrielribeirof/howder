@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -16,9 +17,12 @@ type CreateTagRequest = {
   requester_id: string
 }
 
+@injectable()
 export class CreateTagService {
   constructor(
+    @inject('TagsRepository')
     private tagsRepository: ITagsRepository,
+    @inject('MembersRepository')
     private membersRepository: IMembersRepository
   ) {}
 

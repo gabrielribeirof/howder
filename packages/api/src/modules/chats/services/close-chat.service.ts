@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -14,9 +15,12 @@ type CloseChatRequest = {
   requester_id: string
 }
 
+@injectable()
 export class CloseChatService {
   constructor(
+    @inject('ChatsRepository')
     private chatsRepository: IChatsRepository,
+    @inject('MembersRepository')
     private membersRepository: IMembersRepository
   ) {}
 

@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -16,8 +17,12 @@ type UpdateWorkspaceRequest = {
   requester_id: string
 }
 
+@injectable()
 export class UpdateWorkspaceService {
-  constructor(private workspaceRepository: IWorkspacesRespository) {}
+  constructor(
+    @inject('WorkspacesRespository')
+    private workspaceRepository: IWorkspacesRespository
+  ) {}
 
   public async execute({
     workspace_id,

@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 import { BearerType, BearerTypeValue } from '@shared/core/domain/bearer-type'
@@ -20,9 +21,12 @@ type CreateMessageRequest = {
   requester_type: BearerTypeValue
 }
 
+@injectable()
 export class CreateMessageService {
   constructor(
+    @inject('MessagesRespository')
     private messagesRepository: IMessagesRespository,
+    @inject('ChatsRepository')
     private chatsRepository: IChatsRepository
   ) {}
 

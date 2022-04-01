@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -16,9 +17,12 @@ type AddMemberToTeamRequest = {
   requester_id: string
 }
 
+@injectable()
 export class AddMemberToTeamService {
   constructor(
+    @inject('MembersRepository')
     private membersRepository: IMembersRepository,
+    @inject('TeamsRepository')
     private teamsRepository: ITeamsRepository
   ) {}
 

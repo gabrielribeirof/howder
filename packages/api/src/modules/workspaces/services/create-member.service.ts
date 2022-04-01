@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -19,10 +20,14 @@ type CreateMemberRequest = {
   requester_id: string
 }
 
+@injectable()
 export class CreateMemberService {
   constructor(
+    @inject('WorkspacesRespository')
     private workspacesRespository: IWorkspacesRespository,
+    @inject('MembersRepository')
     private membersRepository: IMembersRepository,
+    @inject('AgentsRepository')
     private agentsRepository: IAgentsRepository
   ) {}
 

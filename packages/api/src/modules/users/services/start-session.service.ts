@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -26,11 +27,16 @@ type StartSessionResponse = {
   token: string
 }
 
+@injectable()
 export class StartSessionService {
   constructor(
+    @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('ChatsRepository')
     private chatsRepository: IChatsRepository,
+    @inject('WorkspacesRespository')
     private workspacesRepository: IWorkspacesRespository,
+    @inject('TokenProvider')
     private tokenProvider: ITokenProvider
   ) {}
 

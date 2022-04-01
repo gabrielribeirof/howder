@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -9,8 +10,12 @@ type ListWorkspacesRequest = {
   requester_id: string
 }
 
+@injectable()
 export class ListWorkspacesService {
-  constructor(private workspacesRepository: IWorkspacesRespository) {}
+  constructor(
+    @inject('WorkspacesRespository')
+    private workspacesRepository: IWorkspacesRespository
+  ) {}
 
   public async execute({ requester_id }: ListWorkspacesRequest): Promise<Either<AppError, Workspace[]>> {
     const workspaces = await this.workspacesRepository.findForMemberAgentId(requester_id)

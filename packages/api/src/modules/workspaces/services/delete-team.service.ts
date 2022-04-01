@@ -1,3 +1,4 @@
+import { injectable, inject } from 'tsyringe'
 import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
@@ -12,9 +13,12 @@ type DeleteTeamRequest = {
   requester_id: string
 }
 
+@injectable()
 export class DeleteTeamService {
   constructor(
+    @inject('TeamsRepository')
     private teamsRepository: ITeamsRepository,
+    @inject('MembersRepository')
     private membersRepository: IMembersRepository
   ) {}
 
