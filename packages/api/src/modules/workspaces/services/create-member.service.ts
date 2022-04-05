@@ -15,8 +15,8 @@ import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 import { createMember } from '../domain/member/factories/member.factory'
 
 type CreateMemberRequest = {
-  email: string
   workspace_id: string
+  email: string
   requester_id: string
 }
 
@@ -32,8 +32,8 @@ export class CreateMemberService {
   ) {}
 
   public async execute({
-    email,
     workspace_id,
+    email,
     requester_id
   }: CreateMemberRequest): Promise<Either<AppError, null>> {
     const workspace = await this.workspacesRespository.findById(workspace_id)
@@ -54,8 +54,7 @@ export class CreateMemberService {
       return left(new UnknownAgentError())
     }
 
-    const memberAlreadyExists = await this.membersRepository
-      .findByWorkspaceIdAndAgentId(workspace_id, agentToBecomeMember.id.value)
+    const memberAlreadyExists = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, agentToBecomeMember.id.value)
 
     if (memberAlreadyExists) {
       return left(new AlreadyExistsError())

@@ -6,16 +6,15 @@ import { ITeamsRepository } from '../repositories/iteams.repository'
 import { IMembersRepository } from '@modules/workspaces/repositories/imembers.repository'
 
 import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
-import { UnknownAgentError } from '@shared/errors/unknown-agent.error'
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
 import { Team } from '../domain/team/team'
 import { createTeam } from '../domain/team/factories/team.factory'
 
 type CreateTeamRequest = {
-  name: string
   workspace_id: string
-  creator_id: string
+  name: string
+  requester_id: string
 }
 
 @injectable()
@@ -28,12 +27,11 @@ export class CreateTeamService {
   ) {}
 
   public async execute({
-    name,
     workspace_id,
-    creator_id
+    name,
+    requester_id
   }: CreateTeamRequest): Promise<Either<AppError, Team>> {
-    const creatorMember = await this.membersRepository
-      .findByWorkspaceIdAndAgentId(workspace_id, creator_id)
+    const creatorMember = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, requester_id)
 
     if (!creatorMember || !creatorMember.is_admin) {
       return left(new UnauthorizedError())
@@ -41,7 +39,7 @@ export class CreateTeamService {
 
     const team = createTeam({
       name,
-      creator_id,
+      creator_id: requester_id,
       workspace_id
     })
 

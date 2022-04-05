@@ -33,14 +33,15 @@ export class DeleteMemberService {
       return left(new UnknownMemberError())
     }
 
-    const workspace = await this.workspacesRespository.findById(member.workspace_id.value)
+    const workspace_id = member.workspace_id.value
+
+    const workspace = await this.workspacesRespository.findById(workspace_id)
 
     if (!workspace) {
       return left(new UnknownWorkspaceError())
     }
 
-    const requesterMember = await this.membersRepository
-      .findByWorkspaceIdAndAgentId(workspace.id.value, requester_id)
+    const requesterMember = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, requester_id)
 
     if (!requesterMember || !requesterMember.is_admin) {
       return left(new UnauthorizedError())

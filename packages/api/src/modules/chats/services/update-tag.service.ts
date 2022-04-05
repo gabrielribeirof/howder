@@ -13,8 +13,8 @@ import { Tag } from '../domain/tag/tag'
 import { Name } from '@shared/domain/name'
 
 type UpdateTagRequest = {
-  name: string
   tag_id: string
+  name: string
   requester_id: string
 }
 
@@ -28,8 +28,8 @@ export class UpdateTagService {
   ) {}
 
   public async execute({
-    name,
     tag_id,
+    name,
     requester_id
   }: UpdateTagRequest): Promise<Either<AppError, Tag>> {
     const tag = await this.tagsRepository.findById(tag_id)
@@ -40,8 +40,7 @@ export class UpdateTagService {
 
     const workspace_id = tag.workspace_id.value
 
-    const requesterMember = await this.membersRepository
-      .findByWorkspaceIdAndAgentId(workspace_id, requester_id)
+    const requesterMember = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, requester_id)
 
     if (!requesterMember || !requesterMember.is_admin) {
       return left(new UnauthorizedError())

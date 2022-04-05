@@ -12,8 +12,8 @@ import { Tag } from '../domain/tag/tag'
 import { createTag } from '../domain/tag/factories/tag.factory'
 
 type CreateTagRequest = {
-  name: string
   workspace_id: string
+  name: string
   requester_id: string
 }
 
@@ -27,8 +27,8 @@ export class CreateTagService {
   ) {}
 
   public async execute({
-    name,
     workspace_id,
+    name,
     requester_id
   }: CreateTagRequest): Promise<Either<AppError, Tag>> {
     const creatorMember = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, requester_id)

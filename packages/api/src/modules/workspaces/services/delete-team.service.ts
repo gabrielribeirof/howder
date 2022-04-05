@@ -32,8 +32,9 @@ export class DeleteTeamService {
       return left(new UnknownTeamError())
     }
 
-    const requesterMember = await this.membersRepository
-      .findByWorkspaceIdAndAgentId(team.workspace_id.value, requester_id)
+    const workspace_id = team.workspace_id.value
+
+    const requesterMember = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, requester_id)
 
     if (!requesterMember || !requesterMember.is_admin) {
       return left(new UnauthorizedError())
