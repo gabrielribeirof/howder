@@ -1,4 +1,4 @@
-import { GetWorkspaceUsersService } from '../get-workspace-users.service'
+import { ListUsersService } from './list-users.service'
 
 import { InMemoryUsersRepository } from '@modules/users/repositories/in-memory/in-memory-users.repository'
 import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
@@ -12,14 +12,14 @@ import { makeUser } from '@test/makers/user.maker'
 let usersRepository: InMemoryUsersRepository
 let membersRepository: InMemoryMembersRespository
 
-let sut: GetWorkspaceUsersService
+let sut: ListUsersService
 
-describe('GetWorkspaceUsersService', () => {
+describe('ListUsersService', () => {
   beforeEach(() => {
     usersRepository = new InMemoryUsersRepository()
     membersRepository = new InMemoryMembersRespository()
 
-    sut = new GetWorkspaceUsersService(usersRepository, membersRepository)
+    sut = new ListUsersService(usersRepository, membersRepository)
   })
 
   it('should get the requester workspace users', async () => {

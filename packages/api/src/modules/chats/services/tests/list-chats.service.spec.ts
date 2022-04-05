@@ -1,7 +1,7 @@
-import { GetWorkspaceChatsService } from '../get-workspace-chats.service'
+import { ListChatsService } from '../list-chats.service'
 
 import { InMemoryChatsRepository } from '@modules/chats/repositories/in-memory/in-memory-chats.repository'
-import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
+import { InMemoryMembersRespository } from '@modules/workspaces/repositories/in-memory/in-memory-members.repository'
 
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
@@ -12,14 +12,14 @@ import { makeChat } from '@test/makers/chat.maker'
 let chatsRepository: InMemoryChatsRepository
 let membersRepository: InMemoryMembersRespository
 
-let sut: GetWorkspaceChatsService
+let sut: ListChatsService
 
-describe('GetWorkspaceChatsService', () => {
+describe('ListChatsService', () => {
   beforeEach(() => {
     chatsRepository = new InMemoryChatsRepository()
     membersRepository = new InMemoryMembersRespository()
 
-    sut = new GetWorkspaceChatsService(chatsRepository, membersRepository)
+    sut = new ListChatsService(chatsRepository, membersRepository)
   })
 
   it('should get the requester workspace chats', async () => {

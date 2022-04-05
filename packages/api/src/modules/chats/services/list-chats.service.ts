@@ -3,7 +3,7 @@ import { AppError } from '@shared/core/errors/app-error'
 import { Either, right, left } from '@shared/core/logic/either'
 
 import { IChatsRepository } from '@modules/chats/repositories/ichats.repository'
-import { IMembersRepository } from '../repositories/imembers.repository'
+import { IMembersRepository } from '@modules/workspaces/repositories/imembers.repository'
 
 import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
@@ -12,7 +12,7 @@ import { MinLengthViolation } from '@shared/errors/violations/min-length.violati
 
 import { Chat } from '@modules/chats/domain/chat/chat'
 
-type GetWorkspaceChatsRequest = {
+type ListChatsRequest = {
   workspace_id: string
   is_open?: boolean
   count?: number
@@ -21,7 +21,7 @@ type GetWorkspaceChatsRequest = {
 }
 
 @injectable()
-export class GetWorkspaceChatsService {
+export class ListChatsService {
   constructor(
     @inject('ChatsRepository')
     private chatsRepository: IChatsRepository,
@@ -35,7 +35,7 @@ export class GetWorkspaceChatsService {
     count,
     page,
     requester_id
-  }: GetWorkspaceChatsRequest): Promise<Either<AppError, Chat[]>> {
+  }: ListChatsRequest): Promise<Either<AppError, Chat[]>> {
     const member = await this.membersRepository.findByWorkspaceIdAndAgentId(workspace_id, requester_id)
 
     if (!member) {
