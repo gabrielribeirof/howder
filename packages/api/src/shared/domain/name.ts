@@ -21,7 +21,7 @@ export class Name extends ValueObject<NameProperties> {
 
   private static format(properties: NameProperties): NameProperties {
     return {
-      value: properties.value.trim()
+      value: String(properties.value).trim()
     }
   }
 

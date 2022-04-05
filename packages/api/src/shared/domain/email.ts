@@ -22,7 +22,7 @@ export class Email extends ValueObject<EmailProperties> {
 
   private static format(properties: EmailProperties): EmailProperties {
     return {
-      value: properties.value.trim().toLowerCase()
+      value: String(properties.value).trim().toLowerCase()
     }
   }
 

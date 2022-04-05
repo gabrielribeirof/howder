@@ -50,7 +50,7 @@ export class Password extends ValueObject<PasswordProperties> {
     }
 
     if (!properties.hashed) {
-      if (Guard.inRange(properties.value.length, 6, 128).fail) {
+      if (Guard.inRange(String(properties.value).length, 6, 128).fail) {
         return left(new BadLengthViolation('password', properties.value, 6, 128))
       }
     }
