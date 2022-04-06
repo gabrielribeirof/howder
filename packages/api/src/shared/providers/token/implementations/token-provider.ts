@@ -19,7 +19,7 @@ export class TokenProvider implements ITokenProvider {
             issued_at: Number(data.iat),
             expires_in: Number(data.exp),
             subject: String(data.sub),
-            bearer_type: new BearerType(data.bearer)
+            bearer_type: new BearerType(data.bearer).value
           })
         }
 

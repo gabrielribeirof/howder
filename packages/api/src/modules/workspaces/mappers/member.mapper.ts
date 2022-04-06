@@ -1,6 +1,6 @@
 import { Member } from '../domain/member/member'
 import { MemberDTO } from '../dtos/member.dto'
-import { MemberEntity } from '@shared/infra/typeorm/entities/member.entity'
+import { MemberEntity } from '@infra/typeorm/entities/member.entity'
 import { createMember } from '../domain/member/factories/member.factory'
 
 export class MemberMapper {

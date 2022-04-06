@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 
 import { Member } from '@modules/workspaces/domain/member/member'
 import { MemberMapper } from '@modules/workspaces/mappers/member.mapper'
-import { MemberEntity } from '@shared/infra/typeorm/entities/member.entity'
+import { MemberEntity } from '@infra/typeorm/entities/member.entity'
 import { IMembersRepository } from '../imembers.repository'
 
 export class TypeORMMembersRespository implements IMembersRepository {

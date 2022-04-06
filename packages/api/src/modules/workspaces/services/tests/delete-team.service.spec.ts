@@ -3,10 +3,8 @@ import { DeleteTeamService } from '../delete-team.service'
 import { InMemoryTeamsRespository } from '../../repositories/in-memory/in-memory-teams.repository'
 import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
 
-import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
-import { Team } from '../../domain/team/team'
 import { makeTeam } from '@test/makers/team.maker'
 import { makeMember } from '@test/makers/member.maker'
 

@@ -23,7 +23,7 @@ export class Guard {
   }
 
   public static againstNullOrUndefined(value: any): IGuardResult {
-    return mountResult(!(value === null) || !(value === undefined))
+    return mountResult(!(value === null || value === undefined))
   }
 
   public static isOneOf(value: string | number, validValues: (number | string)[]): IGuardResult {

@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 
 import { Chat } from '@modules/chats/domain/chat/chat'
 import { ChatMapper } from '@modules/chats/mappers/chat.mapper'
-import { ChatEntity } from '@shared/infra/typeorm/entities/chat.entity'
+import { ChatEntity } from '@infra/typeorm/entities/chat.entity'
 
 import { IChatsRepository } from '../ichats.repository'
 

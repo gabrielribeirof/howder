@@ -4,8 +4,8 @@ import { Team } from '../domain/team/team'
 import { TeamMember } from '../domain/team/team-member'
 import { createTeam } from '../domain/team/factories/team.factory'
 import { TeamDTO } from '../dtos/team.dto'
-import { TeamEntity } from '@shared/infra/typeorm/entities/team.entity'
-import { MemberEntity } from '@shared/infra/typeorm/entities/member.entity'
+import { TeamEntity } from '@infra/typeorm/entities/team.entity'
+import { MemberEntity } from '@infra/typeorm/entities/member.entity'
 
 export class TeamMapper {
   public static toDTO(team: Team): TeamDTO {

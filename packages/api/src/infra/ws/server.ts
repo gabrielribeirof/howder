@@ -1,7 +1,7 @@
 import { Server as SocketIOServer } from 'socket.io'
 import http from 'http'
 
-import { Logger } from '@shared/core/logger'
+import { Logger } from '@shared/logger'
 
 export class WsServer {
   private logger = new Logger(WsServer.name)

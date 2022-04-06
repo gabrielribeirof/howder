@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 
 import { Team } from '@modules/workspaces/domain/team/team'
 import { TeamMapper } from '@modules/workspaces/mappers/team.mapper'
-import { TeamEntity } from '@shared/infra/typeorm/entities/team.entity'
+import { TeamEntity } from '@infra/typeorm/entities/team.entity'
 import { ITeamsRepository } from '../iteams.repository'
 
 export class TypeORMTeamsRespository implements ITeamsRepository {

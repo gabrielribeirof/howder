@@ -2,7 +2,7 @@ import i18n from 'i18next'
 import path from 'path'
 import Backend from 'i18next-fs-backend'
 
-import { Logger } from '@shared/core/logger'
+import { Logger } from '@shared/logger'
 import { ViolationReasons } from '@shared/core/errors/violation-reasons'
 
 export class I18n {

@@ -10,6 +10,7 @@
       "alias": {
         "@modules": "./src/modules",
         "@config": "./src/config",
+        "@infra": "./src/infra",
         "@shared": "./src/shared",
         "@test": "./src/test"
       }

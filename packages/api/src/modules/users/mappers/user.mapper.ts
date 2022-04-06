@@ -1,6 +1,6 @@
 import { User } from '../domain/user/user'
 import { UserDTO } from '../dtos/user.dto'
-import { UserEntity } from '@shared/infra/typeorm/entities/user.entity'
+import { UserEntity } from '@infra/typeorm/entities/user.entity'
 import { createUser } from '../domain/user/factories/user.factory'
 
 export class UserMapper {

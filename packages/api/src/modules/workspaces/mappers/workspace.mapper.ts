@@ -1,6 +1,6 @@
 import { Workspace } from '../domain/workspace/workspace'
 import { WorkspaceDTO } from '../dtos/workspace.dto'
-import { WorkspaceEntity } from '@shared/infra/typeorm/entities/workspace.entity'
+import { WorkspaceEntity } from '@infra/typeorm/entities/workspace.entity'
 import { createWorkspace } from '../domain/workspace/factories/workspace.factory'
 
 export class WorkspaceMapper {

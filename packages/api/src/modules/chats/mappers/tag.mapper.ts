@@ -1,6 +1,6 @@
 import { Tag } from '../domain/tag/tag'
 import { TagDTO } from '../dtos/tag.dto'
-import { TagEntity } from '@shared/infra/typeorm/entities/tag.entity'
+import { TagEntity } from '@infra/typeorm/entities/tag.entity'
 import { createTag } from '../domain/tag/factories/tag.factory'
 
 export class TagMapper {

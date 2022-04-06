@@ -24,7 +24,7 @@ describe('CreateTeamService', () => {
     const response = await sut.execute({
       name: 'Teste Team Name',
       workspace_id: member.workspace_id.value,
-      creator_id: member.agent_id.value
+      requester_id: member.agent_id.value
     })
 
     expect(response.isRight()).toBeTruthy()

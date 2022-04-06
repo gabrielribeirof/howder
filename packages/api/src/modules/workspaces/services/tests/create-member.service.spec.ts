@@ -43,8 +43,8 @@ describe('CreateMemberService', () => {
     await agentsRepository.save(agentToBecomeMember)
 
     const response = await sut.execute({
-      email: agentToBecomeMember.email.value,
       workspace_id: workspace.id.value,
+      email: agentToBecomeMember.email.value,
       requester_id: requesterAgent.id.value
     })
 
@@ -70,8 +70,8 @@ describe('CreateMemberService', () => {
     await agentsRepository.save(agentToBecomeMember)
 
     const response = await sut.execute({
-      email: agentToBecomeMember.email.value,
       workspace_id: workspace.id.value,
+      email: agentToBecomeMember.email.value,
       requester_id: requesterAgent.id.value
     })
 

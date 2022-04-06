@@ -3,8 +3,8 @@ import { Identifier } from '@shared/core/domain/identifier'
 import { Chat } from '../domain/chat/chat'
 import { ChatTag } from '../domain/chat/chat-tag'
 import { ChatDTO } from '../dtos/chat.dto'
-import { ChatEntity } from '@shared/infra/typeorm/entities/chat.entity'
-import { TagEntity } from '@shared/infra/typeorm/entities/tag.entity'
+import { ChatEntity } from '@infra/typeorm/entities/chat.entity'
+import { TagEntity } from '@infra/typeorm/entities/tag.entity'
 import { createChat } from '../domain/chat/factories/chat.factory'
 
 export class ChatMapper {

@@ -1,7 +1,7 @@
 import { Message } from '../domain/message/message'
 import { AuthorTypeValue } from '../domain/message/author-type'
 import { MessageDTO } from '../dtos/message.dto'
-import { MessageEntity } from '@shared/infra/typeorm/entities/message.entity'
+import { MessageEntity } from '@infra/typeorm/entities/message.entity'
 import { createMessage } from '../domain/message/factories/message.factory'
 
 export class MessageMapper {

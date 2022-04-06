@@ -1,6 +1,6 @@
 import i18next from 'i18next'
 import { AppError } from '@shared/core/errors/app-error'
-import { HTTPError } from '@shared/infra/http/error'
+import { HTTPError } from '@infra/http/error'
 
 export function parseAppErrorToHTTPError(appError: AppError): HTTPError {
   return {

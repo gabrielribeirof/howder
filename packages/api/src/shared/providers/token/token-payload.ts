@@ -1,8 +1,8 @@
-import { BearerType } from '@shared/core/domain/bearer-type'
+import { BearerTypeValue } from '@shared/core/domain/bearer-type'
 
 export type TokenPayload = {
   issued_at: number
   expires_in: number
   subject: string
-  bearer_type: BearerType
+  bearer_type: BearerTypeValue
 }

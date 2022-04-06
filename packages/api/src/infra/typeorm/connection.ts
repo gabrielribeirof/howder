@@ -1,5 +1,5 @@
 import { Connection, createConnection } from 'typeorm'
-import { Logger } from '@shared/core/logger'
+import { Logger } from '@shared/logger'
 
 export class TypeORMConnection {
   private logger = new Logger(TypeORMConnection.name)

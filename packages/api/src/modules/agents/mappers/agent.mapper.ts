@@ -1,6 +1,6 @@
 import { Agent } from '../domain/agent/agent'
 import { AgentDTO } from '../dtos/agent.dto'
-import { AgentEntity } from '@shared/infra/typeorm/entities/agent.entity'
+import { AgentEntity } from '@infra/typeorm/entities/agent.entity'
 import { createAgent } from '../domain/agent/factories/agent.factory'
 
 export class AgentMapper {

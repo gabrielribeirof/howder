@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 
 import { User } from '@modules/users/domain/user/user'
 import { UserMapper } from '@modules/users/mappers/user.mapper'
-import { UserEntity } from '@shared/infra/typeorm/entities/user.entity'
+import { UserEntity } from '@infra/typeorm/entities/user.entity'
 
 import { IUsersRepository } from '../iusers.repository'
 

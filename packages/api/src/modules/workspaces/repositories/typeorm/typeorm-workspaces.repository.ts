@@ -3,7 +3,7 @@ import { Repository, getRepository } from 'typeorm'
 import { Workspace } from '@modules/workspaces/domain/workspace/workspace'
 import { WorkspaceWithDetailsDTO } from '@modules/workspaces/dtos/workspace-with-details.dto'
 import { WorkspaceMapper } from '@modules/workspaces/mappers/workspace.mapper'
-import { WorkspaceEntity } from '@shared/infra/typeorm/entities/workspace.entity'
+import { WorkspaceEntity } from '@infra/typeorm/entities/workspace.entity'
 
 import { IWorkspacesRespository } from '../iworkspaces.repository'
 

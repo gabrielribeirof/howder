@@ -1,5 +1,5 @@
 import { SignalConstants } from 'os'
-import { Logger } from '@shared/core/logger'
+import { Logger } from '@shared/logger'
 
 type BeforeShutdownHandler = () => Promise<void>
 

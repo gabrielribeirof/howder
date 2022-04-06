@@ -1,7 +1,7 @@
 import { ListUsersService } from './list-users.service'
 
 import { InMemoryUsersRepository } from '@modules/users/repositories/in-memory/in-memory-users.repository'
-import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
+import { InMemoryMembersRespository } from '@modules/workspaces/repositories/in-memory/in-memory-members.repository'
 
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 

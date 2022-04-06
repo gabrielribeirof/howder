@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 
 import { Tag } from '@modules/chats/domain/tag/tag'
 import { TagMapper } from '@modules/chats/mappers/tag.mapper'
-import { TagEntity } from '@shared/infra/typeorm/entities/tag.entity'
+import { TagEntity } from '@infra/typeorm/entities/tag.entity'
 import { ITagsRepository } from '../itags.repository'
 
 export class TypeORMTagsRepository implements ITagsRepository {

@@ -1,6 +1,6 @@
 import { Violation } from './violation'
 import { AppErrorCodes } from './app-error-codes'
-import { HTTPStatus } from '@shared/infra/http/status'
+import { HTTPStatus } from '@infra/http/status'
 
 type AppErrorProperties = {
   code: AppErrorCodes

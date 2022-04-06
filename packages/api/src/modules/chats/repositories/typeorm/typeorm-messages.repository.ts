@@ -2,7 +2,7 @@ import { Repository, getRepository } from 'typeorm'
 
 import { Message } from '@modules/chats/domain/message/message'
 import { MessageMapper } from '@modules/chats/mappers/message.mapper'
-import { MessageEntity } from '@shared/infra/typeorm/entities/message.entity'
+import { MessageEntity } from '@infra/typeorm/entities/message.entity'
 import { IMessagesRespository } from '../imessages.repository'
 
 export class TypeORMMessagesRespository implements IMessagesRespository {

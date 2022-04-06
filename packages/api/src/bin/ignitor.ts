@@ -1,11 +1,11 @@
 import 'reflect-metadata'
 import '@shared/container'
 
-import { Logger } from '@shared/core/logger'
-import { I18n } from '@shared/infra/i18n'
-import { TypeORMConnection } from '@shared/infra/typeorm/connection'
-import { HttpServer } from '@shared/infra/http/server'
-import { WsServer } from '@shared/infra/ws/server'
+import { Logger } from '@shared/logger'
+import { I18n } from '@infra/i18n'
+import { TypeORMConnection } from '@infra/typeorm/connection'
+import { HttpServer } from '@infra/http/server'
+import { WsServer } from '@infra/ws/server'
 
 import { beforeShutdown } from '@shared/utils/before-shutdown.utils'
 import { environmentVariablesLoader } from '@shared/utils/environment-variables-loader.utils'

@@ -1,7 +1,7 @@
 import { Repository, getRepository } from 'typeorm'
 
 import { Agent } from '@modules/agents/domain/agent/agent'
-import { AgentEntity } from '@shared/infra/typeorm/entities/agent.entity'
+import { AgentEntity } from '@infra/typeorm/entities/agent.entity'
 import { AgentMapper } from '@modules/agents/mappers/agent.mapper'
 
 import { IAgentsRepository } from '../iagents.repository'

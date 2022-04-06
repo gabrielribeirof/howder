@@ -5,7 +5,7 @@ import express, {
   Response,
   NextFunction
 } from 'express'
-import { Logger } from '@shared/core/logger'
+import { Logger } from '@shared/logger'
 
 import { fail } from '@shared/utils/http-response.utils'
 import { NotFoundError } from '@shared/errors/not-found.error'
