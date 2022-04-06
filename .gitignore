@@ -13,6 +13,7 @@ build
 logs
 
 .env
+.env.dev
 .env.development
 .env.production
 
