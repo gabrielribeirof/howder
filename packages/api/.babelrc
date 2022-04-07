@@ -5,14 +5,14 @@
     }],
     "@babel/preset-typescript"
   ],
+  "ignore": ["**/*.spec.ts"],
   "plugins": [
     ["module-resolver", {
       "alias": {
         "@modules": "./src/modules",
         "@config": "./src/config",
         "@infra": "./src/infra",
-        "@shared": "./src/shared",
-        "@test": "./src/test"
+        "@shared": "./src/shared"
       }
     }],
     "babel-plugin-transform-typescript-metadata",
