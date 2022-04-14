@@ -3,8 +3,8 @@ import { ListWorkspacesService } from '../list-workspaces.service'
 import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
 import { InMemoryWorkspacesRepository } from '../../repositories/in-memory/in-memory-workspaces.repository'
 
-import { makeWorkspace } from '@test/makers/workspace.maker'
-import { makeMember } from '@test/makers/member.maker'
+import { makeWorkspace } from '@test/helpers/makers/workspace.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
 import { Workspace } from '../../domain/workspace/workspace'
 
 let membersRespository: InMemoryMembersRespository

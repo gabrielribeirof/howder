@@ -7,10 +7,10 @@ import { InMemoryTagsRepository } from '@modules/chats/repositories/in-memory/in
 
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
-import { makeWorkspace } from '@test/makers/workspace.maker'
-import { makeMember } from '@test/makers/member.maker'
-import { makeTeam } from '@test/makers/team.maker'
-import { makeTag } from '@test/makers/tag.maker'
+import { makeWorkspace } from '@test/helpers/makers/workspace.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
+import { makeTeam } from '@test/helpers/makers/team.maker'
+import { makeTag } from '@test/helpers/makers/tag.maker'
 
 let membersRepository: InMemoryMembersRespository
 let teamsRespository: InMemoryTeamsRespository

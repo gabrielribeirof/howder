@@ -4,9 +4,9 @@ import { InMemoryWorkspacesRepository } from '../../repositories/in-memory/in-me
 import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
 import { InMemoryAgentsRespository } from '@modules/agents/repositories/in-memory/in-memory-agents.repository'
 
-import { makeWorkspace } from '@test/makers/workspace.maker'
-import { makeMember } from '@test/makers/member.maker'
-import { makeAgent } from '@test/makers/agent.maker'
+import { makeWorkspace } from '@test/helpers/makers/workspace.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
+import { makeAgent } from '@test/helpers/makers/agent.maker'
 
 let workspacesRespository: InMemoryWorkspacesRepository
 let membersRepository: InMemoryMembersRespository

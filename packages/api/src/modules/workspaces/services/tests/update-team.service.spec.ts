@@ -7,8 +7,8 @@ import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
 import { Team } from '../../domain/team/team'
-import { makeTeam } from '@test/makers/team.maker'
-import { makeMember } from '@test/makers/member.maker'
+import { makeTeam } from '@test/helpers/makers/team.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
 
 let teamsRespository: InMemoryTeamsRespository
 let membersRespository: InMemoryMembersRespository

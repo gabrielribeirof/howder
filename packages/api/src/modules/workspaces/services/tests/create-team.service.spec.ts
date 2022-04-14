@@ -3,7 +3,7 @@ import { CreateTeamService } from '../create-team.service'
 import { InMemoryTeamsRespository } from '../../repositories/in-memory/in-memory-teams.repository'
 import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memory-members.repository'
 
-import { makeMember } from '@test/makers/member.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
 
 let membersRespository: InMemoryMembersRespository
 let teamsRepository: InMemoryTeamsRespository

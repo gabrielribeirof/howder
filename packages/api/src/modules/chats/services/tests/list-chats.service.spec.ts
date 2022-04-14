@@ -6,8 +6,8 @@ import { InMemoryMembersRespository } from '@modules/workspaces/repositories/in-
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
 import { Chat } from '@modules/chats/domain/chat/chat'
-import { makeMember } from '@test/makers/member.maker'
-import { makeChat } from '@test/makers/chat.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
+import { makeChat } from '@test/helpers/makers/chat.maker'
 
 let chatsRepository: InMemoryChatsRepository
 let membersRepository: InMemoryMembersRespository

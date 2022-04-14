@@ -6,7 +6,7 @@ import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
 import { Workspace } from '../../domain/workspace/workspace'
-import { makeWorkspace } from '@test/makers/workspace.maker'
+import { makeWorkspace } from '@test/helpers/makers/workspace.maker'
 
 let workspacesRepository: InMemoryWorkspacesRepository
 let sut: UpdateWorkspaceService

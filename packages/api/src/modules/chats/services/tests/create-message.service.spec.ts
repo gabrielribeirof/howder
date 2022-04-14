@@ -5,7 +5,7 @@ import { InMemoryChatsRepository } from '@modules/chats/repositories/in-memory/i
 
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
-import { makeChat } from '@test/makers/chat.maker'
+import { makeChat } from '@test/helpers/makers/chat.maker'
 
 let messagesRespository: InMemoryMessagesRespository
 let chatsRepository: InMemoryChatsRepository

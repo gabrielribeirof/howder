@@ -7,9 +7,9 @@ import { InMemoryMembersRespository } from '@modules/workspaces/repositories/in-
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 import { AlreadyExistsError } from '@shared/errors/already-exists.error'
 
-import { makeChat } from '@test/makers/chat.maker'
-import { makeTag } from '@test/makers/tag.maker'
-import { makeMember } from '@test/makers/member.maker'
+import { makeChat } from '@test/helpers/makers/chat.maker'
+import { makeTag } from '@test/helpers/makers/tag.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
 
 let chatsRepository: InMemoryChatsRepository
 let tagsRepository: InMemoryTagsRepository

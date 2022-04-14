@@ -8,8 +8,8 @@ import { TokenProvider } from '@shared/providers/token/implementations/token-pro
 import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
 import { UnknownWorkspaceError } from '@shared/errors/unknown-workspace.error'
 
-import { makeWorkspace } from '@test/makers/workspace.maker'
-import { makeAgent } from '@test/makers/agent.maker'
+import { makeWorkspace } from '@test/helpers/makers/workspace.maker'
+import { makeAgent } from '@test/helpers/makers/agent.maker'
 
 let usersRepository: InMemoryUsersRepository
 let chatsRepository: InMemoryChatsRepository

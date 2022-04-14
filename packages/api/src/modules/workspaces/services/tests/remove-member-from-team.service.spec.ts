@@ -6,8 +6,8 @@ import { InMemoryTeamsRespository } from '../../repositories/in-memory/in-memory
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
 import { TeamMember } from '../../domain/team/team-member'
-import { makeMember } from '@test/makers/member.maker'
-import { makeTeam } from '@test/makers/team.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
+import { makeTeam } from '@test/helpers/makers/team.maker'
 
 let membersRepository: InMemoryMembersRespository
 let teamsRepository: InMemoryTeamsRespository

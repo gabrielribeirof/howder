@@ -5,8 +5,8 @@ import { InMemoryMembersRespository } from '../../repositories/in-memory/in-memo
 
 import { UnauthorizedError } from '@shared/errors/unauthorized.error'
 
-import { makeMember } from '@test/makers/member.maker'
-import { makeWorkspace } from '@test/makers/workspace.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
+import { makeWorkspace } from '@test/helpers/makers/workspace.maker'
 
 let workspacesRepository: InMemoryWorkspacesRepository
 let membersRespository: InMemoryMembersRespository

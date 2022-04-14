@@ -5,8 +5,8 @@ import { InMemoryMembersRespository } from '@modules/workspaces/repositories/in-
 
 import { ChatAlreadyHasMemberAssignedError } from '@shared/errors/chat-already-has-member-assigned.error'
 
-import { makeChat } from '@test/makers/chat.maker'
-import { makeMember } from '@test/makers/member.maker'
+import { makeChat } from '@test/helpers/makers/chat.maker'
+import { makeMember } from '@test/helpers/makers/member.maker'
 
 let chatsRepository: InMemoryChatsRepository
 let membersRespository: InMemoryMembersRespository
