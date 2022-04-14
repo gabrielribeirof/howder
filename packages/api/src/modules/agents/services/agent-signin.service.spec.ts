@@ -5,6 +5,7 @@ import { InMemoryAgentsRespository } from '../repositories/in-memory/in-memory-a
 import { TokenProvider } from '@shared/providers/token/implementations/token-provider'
 
 import { InvalidParameterError } from '@shared/errors/invalid-parameter.error'
+import { UnknownAgentError } from '@shared/errors/unknown-agent.error'
 
 let agentsRepository: InMemoryAgentsRespository
 let tokenProvider: TokenProvider
@@ -51,7 +52,7 @@ describe('AgentSignInService', () => {
     })
 
     expect(response.isRight()).toBeFalsy()
-    expect(response.value).toBeInstanceOf(InvalidParameterError)
+    expect(response.value).toBeInstanceOf(UnknownAgentError)
   })
 
   it('should not signin an agent with wrong password', async () => {
