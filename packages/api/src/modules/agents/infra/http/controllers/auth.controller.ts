@@ -1,6 +1,7 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import { ok } from '@shared/utils/http-response.utils'
+import { AgentMapper } from '@modules/agents/mappers/agent.mapper'
+import { ok, fail } from '@shared/utils/http-response.utils'
 
 import { AgentSignUpService } from '@modules/agents/services/agent-signup.service'
 import { AgentSignInService } from '@modules/agents/services/agent-signin.service'
@@ -11,11 +12,20 @@ export class AuthController {
 
     const service = container.resolve(AgentSignUpService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       name,
       email,
       password
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, {
+        agent: AgentMapper.toDTO(result.value.agent),
+        token: result.value.token
+      })
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async signin(request: Request, response: Response): Promise<void> {
@@ -23,9 +33,18 @@ export class AuthController {
 
     const service = container.resolve(AgentSignInService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       email,
       password
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, {
+        agent: AgentMapper.toDTO(result.value.agent),
+        token: result.value.token
+      })
+    } else {
+      fail(response, result.value)
+    }
   }
 }
