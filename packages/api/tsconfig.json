@@ -4,12 +4,12 @@
     "module": "commonjs",
     "strict": true,
     "strictPropertyInitialization": false,
-    "baseUrl": "./src",
+    "baseUrl": ".",
     "paths": {
-      "@modules/*": ["modules/*"],
-      "@config/*": ["config/*"],
-      "@infra/*": ["infra/*"],
-      "@shared/*": ["shared/*"],
+      "@modules/*": ["src/modules/*"],
+      "@config/*": ["src/config/*"],
+      "@infra/*": ["src/infra/*"],
+      "@shared/*": ["src/shared/*"],
       "@test/*": ["test/*"]
     },
     "esModuleInterop": true,
@@ -22,5 +22,5 @@
     "typeRoots": ["./src/@types", "../../node_modules/@types"],
     "types": ["node", "jest"]
   },
-  "include": ["src"]
+  "include": ["src", "test"]
 }
