@@ -8,7 +8,6 @@ import { HttpServer } from '@infra/http/server'
 import { WsServer } from '@infra/ws/server'
 
 import { beforeShutdown } from '@shared/utils/before-shutdown.utils'
-import { environmentVariablesLoader } from '@shared/utils/environment-variables-loader.utils'
 
 const logger = new Logger('Ignitor')
 const i18n = new I18n()
@@ -17,8 +16,6 @@ const httpServer = new HttpServer()
 const wsServer = new WsServer()
 
 async function ignitor(): Promise<void> {
-  environmentVariablesLoader()
-
   logger.notice(`Running on ${process.env.NODE_ENV} environment`)
 
   await i18n.init()

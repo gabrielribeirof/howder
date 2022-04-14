@@ -1,11 +1,8 @@
 import { TypeORMConnection } from '@infra/typeorm/connection'
-import { environmentVariablesLoader } from '@shared/utils/environment-variables-loader.utils'
 
 let connection: TypeORMConnection
 
 async function runMigration(): Promise<void> {
-  environmentVariablesLoader()
-
   process.env.TYPEORM_LOGGING = "['query', 'error', 'schema']"
 
   connection = new TypeORMConnection()
