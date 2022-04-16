@@ -16,7 +16,6 @@ type CreateAgentRequest = {
 }
 
 export function createAgent(properties: CreateAgentRequest): Either<Violation[], Agent> {
-  const id = properties.id ? new Identifier(properties.id) : undefined
   const name = Name.create({ value: properties.name })
   const email = Email.create({ value: properties.email })
   const password = Password.create({
@@ -26,6 +25,16 @@ export function createAgent(properties: CreateAgentRequest): Either<Violation[],
 
   if (name.isLeft() || email.isLeft() || password.isLeft()) {
     return left(combineLefts(name, email, password))
+  }
+
+  let id: Identifier | undefined
+
+  if (properties.id) {
+    const toId = Identifier.create(properties.id)
+
+    if (toId.isLeft()) return left([toId.value])
+
+    id = toId.value
   }
 
   return Agent.create({

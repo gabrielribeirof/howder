@@ -5,7 +5,7 @@ export abstract class Entity<Properties> {
   protected readonly properties: Properties
 
   constructor(properties: Properties, id?: Identifier) {
-    this.id = id || new Identifier()
+    this.id = id || Identifier.generate()
     this.properties = properties
   }
 

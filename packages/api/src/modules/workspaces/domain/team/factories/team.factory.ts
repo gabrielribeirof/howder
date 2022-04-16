@@ -1,6 +1,6 @@
 import { Violation } from '@shared/core/errors/violation'
 import { Identifier } from '@shared/core/domain/identifier'
-import { Either, left } from '@shared/core/logic/either'
+import { combineLefts, Either, left } from '@shared/core/logic/either'
 
 import { Name } from '@shared/domain/name'
 import { Team } from '../team'
@@ -16,20 +16,29 @@ type CreateTeamProperties = {
 }
 
 export function createTeam(properties: CreateTeamProperties): Either<Violation[], Team> {
-  const id = properties.id ? new Identifier(properties.id) : undefined
   const name = Name.create({ value: properties.name })
-  const creator_id = new Identifier(properties.creator_id)
-  const workspace_id = new Identifier(properties.workspace_id)
+  const creator_id = Identifier.create(properties.creator_id, 'creator_id')
+  const workspace_id = Identifier.create(properties.workspace_id, 'workspace_id')
   const members = TeamMembers.create(properties.members)
 
-  if (name.isLeft()) {
-    return left([name.value])
+  if (name.isLeft() || creator_id.isLeft() || workspace_id.isLeft()) {
+    return left(combineLefts(name, creator_id, workspace_id))
+  }
+
+  let id: Identifier | undefined
+
+  if (properties.id) {
+    const toId = Identifier.create(properties.id)
+
+    if (toId.isLeft()) return left([toId.value])
+
+    id = toId.value
   }
 
   return Team.create({
     name: name.value,
-    creator_id,
-    workspace_id,
+    creator_id: creator_id.value,
+    workspace_id: workspace_id.value,
     members
   }, id)
 }
