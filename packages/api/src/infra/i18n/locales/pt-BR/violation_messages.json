@@ -4,6 +4,7 @@
   "MAX_LENGTH": "Deve conter menos que {{max}} caracteres",
   "MIN_LENGTH": "Deve conter mais que {{min}} caracteres",
 	"CHOICES": "Deve ser {{expectedValues, choices}}",
+	"WRONG_ID": "Valor não é UUID",
 
   "INVALID_EMAIL": "Endereço de email inválido",
   "EMAIL_ALREADY_REGISTERED": "Endereço de email já está registrado",
