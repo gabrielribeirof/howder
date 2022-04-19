@@ -6,7 +6,7 @@ import { TagEntity } from './tag.entity'
 
 @Entity('workspaces')
 export class WorkspaceEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   public id: string
 
   @Column()

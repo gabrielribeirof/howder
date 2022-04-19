@@ -3,7 +3,7 @@ import { WorkspaceEntity } from './workspace.entity'
 
 @Entity('agents')
 export class AgentEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   public id: string
 
   @Column()

@@ -6,7 +6,7 @@ export class CreateTeams1619249431357 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {
@@ -15,11 +15,11 @@ export class CreateTeams1619249431357 implements MigrationInterface {
       },
       {
         name: 'workspace_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'creator_id',
-        type: 'uuid'
+        type: 'varchar'
       }
     ],
     foreignKeys: [

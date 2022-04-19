@@ -6,11 +6,11 @@ export class CreateChatTags1642788424064 implements MigrationInterface {
     columns: [
       {
         name: 'chat_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'tag_id',
-        type: 'uuid'
+        type: 'varchar'
       }
     ],
     foreignKeys: [

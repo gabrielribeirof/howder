@@ -5,7 +5,7 @@ import { ChatEntity } from './chat.entity'
 
 @Entity('tags')
 export class TagEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   public id: string
 
   @Column()

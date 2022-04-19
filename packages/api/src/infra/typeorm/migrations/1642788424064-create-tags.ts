@@ -6,7 +6,7 @@ export class CreateTags1642788424064 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {
@@ -15,11 +15,11 @@ export class CreateTags1642788424064 implements MigrationInterface {
       },
       {
         name: 'creator_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'workspace_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'created_at',

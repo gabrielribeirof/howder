@@ -6,7 +6,7 @@ export class CreateAgents1619224839850 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {

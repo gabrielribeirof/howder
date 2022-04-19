@@ -6,16 +6,16 @@ export class CreateMember1619224849852 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {
         name: 'agent_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'workspace_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'is_admin',

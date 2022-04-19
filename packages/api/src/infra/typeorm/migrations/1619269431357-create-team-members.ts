@@ -6,11 +6,11 @@ export class CreateTeamMembers1619269431357 implements MigrationInterface {
     columns: [
       {
         name: 'team_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'member_id',
-        type: 'uuid'
+        type: 'varchar'
       }
     ],
     foreignKeys: [

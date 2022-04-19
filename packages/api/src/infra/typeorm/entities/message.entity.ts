@@ -20,7 +20,7 @@ import { AgentEntity } from './agent.entity'
   }
 })
 export class MessageEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   public id: string
 
   @Column()

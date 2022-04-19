@@ -6,21 +6,21 @@ export class CreateChats1619420230896 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {
         name: 'user_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'member_id',
-        type: 'uuid',
+        type: 'varchar',
         isNullable: true
       },
       {
         name: 'workspace_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'is_open',

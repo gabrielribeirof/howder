@@ -6,7 +6,7 @@ export class CreateWorkspaces1619224839851 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {
@@ -15,7 +15,7 @@ export class CreateWorkspaces1619224839851 implements MigrationInterface {
       },
       {
         name: 'creator_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'created_at',

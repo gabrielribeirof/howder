@@ -6,20 +6,20 @@ export class CreateMessages1619430560865 implements MigrationInterface {
     columns: [
       {
         name: 'id',
-        type: 'uuid',
+        type: 'varchar',
         isPrimary: true
       },
       {
         name: 'chat_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'author_id',
-        type: 'uuid'
+        type: 'varchar'
       },
       {
         name: 'author_type',
-        type: 'uuid',
+        type: 'varchar',
         enum: ['user', 'member']
       },
       {

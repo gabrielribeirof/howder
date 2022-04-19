@@ -6,7 +6,7 @@ import { TeamEntity } from './team.entity'
 
 @Entity('members')
 export class MemberEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   public id: string
 
   @Column()

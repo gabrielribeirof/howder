@@ -4,7 +4,7 @@ import { ChatEntity } from './chat.entity'
 
 @Entity('users')
 export class UserEntity {
-  @PrimaryColumn('uuid')
+  @PrimaryColumn()
   public id: string
 
   @Column()
