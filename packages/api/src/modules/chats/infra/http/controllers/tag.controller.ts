@@ -1,6 +1,8 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import { ok } from '@shared/utils/http-response.utils'
+import { ok, fail } from '@shared/utils/http-response.utils'
+
+import { TagMapper } from '@modules/chats/mappers/tag.mapper'
 
 import { CreateTagService } from '@modules/chats/services/create-tag.service'
 import { UpdateTagService } from '@modules/chats/services/update-tag.service'
@@ -13,11 +15,17 @@ export class TagController {
 
     const service = container.resolve(CreateTagService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       workspace_id,
       name,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, TagMapper.toDTO(result.value))
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async update(request: Request, response: Response): Promise<void> {
@@ -27,11 +35,17 @@ export class TagController {
 
     const service = container.resolve(UpdateTagService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       tag_id,
       name,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, TagMapper.toDTO(result.value))
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async destroy(request: Request, response: Response): Promise<void> {
@@ -40,9 +54,15 @@ export class TagController {
 
     const service = container.resolve(DeleteTagService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       tag_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 }

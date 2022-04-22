@@ -1,6 +1,8 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import { ok } from '@shared/utils/http-response.utils'
+import { ok, fail } from '@shared/utils/http-response.utils'
+
+import { WorkspaceMapper } from '@modules/workspaces/mappers/workspace.mapper'
 
 import { ListWorkspacesService } from '@modules/workspaces/services/list-workspaces.service'
 import { GetWorkspaceService } from '@modules/workspaces/services/get-workspace.service'
@@ -14,9 +16,13 @@ export class WorkspaceController {
 
     const service = container.resolve(ListWorkspacesService)
 
-    ok.either(response, await service.execute({
-      requester_id: subject
-    }))
+    const result = await service.execute({ requester_id: subject })
+
+    if (result.isRight()) {
+      ok(response, result.value.map(v => WorkspaceMapper.toDTO(v)))
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async show(request: Request, response: Response): Promise<void> {
@@ -25,10 +31,16 @@ export class WorkspaceController {
 
     const service = container.resolve(GetWorkspaceService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       workspace_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, result.value)
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async store(request: Request, response: Response): Promise<void> {
@@ -37,10 +49,16 @@ export class WorkspaceController {
 
     const service = container.resolve(CreateWorkspaceService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       name,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, WorkspaceMapper.toDTO(result.value))
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async update(request: Request, response: Response): Promise<void> {
@@ -50,11 +68,17 @@ export class WorkspaceController {
 
     const service = container.resolve(UpdateWorkspaceService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       workspace_id,
       name,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, WorkspaceMapper.toDTO(result.value))
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async destroy(request: Request, response: Response): Promise<void> {
@@ -63,9 +87,15 @@ export class WorkspaceController {
 
     const service = container.resolve(DeleteWorkspaceService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       workspace_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 }

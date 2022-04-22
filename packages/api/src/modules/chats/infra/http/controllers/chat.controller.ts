@@ -1,6 +1,8 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import { ok } from '@shared/utils/http-response.utils'
+import { ok, fail } from '@shared/utils/http-response.utils'
+
+import { ChatMapper } from '@modules/chats/mappers/chat.mapper'
 
 import { ListChatsService } from '@modules/chats/services/list-chats.service'
 import { OpenChatService } from '@modules/chats/services/open-chat.service'
@@ -16,13 +18,19 @@ export class ChatController {
 
     const service = container.resolve(ListChatsService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       workspace_id,
       count: Number(count),
       page: Number(page),
-      is_open: String(is_open) === 'true',
+      is_open: (String(is_open) === 'true' || String(is_open) === 'false') ? String(is_open) === 'true' : undefined,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response, result.value.map(c => ChatMapper.toDTO(c)))
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async open(request: Request, response: Response): Promise<void> {
@@ -31,10 +39,16 @@ export class ChatController {
 
     const service = container.resolve(OpenChatService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       chat_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async close(request: Request, response: Response): Promise<void> {
@@ -43,10 +57,16 @@ export class ChatController {
 
     const service = container.resolve(CloseChatService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       chat_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async assign(request: Request, response: Response): Promise<void> {
@@ -55,10 +75,16 @@ export class ChatController {
 
     const service = container.resolve(AssignMemberToChatService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       chat_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async unassign(request: Request, response: Response): Promise<void> {
@@ -67,9 +93,15 @@ export class ChatController {
 
     const service = container.resolve(UnassignMemberFromChatService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       chat_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 }

@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import { ok } from '@shared/utils/http-response.utils'
+import { ok, fail } from '@shared/utils/http-response.utils'
 
 import { AddTagToChatService } from '@modules/chats/services/add-tag-to-chat.service'
 import { RemoveTagFromChatService } from '@modules/chats/services/remove-tag-from-chat.service'
@@ -12,11 +12,17 @@ export class ChatTagController {
 
     const service = container.resolve(AddTagToChatService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       tag_id,
       chat_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async destroy(request: Request, response: Response): Promise<void> {
@@ -25,10 +31,16 @@ export class ChatTagController {
 
     const service = container.resolve(RemoveTagFromChatService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       tag_id,
       chat_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 }

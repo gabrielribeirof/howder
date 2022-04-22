@@ -1,6 +1,6 @@
 import { container } from 'tsyringe'
 import { Request, Response } from 'express'
-import { ok } from '@shared/utils/http-response.utils'
+import { ok, fail } from '@shared/utils/http-response.utils'
 
 import { AddMemberToTeamService } from '@modules/workspaces/services/add-member-to-team.service'
 import { RemoveMemberFromTeamService } from '@modules/workspaces/services/remove-member-from-team.service'
@@ -12,11 +12,17 @@ export class TeamMemberController {
 
     const service = container.resolve(AddMemberToTeamService)
 
-    ok.either(response, await service.execute({
+    const result = await service.execute({
       member_id,
       team_id,
       requester_id: subject
-    }))
+    })
+
+    if (result.isRight()) {
+      ok(response)
+    } else {
+      fail(response, result.value)
+    }
   }
 
   public async destroy(request: Request, response: Response): Promise<void> {
