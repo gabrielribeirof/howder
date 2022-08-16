@@ -1,6 +1,6 @@
 <p align="center"></p>
 <p align="center">
-  <img alt="howder" src=".github/logo.svg" width="280px">
+  <img alt="howder" src=".github/assets/logo.svg" width="280px">
 </p>
 
 <h3 align="center">
@@ -21,24 +21,32 @@ Howder is a fictional platform that connects customers with a company's support 
 
 - [Introduction]()
 - [System Overview]()
-- [Howder API]()
+- [API Server]()
   - [Technologies]()
   - [API Reference]()
   - [Design decisions]()
   - [Developing]()
     - [First install]()
     - [Running tests]()
+- [Web Widget]()
+  - [Technologies]()
+  - [First install]()
+- [Web Dashboard]()
+  - [Technologies]()
+  - [First install]()
 
 ## System Overview
 
 <p align="center">
-  <img alt="System Diagram" src=".github/system-diagram.png">
+  <img alt="System Diagram" src=".github/assets/system-diagram.png">
 </p>
-<i>System overview flow diagram</i>
 
 ## :electric_plug: API Server
 
 Application that provides front-end applications with all the functionality of the system.
+
+It is based on two communication layers, an **HTTP/REST API** for general operations and a **Websocket API** based on Socket.IO for sending real-time events.
+Clients will receive events and data over the Websocket API they are connected to and send data over the HTTP API.
 
 ### :rocket: Technologies
 
@@ -51,29 +59,67 @@ Brief overview of the technology stack:
 - **Express**: lightweight web server 
 - **Jest**: test runner
 - **TypeORM**: as ORM
-- **Socket.io**: to bidirectional communication (mostly websocket)
+- **Socket.io**: for bidirectional communication (mostly websocket)
 - **i18next**: i18n implementation for server responses
 - And other smaller software solutions... See overview in the API [package.json]() 
 
 ### API Reference
 
-See the API Referente here: **https://howder.readme.io/**.
+See the API Reference here: **https://howder.readme.io**.
 
-### Design decisions
+### Architectural Design decisions
 
-It is based on Clean Architecture, SOLID principles, and Domain-Driven Design best practices.
+Howder API Server is a **modular monolith** with two modules based on Clean Architecture and SOLID principles. 
+
+<img alt="API Diagram" src=".github/assets/api-diagram.png">
 
 ### Developing
 
+In order to develop for this project, you must have Docker and Docker Compose.
+
 #### :hammer_and_wrench: First install
 
-#### :test_tube: Running tests
+1. **Clone the repository:**
+```
+$ git clone git@github.com:gabrielribeirof/howder.git
+```
 
+2. **Start database:**
+```
+$ docker-compose up database
+```
+
+3. **Then finally run the server:**
+```
+$ docker-compose up api_server
+```
+
+#### :test_tube: Running tests
 
 ## :computer: Web Widget
 
 ### :rocket: Technologies
 
-### :scroll: Structure
+Brief overview of the technology stack:
+
+- **React**: web ui library
+- **Typescript**: javascript superset language
+- **Styled Components**: react styled component library
+- **Socket.io**: for bidirectional communication (mostly websocket)
+- And other smaller software solutions... See overview in the API [package.json]() 
+
+### :hammer_and_wrench: First install
+
+## :computer: Web Dashboard
+
+### :rocket: Technologies
+
+Brief overview of the technology stack:
+
+- **React**: web ui library
+- **Typescript**: javascript superset language
+- **Styled Components**: react styled component library
+- **Socket.io**: for bidirectional communication (mostly websocket)
+- And other smaller software solutions... See overview in the API [package.json]() 
 
 ### :hammer_and_wrench: First install
