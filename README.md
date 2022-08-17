@@ -7,6 +7,7 @@
   Business real-time support messenger
 </h3>
 
+🚧 Under development
 
 <p align="center">
   <img src="https://img.shields.io/badge/made%20by-gabrielribeirof-004dfc?style=for-the-badge">
